@@ -122,7 +122,7 @@ loginUser = async (req, res) => {
                 email: existingUser.email
             }
         }).send();
-        
+
     }catch (err) {
         console.error(err);
         res.status(500).send();
@@ -131,5 +131,6 @@ loginUser = async (req, res) => {
 
 module.exports = {
     getLoggedIn,
-    registerUser
+    registerUser,
+    loginUser
 }
