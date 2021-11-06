@@ -58,7 +58,7 @@ function GlobalStoreContextProvider(props) {
             case GlobalStoreActionType.CHANGE_LIST_NAME: {
                 return setStore({
                     idNamePairs: payload.idNamePairs,
-                    currentList: payload.top5List,
+                    currentList: null,
                     newListCounter: store.newListCounter,
                     isListNameEditActive: false,
                     isItemEditActive: false,
@@ -165,12 +165,12 @@ function GlobalStoreContextProvider(props) {
     // THIS FUNCTION PROCESSES CHANGING A LIST NAME
     store.changeListName = async function (id, newName) {
         console.log(auth.user);
-        let response = await api.getTop5ListById(id, auth.user.email);
+        let response = await api.getTop5ListById(id);
         if (response.data.success) {
             let top5List = response.data.top5List;
             top5List.name = newName;
             async function updateList(top5List) {
-                response = await api.updateTop5ListById(top5List._id, {list: top5List, user: auth.user.email});
+                response = await api.updateTop5ListById(top5List._id, top5List);
                 if (response.data.success) {
                     async function getListPairs(top5List) {
                         response = await api.getTop5ListPairs();
@@ -253,7 +253,7 @@ function GlobalStoreContextProvider(props) {
     // showDeleteListModal, and hideDeleteListModal
     store.markListForDeletion = async function (id) {
         // GET THE LIST
-        let response = await api.getTop5ListById(id,  auth.user.email);
+        let response = await api.getTop5ListById(id);
         if (response.data.success) {
             let top5List = response.data.top5List;
             storeReducer({
@@ -267,7 +267,7 @@ function GlobalStoreContextProvider(props) {
     }
 
     store.deleteList = async function (listToDelete) {
-        let response = await api.deleteTop5ListById(listToDelete._id, auth.user.email);
+        let response = await api.deleteTop5ListById(listToDelete._id);
         if (response.data.success) {
             store.loadIdNamePairs();
             history.push("/");
@@ -290,11 +290,11 @@ function GlobalStoreContextProvider(props) {
     // FUNCTIONS ARE setCurrentList, addMoveItemTransaction, addUpdateItemTransaction,
     // moveItem, updateItem, updateCurrentList, undo, and redo
     store.setCurrentList = async function (id) {
-        let response = await api.getTop5ListById(id, auth.user.email);
+        let response = await api.getTop5ListById(id);
         if (response.data.success) {
             let top5List = response.data.top5List;
 
-            response = await api.updateTop5ListById(top5List._id, {list: top5List, user: auth.user.email});
+            response = await api.updateTop5ListById(top5List._id, top5List);
             if (response.data.success) {
                 storeReducer({
                     type: GlobalStoreActionType.SET_CURRENT_LIST,
@@ -347,7 +347,7 @@ function GlobalStoreContextProvider(props) {
     }
 
     store.updateCurrentList = async function () {
-        const response = await api.updateTop5ListById(store.currentList._id, {store: store.currentList, user: auth.user.email});
+        const response = await api.updateTop5ListById(store.currentList._id, store.currentList);
         if (response.data.success) {
             storeReducer({
                 type: GlobalStoreActionType.SET_CURRENT_LIST,
