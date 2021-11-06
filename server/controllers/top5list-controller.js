@@ -53,6 +53,7 @@ updateTop5List = async (req, res) => {
 
         top5List.name = body.name
         top5List.items = body.items
+        top5List.owner = body.owner
         top5List
             .save()
             .then(() => {
@@ -126,7 +127,8 @@ getTop5ListPairs = async (req, res) => {
                 let list = top5Lists[key];
                 let pair = {
                     _id: list._id,
-                    name: list.name
+                    name: list.name,
+                    owner: list.owner
                 };
                 pairs.push(pair);
             }

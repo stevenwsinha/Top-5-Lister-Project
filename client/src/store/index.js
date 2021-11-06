@@ -208,7 +208,7 @@ function GlobalStoreContextProvider(props) {
         let payload = {
             name: newListName,
             items: ["?", "?", "?", "?", "?"],
-            ownerEmail: auth.user.email
+            owner: auth.user.email
         };
         const response = await api.createTop5List(payload);
         if (response.data.success) {
