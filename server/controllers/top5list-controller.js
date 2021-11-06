@@ -33,7 +33,8 @@ createTop5List = (req, res) => {
 }
 
 updateTop5List = async (req, res) => {
-    const body = req.body
+    const body = req.body.list
+    const user = req.body.user
     console.log("updateTop5List: " + JSON.stringify(body));
     if (!body) {
         return res.status(400).json({
@@ -48,6 +49,13 @@ updateTop5List = async (req, res) => {
             return res.status(404).json({
                 err,
                 message: 'Top 5 List not found!',
+            })
+        }
+
+        if(top5List.owner !== user){
+            return res.status(403).json({
+                success: false,
+                error: 'You are not the owner of this list',
             })
         }
 
@@ -75,11 +83,18 @@ updateTop5List = async (req, res) => {
 }
 
 deleteTop5List = async (req, res) => {
+    const user = req.body;
     Top5List.findById({ _id: req.params.id }, (err, top5List) => {
         if (err) {
             return res.status(404).json({
                 err,
                 message: 'Top 5 List not found!',
+            })
+        }
+        if(user !== top5List.owner){
+            return res.status(403).json({
+                err,
+                message: 'You are not the owner of this list!',
             })
         }
         Top5List.findOneAndDelete({ _id: req.params.id }, () => {
@@ -89,13 +104,18 @@ deleteTop5List = async (req, res) => {
 }
 
 getTop5ListById = async (req, res) => {
+    let user = req.query.user;
     await Top5List.findById({ _id: req.params.id }, (err, list) => {
+        if(list.owner !== user) {
+            return res.status(403).json({ success: false, error: err });
+        }
         if (err) {
             return res.status(400).json({ success: false, error: err });
         }
         return res.status(200).json({ success: true, top5List: list })
     }).catch(err => console.log(err))
 }
+
 getTop5Lists = async (req, res) => {
     await Top5List.find({}, (err, top5Lists) => {
         if (err) {
