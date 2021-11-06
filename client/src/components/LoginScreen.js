@@ -4,6 +4,7 @@ import AuthContext from '../auth'
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Copyright from './Copyright'
+import Link from '@mui/material/Link';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Paper from '@mui/material/Paper';
@@ -95,6 +96,13 @@ export default function LoginScreen() {
               >
                 Sign In
               </Button>
+              <Grid container>
+                <Grid item>
+                  <Link href="/register/" variant="body2">
+                    {"Don't have an account? Sign Up"}
+                  </Link>
+                </Grid>
+              </Grid>
               <Copyright sx={{ mt: 5 }} />
             </Box>
           </Box>
