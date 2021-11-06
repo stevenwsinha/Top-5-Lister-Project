@@ -80,7 +80,7 @@ registerUser = async (req, res) => {
 
 loginUser = async (req, res) => {
     try{
-        const { email, password} = req.body;
+        const { email, password } = req.body;
         if(!email || !password){
             return res
                 .status(400)
@@ -88,7 +88,7 @@ loginUser = async (req, res) => {
         }
 
         const existingUser = await User.findOne({ email: email });
-        if (existingUser) {
+        if (!existingUser) {
             return res
                 .status(400)
                 .json({
