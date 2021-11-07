@@ -30,6 +30,8 @@ export const GlobalStoreActionType = {
 }
 
 
+// WE'LL NEED THIS TO PROCESS TRANSACTIONS
+const tps = new jsTPS();
 
 // WITH THIS WE'RE MAKING OUR GLOBAL DATA STORE
 // AVAILABLE TO THE REST OF THE APPLICATION
@@ -44,9 +46,6 @@ function GlobalStoreContextProvider(props) {
         listMarkedForDeletion: null
     });
     const history = useHistory();
-
-    // WE'LL NEED THIS TO PROCESS TRANSACTIONS
-    const tps = new jsTPS();
 
     // SINCE WE'VE WRAPPED THE STORE IN THE AUTH CONTEXT WE CAN ACCESS THE USER HERE
     const { auth } = useContext(AuthContext);
@@ -311,15 +310,27 @@ function GlobalStoreContextProvider(props) {
     }
 
     store.addMoveItemTransaction = function (start, end) {
+        if(parseInt(start) === end){
+            storeReducer({
+                type: GlobalStoreActionType.SET_CURRENT_LIST,
+                payload: store.currentList
+            });
+            return;
+        }
         let transaction = new MoveItem_Transaction(store, start, end);
         tps.addTransaction(transaction);
     }
 
     store.addUpdateItemTransaction = function (index, newText) {
         let oldText = store.currentList.items[index];
+        if(oldText === newText){
+            storeReducer({
+                type: GlobalStoreActionType.SET_CURRENT_LIST,
+                payload: store.currentList
+            });
+            return;
+        }
         let transaction = new UpdateItem_Transaction(store, index, oldText, newText);
-        console.log(oldText);
-        console.log(newText);
         tps.addTransaction(transaction);
     }
 

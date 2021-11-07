@@ -23,26 +23,55 @@ function EditToolbar() {
     function handleClose() {
         store.closeCurrentList();
     }
-    let editStatus = false;
-    if (store.isListNameEditActive) {
-        editStatus = true;
-    }  
+
+    let undoStatus = true;
+    if (store.listNameActive) {
+        undoStatus = false;
+    }
+    if(store.itemActive)  
+        undoStatus = false;
+    if(!store.canUndo())
+        undoStatus = false;
+
+    let redoStatus = true;
+    if (store.listNameActive) {
+        redoStatus = false;
+    }
+    if(store.itemActive)  
+        redoStatus = false;
+    if(!store.canRedo())
+        redoStatus = false;
+
+    let closeStatus = true;
+    if(!store.currentList) {
+        closeStatus = false;
+    }
+    if (store.listNameActive) {
+        closeStatus = false;
+    }
+    if(store.isItemEditActive)  
+        closeStatus = false;
+
+
+
     return (
         <div id="edit-toolbar">
             <Button 
+                disabled={!undoStatus}
                 id='undo-button'
                 onClick={handleUndo}
                 variant="contained">
                     <UndoIcon />
             </Button>
-            <Button 
+            <Button
+                disabled={!redoStatus} 
                 id='redo-button'
                 onClick={handleRedo}
                 variant="contained">
                     <RedoIcon />
             </Button>
             <Button 
-                disabled={editStatus}
+                disabled={!closeStatus}
                 id='close-button'
                 onClick={handleClose}
                 variant="contained">
