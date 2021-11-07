@@ -31,7 +31,7 @@ const HomeScreen = () => {
         listCard = 
             <List sx={{ width: '90%', left: '5%', bgcolor: 'background.paper' }}>
             {
-                store.idNamePairs.filter((pair) => (pair.owner === owner)).map((pair) => (
+                store.idNamePairs.map((pair) => (
                     <ListCard
                         key={pair._id}
                         idNamePair={pair}

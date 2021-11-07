@@ -1,4 +1,6 @@
 const Top5List = require('../models/top5list-model');
+const User = require('../models/user-model.js')
+const mongoose = require('mongoose')
 
 createTop5List = (req, res) => {
     const body = req.body;
@@ -89,9 +91,21 @@ deleteTop5List = async (req, res) => {
 }
 
 getTop5ListById = async (req, res) => {
+    const user_id = req.userId;
+    let user_email = "";
+    await User.findById({_id: user_id}, (err, user) => {
+        if(err) {
+            return res.status(401).json({success:false, error:err});
+        }
+        user_email = user.email;
+    })
+    
     await Top5List.findById({ _id: req.params.id }, (err, list) => {
         if (err) {
             return res.status(400).json({ success: false, error: err });
+        }
+        if(user_email !== list.owner){
+            return res.status(403).json({success: false, error: err });
         }
         return res.status(200).json({ success: true, top5List: list })
     }).catch(err => console.log(err))
