@@ -82,7 +82,9 @@ function AuthContextProvider(props) {
                 });
             }
         }
-        catch(err){}
+        catch(err){
+            console.log(err);
+        }
     }
 
     auth.registerUser = async function(userData, store) {
