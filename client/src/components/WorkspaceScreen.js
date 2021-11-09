@@ -1,4 +1,6 @@
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
+import AuthContext from '../auth'
 import Top5Item from './Top5Item.js'
 import List from '@mui/material/List';
 import { Typography } from '@mui/material'
@@ -11,6 +13,16 @@ import { GlobalStoreContext } from '../store/index.js'
 */
 function WorkspaceScreen() {
     const { store } = useContext(GlobalStoreContext);
+    const history = useHistory();
+    
+    useEffect(() => {
+        if(!store.currentList){
+            const location = history.location;
+            let id = location.path.substring("/top5list/-".length);
+            
+        }
+    }, []);
+
 
     let editItems = "";
     if (store.currentList) {
