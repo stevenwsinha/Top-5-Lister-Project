@@ -86,7 +86,7 @@ export default function LoginScreen() {
                 label="Password"
                 type="password"
                 id="password"
-                autoComplete="current-password"
+                autoComplete="new-password"
               />
               <Button
                 type="submit"

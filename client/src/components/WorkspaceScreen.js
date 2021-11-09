@@ -4,6 +4,7 @@ import Top5Item from './Top5Item.js'
 import List from '@mui/material/List';
 import { Typography } from '@mui/material'
 import { GlobalStoreContext } from '../store/index.js'
+import AuthContext from '../auth'
 import ErrorModal from './ErrorModal.js';
 /*
     This React component lets us edit a loaded list, which only
@@ -14,8 +15,12 @@ import ErrorModal from './ErrorModal.js';
 function WorkspaceScreen() {
     const { store } = useContext(GlobalStoreContext);
     const history = useHistory();
+    const { auth } = useContext(AuthContext);
     
     useEffect(() => {
+        if(!auth.loggedIn){
+            auth.setErrorMsg("You must be logged in to edit this list!")
+        }
         if(!store.currentList){
             const id = history.location.pathname.substring("/top5list/".length);
             store.setCurrentList(id);   

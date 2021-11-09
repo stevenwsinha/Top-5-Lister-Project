@@ -23,7 +23,6 @@ function AuthContextProvider(props) {
     const history = useHistory();
 
     useEffect(() => {
-        auth.getLoggedIn();
     }, []);
 
     const authReducer = (action) => {
@@ -73,6 +72,7 @@ function AuthContextProvider(props) {
         try{
             const response = await api.getLoggedIn();
             if (response.status === 200) {
+                console.log(auth.errorMsg)
                 authReducer({
                     type: AuthActionType.GET_LOGGED_IN,
                     payload: {

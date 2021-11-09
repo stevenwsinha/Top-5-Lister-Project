@@ -28,7 +28,7 @@ function EditToolbar() {
     if (store.listNameActive) {
         undoStatus = false;
     }
-    if(store.itemActive)  
+    if(store.isItemEditActive)  
         undoStatus = false;
     if(!store.canUndo())
         undoStatus = false;
@@ -37,7 +37,7 @@ function EditToolbar() {
     if (store.listNameActive) {
         redoStatus = false;
     }
-    if(store.itemActive)  
+    if(store.isItemEditActive)  
         redoStatus = false;
     if(!store.canRedo())
         redoStatus = false;
