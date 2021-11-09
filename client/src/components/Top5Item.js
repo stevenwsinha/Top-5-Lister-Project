@@ -117,7 +117,7 @@ function Top5Item(props) {
 
     if(editActive){
         itemElement = <TextField
-                            margin="normal"
+                            margin="auto"
                             required
                             fullWidth
                             id={"item-" + index}

@@ -165,6 +165,9 @@ function GlobalStoreContextProvider(props) {
 
     // THIS FUNCTION PROCESSES CHANGING A LIST NAME
     store.changeListName = async function (id, newName) {
+        if(newName === "" || !newName){
+            return;
+        }
         try{
             let response = await api.getTop5ListById(id);
             if (response.data.success) {
@@ -311,6 +314,7 @@ function GlobalStoreContextProvider(props) {
                 }
             }
         }catch(err){
+            console.log("error");
             auth.setErrorMsg(err.response.data.error);
         }
     }

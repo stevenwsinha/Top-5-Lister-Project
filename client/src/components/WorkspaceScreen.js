@@ -41,7 +41,7 @@ function WorkspaceScreen() {
     return (
         <div id="top5-workspace">
             <div id="workspace-edit">
-                <ErrorModal onClose/>
+                <ErrorModal/>
                 <div id="edit-numbering">
                     <div className="item-number"><Typography variant="h3">1.</Typography></div>
                     <div className="item-number"><Typography variant="h3">2.</Typography></div>

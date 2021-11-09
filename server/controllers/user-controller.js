@@ -139,7 +139,7 @@ logoutUser = async (req, res) => {
         await res.clearCookie("token")
         .status(200).json({
             success: true
-        }).send();
+        });
     }catch(err){
         console.log(err);
         res.status(500).send();
