@@ -17,8 +17,7 @@ function WorkspaceScreen() {
     
     useEffect(() => {
         if(!store.currentList){
-            const location = history.location;
-            let id = location.path.substring("/top5list/-".length);
+            const id = history.location.path.substring("/top5list/".length);
             store.setCurrentList(id);   
         }
     }, []);
