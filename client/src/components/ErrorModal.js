@@ -18,7 +18,7 @@ const style = {
   p: 4,
 };
 
-export default function AccountErrorModal() {
+export default function ErrorModal() {
   const { auth } = useContext(AuthContext);
   const open = (auth.errorMsg === null) ? false : true;
 

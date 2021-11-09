@@ -12,7 +12,7 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { GlobalStoreContext } from '../store'
-import AccountErrorModal from './AccountErrorModal'
+import ErrorModal from './ErrorModal'
 
 export default function RegisterScreen() {
     const { auth } = useContext(AuthContext);
@@ -33,7 +33,7 @@ export default function RegisterScreen() {
     return (
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
-                <AccountErrorModal />
+                <ErrorModal />
                 <Box
                     sx={{
                         marginTop: 8,

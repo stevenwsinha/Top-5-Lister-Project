@@ -14,7 +14,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { GlobalStoreContext } from '../store'
-import AccountErrorModal from './AccountErrorModal'
+import ErrorModal from './ErrorModal'
 
 const theme = createTheme();
 
@@ -36,7 +36,7 @@ export default function LoginScreen() {
     <ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
-        <AccountErrorModal />
+        <ErrorModal />
         <Grid
           item
           xs={false}

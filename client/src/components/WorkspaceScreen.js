@@ -1,10 +1,10 @@
 import { useContext, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
-import AuthContext from '../auth'
 import Top5Item from './Top5Item.js'
 import List from '@mui/material/List';
 import { Typography } from '@mui/material'
 import { GlobalStoreContext } from '../store/index.js'
+import ErrorModal from './ErrorModal.js';
 /*
     This React component lets us edit a loaded list, which only
     happens when we are on the proper route.
@@ -19,7 +19,7 @@ function WorkspaceScreen() {
         if(!store.currentList){
             const location = history.location;
             let id = location.path.substring("/top5list/-".length);
-            
+            store.setCurrentList(id);   
         }
     }, []);
 
@@ -42,6 +42,7 @@ function WorkspaceScreen() {
     return (
         <div id="top5-workspace">
             <div id="workspace-edit">
+                <ErrorModal/>
                 <div id="edit-numbering">
                     <div className="item-number"><Typography variant="h3">1.</Typography></div>
                     <div className="item-number"><Typography variant="h3">2.</Typography></div>
