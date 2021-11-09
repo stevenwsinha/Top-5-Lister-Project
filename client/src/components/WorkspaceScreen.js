@@ -17,7 +17,6 @@ function WorkspaceScreen() {
     
     useEffect(() => {
         if(!store.currentList){
-            console.log(history);
             const id = history.location.pathname.substring("/top5list/".length);
             store.setCurrentList(id);   
         }
