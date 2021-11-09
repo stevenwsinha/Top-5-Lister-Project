@@ -311,7 +311,7 @@ function GlobalStoreContextProvider(props) {
                 }
             }
         }catch(err){
-            auth.setErrorMsg(err.response.data.errorMessage);
+            auth.setErrorMsg(err.response.data.error);
         }
     }
 

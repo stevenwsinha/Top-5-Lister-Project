@@ -17,7 +17,8 @@ function WorkspaceScreen() {
     
     useEffect(() => {
         if(!store.currentList){
-            const id = history.location.path.substring("/top5list/".length);
+            console.log(history);
+            const id = history.location.pathname.substring("/top5list/".length);
             store.setCurrentList(id);   
         }
     }, []);
@@ -41,7 +42,7 @@ function WorkspaceScreen() {
     return (
         <div id="top5-workspace">
             <div id="workspace-edit">
-                <ErrorModal/>
+                <ErrorModal onClose/>
                 <div id="edit-numbering">
                     <div className="item-number"><Typography variant="h3">1.</Typography></div>
                     <div className="item-number"><Typography variant="h3">2.</Typography></div>
