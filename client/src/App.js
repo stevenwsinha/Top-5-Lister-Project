@@ -30,6 +30,9 @@ const App = () => {
                 <GlobalStoreContextProvider>              
                     <Switch>
                         <Route path="/" exact component={WelcomeScreen} />
+                        <Route path='/register' exact component={RegisterScreen} />
+                        <Route path='/login' exact component={LoginScreen} />
+                        <Route path='/home' exact component={WorkspaceScreen} />
                     </Switch>
                 </GlobalStoreContextProvider>
             </AuthContextProvider>

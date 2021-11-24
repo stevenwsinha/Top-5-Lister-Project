@@ -71,6 +71,7 @@ body {
   left: 10.9375%;
   width: 250px;
   height: 50px;
+  cursor: pointer;
   border-color: rgb(125, 135, 165);
   border-radius: 1px;
   border-width: 2px;

@@ -1,19 +1,22 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom'
 
 export default function WelcomeScreen() {
+    const history = useHistory();
+
     // SEND A USER TO REGISTER SCREEN
     function handleRegister() {
-
+        history.push("/register")
     }
 
     // SEND A USER TO LOGIN SCREEN
     function handelLogin(){
-
+        history.push("/login")
     }
 
     // SEND A USER TO HOME SCREEN LOGGED IN AS GUEST
     function handleGuest(){
-
+        history.push("/home")
     }
 
     // return full screen with background, welcome text, copyright component, and 3 buttons
