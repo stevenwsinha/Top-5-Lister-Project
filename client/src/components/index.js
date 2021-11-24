@@ -1,3 +1,4 @@
+import WelcomeScreen from './WelcomeScreen'
 import AppBanner from './AppBanner'
 import EditToolbar from './EditToolbar'
 import HomeScreen from './HomeScreen'
@@ -19,6 +20,7 @@ import DeleteModal from './DeleteModal'
     @author McKilla Gorilla
 */
 export { 
+    WelcomeScreen,
     AppBanner, 
     EditToolbar, 
     HomeScreen,
