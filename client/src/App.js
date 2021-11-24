@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { AuthContextProvider } from './auth';
 import { GlobalStoreContextProvider } from './store'
 import {
+    WelcomeScreen,
     AppBanner,
     HomeWrapper,
     RegisterScreen,
@@ -27,14 +28,9 @@ const App = () => {
         <BrowserRouter>
             <AuthContextProvider>
                 <GlobalStoreContextProvider>              
-                    <AppBanner />
                     <Switch>
-                        <Route path="/" exact component={HomeWrapper} />
-                        <Route path="/register/" exact component={RegisterScreen} />
-                        <Route path="/top5list/:id" exact component={WorkspaceScreen} />
-                        <Route path ="/login/" exact component={LoginScreen} />
+                        <Route path="/" exact component={WelcomeScreen} />
                     </Switch>
-                    <Statusbar />
                 </GlobalStoreContextProvider>
             </AuthContextProvider>
         </BrowserRouter>

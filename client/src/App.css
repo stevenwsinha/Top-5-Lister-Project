@@ -24,10 +24,10 @@ body {
   background-color: var(--swatch-primary);
   font-family: "Lexend Exa";
   position: absolute;
-  width: 80%;
-  left: 10%;
-  height: 90%;
-  top: 5%;
+  width: 100%;
+  left: 0%;
+  height: 100%;
+  top: 0%;
 }
 
 #app-root {
@@ -36,6 +36,63 @@ body {
   height: 100%;
   top: 0%;
   left: 0%;
+}
+
+#welcome-screen {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0%;
+  left: 0%;
+  background-image:-moz-linear-gradient(320deg, #143278, #5a5a5a);
+}
+
+.welcome {
+  color: #ffffff;
+  font-family: Verdana, Tahoma, sans-serif;
+}
+
+#welcome-text {
+  position: absolute;
+  top: 27%;
+  left: 6.25%;
+  font-size: 70px;
+}
+
+#welcome-description {
+  position: absolute; 
+  top: 38.888%;
+  left: 7.1875%;
+  font-size: 18px;
+}
+
+.welcome-button {
+  position: absolute;
+  left: 10.9375%;
+  width: 250px;
+  height: 50px;
+  border-color: rgb(125, 135, 165);
+  border-radius: 1px;
+  border-width: 2px;
+  border-style: solid;
+  font-size: 18px;
+  color: #ffffff;
+  font-family: Verdana, Tahoma, sans-serif;
+}
+
+#welcome-register {
+  top: 48.88%;
+  background-color: rgb(58, 79, 128);
+}
+
+#welcome-login {
+  top: 57.77%;
+  background-color: rgb(65,85,129);
+}
+
+#welcome-guest {
+  top: 66.66%;
+  background-color: rgb(67,86,129);
 }
 
 #top5-banner {
