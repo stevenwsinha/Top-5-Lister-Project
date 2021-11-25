@@ -1,6 +1,7 @@
 import './App.css';
 import { React } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { AuthContextProvider } from './auth';
 import { GlobalStoreContextProvider } from './store'
 import {
@@ -12,8 +13,11 @@ import {
     WorkspaceScreen,
     LoginScreen,
 } from './components'
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+
+/*
+    CREATE A THEME WITH A COLOR PALETTE FOR ALL MUI COMPONENTS IN OUR APP
+*/
 const theme = createTheme({
   palette: {
     type: 'dark',

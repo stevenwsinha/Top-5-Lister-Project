@@ -88,6 +88,8 @@ function AuthContextProvider(props) {
     }
 
     auth.registerUser = async function(userData, store) {
+        history.push("/home");
+        return;
         try{
             const response = await api.registerUser(userData);      
             if (response.status === 200) {
@@ -97,7 +99,7 @@ function AuthContextProvider(props) {
                         user: response.data.user
                     }
                 })
-                history.push("/");
+                history.push("/home");
                 store.loadIdNamePairs();
             }
         }
@@ -125,7 +127,7 @@ function AuthContextProvider(props) {
                         user: response.data.user
                     }
                 })
-                history.push("/");
+                history.push("/home");
                 store.loadIdNamePairs();
             }
         }
