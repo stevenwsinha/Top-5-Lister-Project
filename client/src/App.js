@@ -47,7 +47,8 @@ const App = () => {
         <BrowserRouter>
             <ThemeProvider theme={theme}>
                 <AuthContextProvider>
-                    <GlobalStoreContextProvider>              
+                    <GlobalStoreContextProvider>      
+                        <AppBanner />        
                         <Switch>
                             <Route path="/" exact component={WelcomeScreen} />
                             <Route path='/register' exact component={RegisterScreen} />

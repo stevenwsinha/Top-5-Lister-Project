@@ -12,7 +12,6 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import Avatar from '@mui/material/Avatar';
-import {blue} from '@mui/material/colors';
 
 export default function AppBanner() {
     const { auth } = useContext(AuthContext);
@@ -87,7 +86,7 @@ export default function AppBanner() {
             let initials = "";
             initials += auth.user.firstName[0];
             initials += auth.user.lastName[0];
-            return <Avatar sx={{ bgcolor: blue[700] }}>{initials}</Avatar>
+            return <Avatar>{initials}</Avatar>
         }
         return <AccountCircle />;
     }
