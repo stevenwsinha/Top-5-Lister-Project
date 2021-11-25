@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { HomeScreen, WorkspaceScreen } from '.';
 
-export default function WorkContainer {
+export default function WorkContainer() {
     const { store } = useContext(GlobalStoreContext);
 
     let workspace = <HomeScreen/>;
@@ -13,6 +13,7 @@ export default function WorkContainer {
         <div id='work-container'>
             <WorkToolbar/>
             {workspace}
+            <Statusbar />
         </div>
-    )
+    );
 }
