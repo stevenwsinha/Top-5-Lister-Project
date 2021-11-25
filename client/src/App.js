@@ -12,6 +12,7 @@ import {
     Statusbar,
     WorkspaceScreen,
     LoginScreen,
+    WorkContainer
 } from './components'
 
 
@@ -53,7 +54,7 @@ const App = () => {
                             <Route path="/" exact component={WelcomeScreen} />
                             <Route path='/register' exact component={RegisterScreen} />
                             <Route path='/login' exact component={LoginScreen} />
-                            <Route path='/home' exact component={WorkspaceScreen} />
+                            <Route path='/home' exact component={WorkContainer} />
                         </Switch>
                     </GlobalStoreContextProvider>
                 </AuthContextProvider>

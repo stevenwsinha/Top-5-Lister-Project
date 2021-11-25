@@ -12,6 +12,8 @@ import Top5Item from './Top5Item'
 import WorkspaceScreen from './WorkspaceScreen'
 import ErrorModal from './ErrorModal'
 import DeleteModal from './DeleteModal'
+import WorkToolbar from './WorkToolbar'
+import WorkContainer from './WorkContainer'
 
 /*
     This serves as a module so that we can import
@@ -33,4 +35,7 @@ export {
     WorkspaceScreen,
     LoginScreen,   
     ErrorModal,
-    DeleteModal}
+    DeleteModal, 
+    WorkToolbar,
+    WorkContainer,
+}
