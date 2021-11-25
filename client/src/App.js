@@ -12,6 +12,21 @@ import {
     WorkspaceScreen,
     LoginScreen,
 } from './components'
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+const theme = createTheme({
+  palette: {
+    type: 'dark',
+    primary: {
+      main: '#143278',
+    },
+    secondary: {
+      main: '#781423',
+    },
+  },
+});
+
+
 /*
     This is our application's top-level component.
     
@@ -26,16 +41,18 @@ import {
 const App = () => {
     return (
         <BrowserRouter>
-            <AuthContextProvider>
-                <GlobalStoreContextProvider>              
-                    <Switch>
-                        <Route path="/" exact component={WelcomeScreen} />
-                        <Route path='/register' exact component={RegisterScreen} />
-                        <Route path='/login' exact component={LoginScreen} />
-                        <Route path='/home' exact component={WorkspaceScreen} />
-                    </Switch>
-                </GlobalStoreContextProvider>
-            </AuthContextProvider>
+            <ThemeProvider theme={theme}>
+                <AuthContextProvider>
+                    <GlobalStoreContextProvider>              
+                        <Switch>
+                            <Route path="/" exact component={WelcomeScreen} />
+                            <Route path='/register' exact component={RegisterScreen} />
+                            <Route path='/login' exact component={LoginScreen} />
+                            <Route path='/home' exact component={WorkspaceScreen} />
+                        </Switch>
+                    </GlobalStoreContextProvider>
+                </AuthContextProvider>
+            </ThemeProvider>
         </BrowserRouter>
     )
 }

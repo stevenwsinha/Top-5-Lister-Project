@@ -12,11 +12,8 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { GlobalStoreContext } from '../store'
 import ErrorModal from './ErrorModal'
-
-const theme = createTheme();
 
 export default function LoginScreen() {
   const { auth } = useContext(AuthContext);
@@ -33,7 +30,6 @@ export default function LoginScreen() {
   };
 
   return (
-    <ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
         <ErrorModal />
@@ -108,6 +104,5 @@ export default function LoginScreen() {
           </Box>
         </Grid>
       </Grid>
-    </ThemeProvider>
   );
 }
