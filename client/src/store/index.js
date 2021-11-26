@@ -180,72 +180,29 @@ function GlobalStoreContextProvider(props) {
     // DRIVE THE STATE OF THE APPLICATION. WE'LL CALL THESE IN 
     // RESPONSE TO EVENTS INSIDE OUR COMPONENTS.
 
-    // THIS FUNCTION PROCESSES CHANGING A LIST NAME
-    store.changeListName = async function (id, newName) {
-        if(newName === "" || !newName){
-            return;
-        }
-        try{
-            let response = await api.getTop5ListById(id);
-            if (response.data.success) {
-                let top5List = response.data.top5List;
-                top5List.name = newName;
-                async function updateList(top5List) {
-                    response = await api.updateTop5ListById(top5List._id, top5List);
-                    if (response.data.success) {
-                        async function getListPairs(top5List) {
-                            response = await api.getTop5ListPairs();
-                            if (response.data.success) {
-                                let pairsArray = response.data.idNamePairs;
-                                storeReducer({
-                                    type: GlobalStoreActionType.CHANGE_LIST_NAME,
-                                    payload: {
-                                        idNamePairs: pairsArray,
-                                        top5List: top5List
-                                    }
-                                });
-                            }
-                        }
-                        getListPairs(top5List);
-                    }
-                }
-                updateList(top5List);
-            }
-        }catch(err){
-            console.log(err);
-        }
-    }
-
-    // THIS FUNCTION PROCESSES CLOSING THE CURRENTLY LOADED LIST
-    store.closeCurrentList = function () {
-        storeReducer({
-            type: GlobalStoreActionType.CLOSE_CURRENT_LIST,
-            payload: {}
-        });
-        
-        tps.clearAllTransactions();
-        history.push("/");
-    }
-
     // THIS FUNCTION CREATES A NEW LIST
     store.createNewList = async function () {
-        let newListName = "Untitled" + store.newListCounter;
+        let newListName = "Untitled " + store.newListCounter;
         let payload = {
             name: newListName,
             items: ["?", "?", "?", "?", "?"],
-            owner: auth.user.email
+            owner: auth.user.email,
+            views: 0,
+            likes: 0,
+            dislikes: 0,
+            comments: [],
+            isPublished: false,
         };
         const response = await api.createTop5List(payload);
         if (response.data.success) {
-            tps.clearAllTransactions();
-            let newList = response.data.top5List;
             storeReducer({
                 type: GlobalStoreActionType.CREATE_NEW_LIST,
                 payload: newList
             }
             );
 
-            // IF IT'S A VALID LIST THEN LET'S START EDITING IT
+            // IF IT'S A VALID LIST THEN LET'S START EDITING ITx
+            store.editList(response.data.top5list._id);
             history.push("/top5list/" + newList._id);
         }
         else {
@@ -253,20 +210,26 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
-    // THIS FUNCTION LOADS ALL THE ID, NAME PAIRS SO WE CAN LIST ALL THE LISTS
-    store.loadIdNamePairs = async function () {
-        const response = await api.getTop5ListPairs();
+    // THIS FUNCTION LOADS ALL LISTS OF THE CURRENTLY LOGGED IN USER
+    store.loadLoggedInLists = async function () {
+        const response = await api.getLoggedInTop5Lists();
         if (response.data.success) {
-            let pairsArray = response.data.idNamePairs;
+            let top5lists = response.data.top5lists;
             storeReducer({
                 type: GlobalStoreActionType.LOAD_ID_NAME_PAIRS,
-                payload: pairsArray
+                payload: top5lists
             });
         }
         else {
             console.log("API FAILED TO GET THE LIST PAIRS");
         }
     }
+
+    // NEED 2 (EVENTUALLY 3) FUNCTIONS TO LOAD OTHER TYPES OF LISTS
+    
+
+
+
 
     // THE FOLLOWING 5 FUNCTIONS ARE FOR COORDINATING THE DELETION
     // OF A LIST, WHICH INCLUDES USING A VERIFICATION MODAL. THE
