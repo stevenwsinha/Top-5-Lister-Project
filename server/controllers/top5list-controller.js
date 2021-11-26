@@ -173,11 +173,6 @@ getTop5Lists = async (req, res) => {
         if (err) {
             return res.status(400).json({ success: false, error: err })
         }
-        if (!top5Lists.length) {
-            return res
-                .status(404)
-                .json({ success: false, error: `Top 5 Lists not found` })
-        }
         return res.status(200).json({ success: true, data: top5Lists })
     }).catch(err => console.log(err))
 }
@@ -185,7 +180,7 @@ getTop5Lists = async (req, res) => {
 //  GET ALL TOP5LISTS OWNED BY USER WITH USERNAME PASSED IN THROUGH GET QUERY PARAMS
 //  GET EVERY TOP5LIST FROM USER WITH USERNAME PASSED IN THROUGH GET QUERY PARAMS
 getTop5ListByUsername = async (req, res) => {
-    let username = req.query.username;
+    let username = req.params.username;
     let user_email = "";
     await User.find({username: username}, (err, user) =>{
         if(err) {
