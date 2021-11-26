@@ -12,8 +12,8 @@ router.get('home//top5list/:id', auth.verify, Top5ListController.getTop5ListById
 
 // MULTI LIST RETRIEVAL 
 router.get('/home/top5lists', auth.verify, Top5ListController.getTop5Lists)
-router.get('/home/:username', Top5ListController.getTop5ListPairs)
-router.get('home/all', Top5ListController.getTop5ListPairs)
+router.get('/home/:username', Top5ListController.getTop5ListByUsername)
+router.get('home/all', Top5ListController.getAllTop5Lists)
 // router.get('home/community', CommunityController.getCommunityLists)
 
 // USER CRUD OPERATIONS

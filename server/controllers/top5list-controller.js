@@ -2,6 +2,11 @@ const Top5List = require('../models/top5list-model');
 const User = require('../models/user-model.js')
 const mongoose = require('mongoose')
 
+/*
+ * CREATE, UPDATE, and DELETE functions for top5lists
+ */
+
+//  CREATE A TOP5LIST USING THE FIELDS IN THE REQUEST BODY
 createTop5List = (req, res) => {
     const body = req.body;
     if (!body) {
@@ -34,6 +39,10 @@ createTop5List = (req, res) => {
         })
 }
 
+/*
+ *  UPDATE THE TOP5LIST WITH THE NEW INFORMATION GIVEN IN THE REQUEST BODY
+ *  USED TO UPDATE EVERY SINGLE FIELD IN THE TOP5LIST MODEL, INCLUDING TO EDIT, VIEW, LIKE/UNLIKE, OR PUBLISH A LIST
+ */
 updateTop5List = async (req, res) => {
     const user_id = req.userId;
     let user_email = "";
@@ -68,6 +77,11 @@ updateTop5List = async (req, res) => {
         top5List.name = body.name
         top5List.items = body.items
         top5List.owner = body.owner
+        top5List.views = body.views
+        top5List.likes = body.likes
+        top5List.dislikes = body.dislikes
+        top5List.comments = body.comments
+        top5List.isPublished = body.isPublished
         top5List
             .save()
             .then(() => {
@@ -88,6 +102,7 @@ updateTop5List = async (req, res) => {
     })
 }
 
+// DELETE THE LIST WITH ID GIVEN IN REQUEST BODY
 deleteTop5List = async (req, res) => {
     const user_id = req.userId;
     let user_email = "";
@@ -116,6 +131,7 @@ deleteTop5List = async (req, res) => {
     })
 }
 
+// GET THE LIST WITH THE GIVEN ID
 getTop5ListById = async (req, res) => {
     const user_id = req.userId;
     let user_email = "";
@@ -137,7 +153,62 @@ getTop5ListById = async (req, res) => {
     }).catch(err => console.log(err))
 }
 
+
+/* 
+ *  OPERATIONS TO RETRIEVE MANY LISTS
+ */
+
+//  GET ALL THE LISTS OWNED BY USER WITH THE ID PASSED IN THROUGH THE COOKIE
 getTop5Lists = async (req, res) => {
+    const user_id = req.userId;
+    let user_email = "";
+    await User.findById({_id: user_id}, (err, user) => {
+        if(err) {
+            return res.status(400).json({success:false, error:err});
+        }
+        user_email = user.email;
+    })
+
+    await Top5List.find({owner: user_email}, (err, top5Lists) => {
+        if (err) {
+            return res.status(400).json({ success: false, error: err })
+        }
+        if (!top5Lists.length) {
+            return res
+                .status(404)
+                .json({ success: false, error: `Top 5 Lists not found` })
+        }
+        return res.status(200).json({ success: true, data: top5Lists })
+    }).catch(err => console.log(err))
+}
+
+//  GET ALL TOP5LISTS OWNED BY USER WITH USERNAME PASSED IN THROUGH GET QUERY PARAMS
+//  GET EVERY TOP5LIST FROM USER WITH USERNAME PASSED IN THROUGH GET QUERY PARAMS
+getTop5ListByUsername = async (req, res) => {
+    let username = req.query.username;
+    let user_email = "";
+    await User.find({username: username}, (err, user) =>{
+        if(err) {
+            return res.status(400).json({success:false, error:err});
+        }
+        user_email = user.email;
+    })
+
+    await Top5List.find({owner: user_email}, (err, top5Lists) => {
+        if (err) {
+            return res.status(400).json({ success: false, error: err })
+        }
+        if (!top5Lists.length) {
+            return res
+                .status(404)
+                .json({ success: false, error: `Top 5 Lists not found` })
+        }
+        return res.status(200).json({ success: true, data: top5Lists })
+    }).catch(err => console.log(err))
+}
+
+//  GET EVERY TOP5LIST 
+getAllTop5Lists = async (req, res) => {
     await Top5List.find({}, (err, top5Lists) => {
         if (err) {
             return res.status(400).json({ success: false, error: err })
@@ -150,39 +221,13 @@ getTop5Lists = async (req, res) => {
         return res.status(200).json({ success: true, data: top5Lists })
     }).catch(err => console.log(err))
 }
-getTop5ListPairs = async (req, res) => {
-    await Top5List.find({ }, (err, top5Lists) => {
-        if (err) {
-            return res.status(400).json({ success: false, error: err })
-        }
-        if (!top5Lists) {
-            console.log("!top5Lists.length");
-            return res
-                .status(404)
-                .json({ success: false, error: 'Top 5 Lists not found' })
-        }
-        else {
-            // PUT ALL THE LISTS INTO ID, NAME PAIRS
-            let pairs = [];
-            for (let key in top5Lists) {
-                let list = top5Lists[key];
-                let pair = {
-                    _id: list._id,
-                    name: list.name,
-                    owner: list.owner
-                };
-                pairs.push(pair);
-            }
-            return res.status(200).json({ success: true, idNamePairs: pairs })
-        }
-    }).catch(err => console.log(err))
-}
 
 module.exports = {
     createTop5List,
     updateTop5List,
     deleteTop5List,
+    getTop5ListById,
     getTop5Lists,
-    getTop5ListPairs,
-    getTop5ListById
+    getTop5ListsByUsername,
+    getAllTop5Lists,
 }
