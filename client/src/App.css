@@ -107,10 +107,10 @@ body {
 
 #workspace{
   position:absolute;
-  width: 90%;
-  left: 5%;
-  height: 90%;
-  top: 5%;
+  width: 100%;
+  left: 0%;
+  height: calc(100% - 64px);
+  top: 64px;
 }
 
 #top5-banner {

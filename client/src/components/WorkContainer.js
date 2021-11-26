@@ -5,7 +5,7 @@ import { Container } from '@mui/material';
 export default function WorkContainer() {
     //const { store } = useContext(GlobalStoreContext);
 
-    let workspace = <div> Hello </div>;
+    let workspace = <div> Hello</div>;
    // if(store.editingList){
      //   workspace = <WorkspaceScreen/>
    // }
