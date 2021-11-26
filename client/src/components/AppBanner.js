@@ -72,7 +72,8 @@ export default function AppBanner() {
             <MenuItem onClick={handleLogout}><Link to='/logout/'>Logout    </Link></MenuItem>
         </Menu>        
 
-
+    let editToolbar =""
+        
     let menu = loggedOutMenu;
     if (auth.loggedIn) {
         menu = loggedInMenu;
@@ -89,9 +90,13 @@ export default function AppBanner() {
     }
 
     return (
-        <Box sx={{ flexGrow: 1 }}>
+        <Box>
             <AppBar position="static">
-                <Toolbar>
+                <Toolbar 
+                    sx={{ 
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                    }}>
                     <Typography                        
                         variant="h4"
                         noWrap
@@ -101,7 +106,7 @@ export default function AppBanner() {
                         <Link style={{ textDecoration: 'none', color: 'white' }} to='/home'>T<sup>5</sup>L</Link>
                     </Typography>
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                        <IconButton
+                        <IconButton 
                             size="large"
                             edge="end"
                             aria-label="account of current user"
