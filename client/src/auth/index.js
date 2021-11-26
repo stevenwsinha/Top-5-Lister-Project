@@ -88,8 +88,6 @@ function AuthContextProvider(props) {
     }
 
     auth.registerUser = async function(userData, store) {
-        history.push("/home");
-        return;
         try{
             const response = await api.registerUser(userData);      
             if (response.status === 200) {
