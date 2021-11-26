@@ -72,8 +72,6 @@ export default function AppBanner() {
             <MenuItem onClick={handleLogout}><Link to='/logout/'>Logout    </Link></MenuItem>
         </Menu>        
 
-    let editToolbar =""
-        
     let menu = loggedOutMenu;
     if (auth.loggedIn) {
         menu = loggedInMenu;
