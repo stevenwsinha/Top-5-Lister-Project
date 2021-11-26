@@ -96,13 +96,21 @@ body {
   background-color: rgb(67,86,129);
 }
 
-#work-space{
+#work-container{
   background-color: #5a5a5a;
   position: absolute;
   width: 70%;
   left: 15%;
   height: calc(100% - 64px);
   top: 64px;
+}
+
+#workspace{
+  position:absolute;
+  width: 90%;
+  left: 5%;
+  height: 90%;
+  top: 5%;
 }
 
 #top5-banner {

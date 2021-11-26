@@ -72,13 +72,10 @@ export default function AppBanner() {
             <MenuItem onClick={handleLogout}><Link to='/logout/'>Logout    </Link></MenuItem>
         </Menu>        
 
-    let editToolbar = "";
+
     let menu = loggedOutMenu;
     if (auth.loggedIn) {
         menu = loggedInMenu;
-        if (store.currentList) {
-            editToolbar = <EditToolbar />;
-        }
     }
     
     function getAccountMenu(loggedIn) {
@@ -101,9 +98,8 @@ export default function AppBanner() {
                         component="div"
                         sx={{ display: { xs: 'none', sm: 'block' } }}                        
                     >
-                        <Link style={{ textDecoration: 'none', color: 'white' }} to='/'>T<sup>5</sup>L</Link>
+                        <Link style={{ textDecoration: 'none', color: 'white' }} to='/home'>T<sup>5</sup>L</Link>
                     </Typography>
-                    <Box sx={{ flexGrow: 1 }}>{editToolbar}</Box>
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                         <IconButton
                             size="large"
