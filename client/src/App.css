@@ -21,7 +21,7 @@ body {
 }
 
 #root {
-  background-color: var(--swatch-primary);
+  background-color: #5a5a5a;
   font-family: "Lexend Exa";
   position: absolute;
   width: 100%;
@@ -94,6 +94,14 @@ body {
 #welcome-guest {
   top: 66.66%;
   background-color: rgb(67,86,129);
+}
+
+#work-space{
+  position: absolute;
+  width: 70%;
+  left: 15%;
+  height: calc(100% - 64px);
+  top: 64px;
 }
 
 #top5-banner {
