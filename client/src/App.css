@@ -21,7 +21,7 @@ body {
 }
 
 #root {
-  background-color: #5a5a5a;
+  background-color: #2e2e2e;
   font-family: "Lexend Exa";
   position: absolute;
   width: 100%;
@@ -97,6 +97,7 @@ body {
 }
 
 #work-space{
+  background-color: #5a5a5a;
   position: absolute;
   width: 70%;
   left: 15%;
