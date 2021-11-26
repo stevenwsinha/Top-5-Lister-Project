@@ -7,10 +7,7 @@ import { GlobalStoreContextProvider } from './store'
 import {
     WelcomeScreen,
     AppBanner,
-    HomeWrapper,
     RegisterScreen,
-    Statusbar,
-    WorkspaceScreen,
     LoginScreen,
     WorkContainer
 } from './components'
