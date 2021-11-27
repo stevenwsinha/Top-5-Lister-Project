@@ -45,9 +45,6 @@ function ListCard(props) {
         fontSize: '12pt',
         minHeight: 90,
         maxHeight: 90,
-        borderStyle: 'solid',
-        borderWidth: 3,
-        borderColor: 'red',
         width: '98%',
         left: '1%'
     }}
@@ -55,120 +52,75 @@ function ListCard(props) {
         <Box sx={{ 
             p: 0, 
             flexGrow: 3,  
-            height: 80,
-            borderStyle: 'solid',
-            borderWidth: 3,
-            borderColor: 'blue',}}> 
-            <Grid container direction='column' spacing={0} sx={{
-                height: 78,
-                borderStyle: 'solid',
-                borderWidth: 3,
-                borderColor: 'green',
-            }}>
-                <Grid item sx={{
-                     height: 32,
-                     borderStyle: 'solid',
-                     borderWidth: 3,
-                     borderColor: 'pink',
-                }}>
-                    first grid item
+            height: 80,}}> 
+            <Grid container direction='column' spacing={0} sx={{height: 78,}}>
+                <Grid item sx={{height: 34}}>
+                    <Typography variant='h5'> {list.name} </Typography>
                 </Grid>
-                <Grid item sx={{
-                     height: 20,
-                     borderStyle: 'solid',
-                     borderWidth: 3,
-                     borderColor: 'pink',
-                }}>
-                    second grid item
+                <Grid item sx={{height: 24}}>
+                    <Typography sx={{fontSize: '10pt'}}> By: {list.owner} </Typography>
                 </Grid>
-                <Grid item sx={{
-                     height: 20,
-                     borderStyle: 'solid',
-                     borderWidth: 3,
-                     borderColor: 'pink',
-                }}>
-                    third grid item
+                <Grid item sx={{height: 20,}}>
+                    <Typography sx={{fontSize: '10pt'}}> Publish Status </Typography>
                 </Grid>
             </Grid> 
         </Box>
         <Box sx={{ 
         p: 0, 
         flexGrow: 1,
-        height: 80,
-        borderStyle: 'solid',
-        borderWidth: 3,
-        borderColor: 'yellow',}}>
+        height: 80}}>
             <Box sx={{ 
             p: 0, 
             flexGrow: 1,
-            height: 40,
-            borderStyle: 'solid',
-            borderWidth: 3,
-            borderColor: 'orange',}}>
-            <Grid container direction='row' spacing={0} sx={{
-                  borderStyle: 'solid',
-                  borderWidth: 3,
-                  height: 40,
-                  borderColor: 'green',
-            }}>
-                <Grid item xs={4} sx={{
-                    borderStyle: 'solid',
-                    borderWidth: 3,
-                    height: 40,
-                    borderColor: 'blue',
-                }}>
-                    First Grid Item
+            height: 50,}}>
+            <Grid container direction='row' spacing={0} sx={{height: 50}}>
+                <Grid item xs={4} sx={{height: 50}}>
+                    <IconButton
+                        size="medium"
+                        color="inherit"
+                        aria-label="open drawer"
+                    >
+                        <ThumbUpIcon />
+                    </IconButton>
+                    {list.likes.length}
                 </Grid>
-                <Grid item xs={4} sx={{
-                    borderStyle: 'solid',
-                    borderWidth: 3,
-                    height: 40,
-                    borderColor: 'blue',
-                }}>
-                    Second Grid Item
+                <Grid item xs={4} sx={{ height: 50 }}>
+                    <IconButton
+                        size="medium"
+                        color="inherit"
+                        aria-label="open drawer"
+                    >
+                        <ThumbDownIcon />
+                    </IconButton>
+                    {list.dislikes.length}
                 </Grid>
-                <Grid item xs={4} sx={{
-                    borderStyle: 'solid',
-                    borderWidth: 3,
-                    height: 40,
-                    display: 'flex',
-                    justifyContent: 'flex-end',
-                    borderColor: 'blue',
-                }}>
-                    Third Grid Item
+                <Grid item xs={4} sx={{height: 50, display: 'flex', justifyContent: 'flex-end', }}>
+                    <IconButton
+                        size="medium"
+                        color="inherit"
+                        aria-label="open drawer"
+                    >
+                        <DeleteIcon />
+                    </IconButton>
                 </Grid>
             </Grid>
             </Box> 
             <Box sx={{ 
-            p: 0, 
-            flexGrow: 1,
-            height: 30,
-            borderStyle: 'solid',
-            borderWidth: 3,
-            borderColor: 'black',}}>
-                <Grid container direction='row' spacing={0} sx={{
-                  borderStyle: 'solid',
-                  borderWidth: 3,
-                  height: 30,
-                  borderColor: 'pink',
-            }}>
-                <Grid item xs={8} sx={{
-                    borderStyle: 'solid',
-                    borderWidth: 3,
-                    height: 30,
-                    borderColor: 'blue',
-                }}>
-                    First Grid Item
+                p: 0, 
+                flexGrow: 1,
+                height: 30,}}>
+                <Grid container direction='row' spacing={0} sx={{height: 30}}>
+                <Grid item xs={8} sx={{height: 30}}>
+                    <Typography> Views: {list.views} </Typography>
                 </Grid>
-                <Grid item xs={4} sx={{
-                    borderStyle: 'solid',
-                    borderWidth: 3,
-                    height: 30,
-                    display: 'flex',
-                    justifyContent: 'flex-end',
-                    borderColor: 'blue',
-                }}>
-                    Second Grid Item
+                <Grid item xs={4} sx={{ height: 30, display: 'flex', justifyContent: 'flex-end'}}>
+                    <IconButton
+                        size="medium"
+                        color="inherit"
+                        aria-label="open drawer"
+                    >
+                        <ExpandMoreIcon />
+                    </IconButton>
                 </Grid>
             </Grid>
             </Box>   

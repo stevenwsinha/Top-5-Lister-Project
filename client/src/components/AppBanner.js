@@ -2,7 +2,6 @@ import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom'
 import AuthContext from '../auth';
 import { GlobalStoreContext } from '../store'
-import EditToolbar from './EditToolbar'
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -12,7 +11,6 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import Avatar from '@mui/material/Avatar';
-import {blue} from '@mui/material/colors';
 
 export default function AppBanner() {
     const { auth } = useContext(AuthContext);
@@ -90,7 +88,7 @@ export default function AppBanner() {
 
     return (
         <Box>
-            <AppBar position="static">
+            <AppBar position="static" elevation={2}>
                 <Toolbar 
                     sx={{ 
                         display: 'flex',
