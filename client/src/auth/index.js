@@ -97,8 +97,9 @@ function AuthContextProvider(props) {
                         user: response.data.user
                     }
                 })
+                // GO TO HOME SCREEN AND LOAD THE RIGHT LISTS
                 history.push("/home");
-                store.loadIdNamePairs();
+                store.loadLoggedInLists();
             }
         }
         catch(err){

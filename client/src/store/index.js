@@ -190,13 +190,14 @@ function GlobalStoreContextProvider(props) {
         if (response.data.success) {
             storeReducer({
                 type: GlobalStoreActionType.CREATE_NEW_LIST,
-                payload: newList
+                payload: null
             }
             );
 
             // IF IT'S A VALID LIST THEN LET'S START EDITING ITx
-            store.editList(response.data.top5list._id);
-            history.push("/top5list/" + newList._id);
+            let newList_id = response.data.top5list._id
+            // store.editList(response.data.top5list._id);
+            history.push("/top5list/" + newList_id);
         }
         else {
             console.log("API FAILED TO CREATE A NEW LIST");

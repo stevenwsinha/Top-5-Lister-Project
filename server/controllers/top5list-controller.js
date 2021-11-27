@@ -179,7 +179,7 @@ getTop5Lists = async (req, res) => {
 
 //  GET ALL TOP5LISTS OWNED BY USER WITH USERNAME PASSED IN THROUGH GET QUERY PARAMS
 //  GET EVERY TOP5LIST FROM USER WITH USERNAME PASSED IN THROUGH GET QUERY PARAMS
-getTop5ListByUsername = async (req, res) => {
+getTop5ListsByUsername = async (req, res) => {
     let username = req.params.username;
     let user_email = "";
     await User.find({username: username}, (err, user) =>{
