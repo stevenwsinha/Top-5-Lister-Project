@@ -56,13 +56,13 @@ function ListCard(props) {
             height: 80,}}> 
             <Grid container direction='column' spacing={0} sx={{height: 78,}}>
                 <Grid item sx={{height: 34}}>
-                    <Typography variant='h5'> {list.name} </Typography>
+                    <Typography variant='h5'style={{color: 'black'}}> {list.name} </Typography>
                 </Grid>
                 <Grid item sx={{height: 24}}>
-                    <Typography sx={{fontSize: '10pt'}}> By: {list.owner} </Typography>
+                    <Typography sx={{fontSize: '10pt'}} style={{color: '#001e64'}}> By: {list.owner} </Typography>
                 </Grid>
                 <Grid item sx={{height: 20,}}>
-                    <Typography sx={{fontSize: '10pt'}}> Publish Status </Typography>
+                    <Typography sx={{fontSize: '10pt'}} style={{color: '#234f1e'}}> Publish Status </Typography>
                 </Grid>
             </Grid> 
         </Box>
@@ -112,7 +112,7 @@ function ListCard(props) {
                 height: 30,}}>
                 <Grid container direction='row' spacing={0} sx={{height: 30}}>
                 <Grid item xs={8} sx={{height: 30}}>
-                    <Typography> Views: {list.views} </Typography>
+                    <Typography style={{color: '#C70039'}}> Views: {list.views} </Typography>
                 </Grid>
                 <Grid item xs={4} sx={{ height: 30, display: 'flex', justifyContent: 'flex-end'}}>
                     <IconButton

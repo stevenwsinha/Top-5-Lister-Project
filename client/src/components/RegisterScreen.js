@@ -43,7 +43,7 @@ export default function RegisterScreen() {
                         alignItems: 'center',
                     }}
                 >
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                    <Avatar sx={{ m: 1, bgcolor: '#B98EA7' }}>
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5">
@@ -125,7 +125,7 @@ export default function RegisterScreen() {
                         </Button>
                         <Grid container justifyContent="flex-end">
                             <Grid item>
-                                <Link href="/login/" variant="body2">
+                                <Link href="/login/" variant="body2" color='secondary.main'>
                                     Already have an account? Sign in
                                 </Link>
                             </Grid>

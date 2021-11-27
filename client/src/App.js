@@ -20,10 +20,14 @@ const theme = createTheme({
   palette: {
     type: 'dark',
     primary: {
-      main: '#143278',
+      main: '#001e64',
     },
     secondary: {
-      main: '#781423',
+      main: '#96b4fa',
+    },
+    text: {
+      primary: '#ffff',
+      secondary: "#ffff"
     },
   },
 });

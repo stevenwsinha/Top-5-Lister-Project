@@ -22,7 +22,7 @@ function Statusbar() {
     if(history.location.pathname.includes("home")){
         add = (
             <Fab 
-                color="primary" 
+                color="secondary" 
                 aria-label="add"
                 id="add-list-button"
                 onClick={handleCreateNewList}

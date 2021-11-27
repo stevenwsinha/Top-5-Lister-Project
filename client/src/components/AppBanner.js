@@ -83,7 +83,7 @@ export default function AppBanner() {
             initials += auth.user.lastName[0];
             return <Avatar sx={{ bgcolor: 'secondary.main' }}>{initials}</Avatar>
         }
-        return <AccountCircle />;
+        return <AccountCircle sx={{color: 'secondary.main'}}/>;
     }
 
     return (
