@@ -8,7 +8,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined';
 import Typography from '@mui/material/Typography';
-
+import Button from '@mui/material/Button';
 
 import Grid from '@mui/material/Grid';
 
@@ -36,10 +36,18 @@ function ListCard(props) {
         event.stopPropagation();
         store.markListForDeletion(id);
     }
+
+    let listClass = 'draft-card';
+    let publishComponent = <Button variant="text" sx={{fontSize: '10pt', p:0}} style={{color: '#C70039'}}>Edit</Button>
+    if(list.isPublished) {
+        listClass = 'list-card'
+        publishComponent = <Typography sx={{fontSize: '10pt'}} style={{color: '#086108'}}> Published: {list.timestamp} </Typography>
+    }
+
     return (
     <ListItem
     id={list._id}
-    className={'list-card'}
+    className={listClass}
     key={list._id}
     sx={{ marginTop: '0px', display: 'flex', p: 1}}
     style={{
@@ -62,7 +70,7 @@ function ListCard(props) {
                     <Typography sx={{fontSize: '10pt'}} style={{color: '#001e64'}}> By: {list.owner} </Typography>
                 </Grid>
                 <Grid item sx={{height: 20,}}>
-                    <Typography sx={{fontSize: '10pt'}} style={{color: '#234f1e'}}> Publish Status </Typography>
+                    {publishComponent}
                 </Grid>
             </Grid> 
         </Box>

@@ -119,6 +119,11 @@ body {
   border-radius: 10px;
 }
 
+.draft-card{
+  background-color: #EDEEC0  ;
+  border-radius: 10px;
+}
+
 #top5-banner {
   position: absolute;
   left: 0%;
