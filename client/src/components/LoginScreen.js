@@ -45,7 +45,7 @@ export default function LoginScreen() {
           <Avatar sx={{ m: 1, bgcolor: '#B98EA7' }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h5" color="#ffff">
             Sign in
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>

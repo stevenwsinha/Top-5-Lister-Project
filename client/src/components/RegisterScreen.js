@@ -46,7 +46,7 @@ export default function RegisterScreen() {
                     <Avatar sx={{ m: 1, bgcolor: '#B98EA7' }}>
                         <LockOutlinedIcon />
                     </Avatar>
-                    <Typography component="h1" variant="h5">
+                    <Typography component="h1" variant="h5" color="#ffff">
                         Sign up
                     </Typography>
                     <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
