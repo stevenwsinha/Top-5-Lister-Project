@@ -6,15 +6,9 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
-import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import MoreIcon from '@mui/icons-material/MoreVert';
 import PeopleIcon from '@mui/icons-material/People';
 import HomeIcon from '@mui/icons-material/Home';
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';
@@ -101,7 +95,7 @@ export default function WorkToolbar(){
     
         return (
             <Box sx={{ flexGrow: 1 }}>
-              <AppBar position="static" elevation={0}>
+              <AppBar position="static" elevation={0} style={{ background: '#5a5a5a' }}>
                 <Toolbar>
                   <IconButton
                     size="large"
