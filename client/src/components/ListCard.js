@@ -6,6 +6,9 @@ import ListItem from '@mui/material/ListItem';
 import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 
 import Grid from '@mui/material/Grid';
 
@@ -35,11 +38,14 @@ function ListCard(props) {
     }
     return (
         <ListItem
-        id={'list-item-test'}
+        id={list._id}
+        className={'list-card'}
         key={list._id}
-        sx={{ marginTop: '15px', display: 'flex', p: 1, overflow: 'hidden', }}
+        sx={{ marginTop: '0px', display: 'flex', p: 1}}
         style={{
-            width: '100%'
+            fontSize: '12pt',
+            width: '98%',
+            left: '1%'
         }}
     >
         <Grid container spacing={2}>
@@ -55,26 +61,53 @@ function ListCard(props) {
                 </Grid>
             </Grid>
             <Grid item container xs={4}>
-                <Grid item xs={2}>
-                    Like Button
-                </Grid>
-                <Grid item xs={2}>
+                <Grid item xs={4}>
+                <IconButton
+                        size="small"
+                        edge="start"
+                        color="inherit"
+                        aria-label="open drawer"
+                        sx={{ mr: 1 }}
+                  >
+                    <ThumbUpIcon />
+                  </IconButton>
                     {list.likes.length}
                 </Grid>
-                <Grid item xs={2}>
-                    Dislike Button
-                </Grid>
-                <Grid item xs={2}>
+                <Grid item xs={4}>
+                <IconButton
+                        size="small"
+                        edge="start"
+                        color="inherit"
+                        aria-label="open drawer"
+                        sx={{ mr: 1 }}
+                  >
+                    <ThumbDownIcon />
+                  </IconButton>
                     {list.dislikes.length}
                 </Grid>
                 <Grid item xs={4}>
-                    Delete Button
+                    <IconButton
+                        size="small"
+                        edge="start"
+                        color="inherit"
+                        aria-label="open drawer"
+                  >
+                    <DeleteIcon />
+                  </IconButton>
                 </Grid>
                 <Grid item xs={8}>
                     Views: {list.views}
                 </Grid>
                 <Grid item xs={4}>
-                    Open Button
+                <IconButton
+                        size="small"
+                        edge="start"
+                        color="inherit"
+                        aria-label="open drawer"
+                        sx={{ mr: 2 }}
+                  >
+                    <ExpandMoreIcon />
+                  </IconButton>
                 </Grid>
             </Grid>
         </Grid>
