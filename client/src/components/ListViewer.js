@@ -12,9 +12,7 @@ export default function ListViewer() {
             {
                 store.loadedLists.map((list) => (
                     <ListCard
-                        key={list._id}
-                        idNamePair={pair}
-                        selected={false}
+                        list={list}
                     />
                 ))
             }
@@ -22,8 +20,6 @@ export default function ListViewer() {
 
     return (
         <div id="list-selector-list">
-            {
-                listCard
-            }
+            {listCard}  
         </div>);
 }
