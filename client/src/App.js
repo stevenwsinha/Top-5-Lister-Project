@@ -46,7 +46,7 @@ const App = () => {
             <ThemeProvider theme={theme}>
                 <AuthContextProvider>
                     <GlobalStoreContextProvider>      
-                        <AppBanner />        
+                        <AppBanner/>
                         <Switch>
                             <Route path="/" exact component={WelcomeScreen} />
                             <Route path='/register' exact component={RegisterScreen} />

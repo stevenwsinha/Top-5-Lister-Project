@@ -14,6 +14,7 @@ import ErrorModal from './ErrorModal'
 import DeleteModal from './DeleteModal'
 import WorkToolbar from './WorkToolbar'
 import WorkContainer from './WorkContainer'
+import ListViewer from './ListViewer'
 
 /*
     This serves as a module so that we can import
@@ -38,4 +39,5 @@ export {
     DeleteModal, 
     WorkToolbar,
     WorkContainer,
+    ListViewer,
 }
