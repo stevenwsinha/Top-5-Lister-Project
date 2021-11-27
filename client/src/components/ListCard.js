@@ -3,11 +3,12 @@ import { GlobalStoreContext } from '../store'
 import Box from '@mui/material/Box';
 import ListItem from '@mui/material/ListItem';
 import IconButton from '@mui/material/IconButton';
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
-import ThumbDownIcon from '@mui/icons-material/ThumbDown';
+import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
+import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined';
 import Typography from '@mui/material/Typography';
+
 
 import Grid from '@mui/material/Grid';
 
@@ -80,7 +81,7 @@ function ListCard(props) {
                         color="inherit"
                         aria-label="open drawer"
                     >
-                        <ThumbUpIcon />
+                        <ThumbUpOutlinedIcon />
                     </IconButton>
                     {list.likes.length}
                 </Grid>
@@ -90,7 +91,7 @@ function ListCard(props) {
                         color="inherit"
                         aria-label="open drawer"
                     >
-                        <ThumbDownIcon />
+                        <ThumbDownOutlinedIcon />
                     </IconButton>
                     {list.dislikes.length}
                 </Grid>
@@ -100,7 +101,7 @@ function ListCard(props) {
                         color="inherit"
                         aria-label="open drawer"
                     >
-                        <DeleteIcon />
+                        <DeleteOutlinedIcon />
                     </IconButton>
                 </Grid>
             </Grid>
