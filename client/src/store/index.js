@@ -225,10 +225,35 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
-    // NEED 2 (EVENTUALLY 3) FUNCTIONS TO LOAD OTHER TYPES OF LISTS
-    
+    // LOAD ALL THE LISTS MADE BY USER WITH GIVEN USERNAME
+    store.loadListsByUsername = async function (username) {
+        const response = await api.getTop5ListByUsername(username)
+        if(response.data.success) {
+            let top5lists = response.data.top5lists;
+            storeReducer({
+                type: GlobalStoreActionType.LOAD_ID_NAME_PAIRS,
+                payload: top5lists
+            });
+        }
+        else {
+            console.log("API FAILED TO GET THE LIST PAIRS");
+        }
+    }
 
-
+    // LOAD ALL LISTS MADE BY ALL USERS
+    store.loadAllLists = async function () {
+        const response = await api.getAllTop5Lists()
+        if(response.data.success){
+            let top5lists = response.data.top5lists;
+            storeReducer({
+                type: GlobalStoreActionType.LOAD_ID_NAME_PAIRS,
+                payload: top5lists
+            });
+        }
+        else {
+            console.log("API FAILED TO GET THE LIST PAIRS");
+        }
+    }
 
 
     // THE FOLLOWING 5 FUNCTIONS ARE FOR COORDINATING THE DELETION
@@ -273,129 +298,7 @@ function GlobalStoreContextProvider(props) {
             payload: null
         });
     }
-
-    // THE FOLLOWING 8 FUNCTIONS ARE FOR COORDINATING THE UPDATING
-    // OF A LIST, WHICH INCLUDES DEALING WITH THE TRANSACTION STACK. THE
-    // FUNCTIONS ARE setCurrentList, addMoveItemTransaction, addUpdateItemTransaction,
-    // moveItem, updateItem, updateCurrentList, undo, and redo
-    store.setCurrentList = async function (id) {
-        try{
-            let response = await api.getTop5ListById(id);
-            if (response.data.success) {
-                let top5List = response.data.top5List;
-
-                response = await api.updateTop5ListById(top5List._id, top5List);
-                if (response.data.success) {
-                    storeReducer({
-                        type: GlobalStoreActionType.SET_CURRENT_LIST,
-                        payload: top5List
-                    });
-                    history.push("/top5list/" + top5List._id);
-                }
-            }
-        }catch(err){
-            auth.setErrorMsg(err.response.data.error);
-        }
-    }
-
-    store.addMoveItemTransaction = function (start, end) {
-        if(parseInt(start) === end){
-            storeReducer({
-                type: GlobalStoreActionType.SET_CURRENT_LIST,
-                payload: store.currentList
-            });
-            return;
-        }
-        let transaction = new MoveItem_Transaction(store, start, end);
-        tps.addTransaction(transaction);
-    }
-
-    store.addUpdateItemTransaction = function (index, newText) {
-        let oldText = store.currentList.items[index];
-        if(oldText === newText){
-            storeReducer({
-                type: GlobalStoreActionType.SET_CURRENT_LIST,
-                payload: store.currentList
-            });
-            return;
-        }
-        let transaction = new UpdateItem_Transaction(store, index, oldText, newText);
-        tps.addTransaction(transaction);
-    }
-
-    store.moveItem = function (start, end) {
-        start -= 1;
-        end -= 1;
-        if (start < end) {
-            let temp = store.currentList.items[start];
-            for (let i = start; i < end; i++) {
-                store.currentList.items[i] = store.currentList.items[i + 1];
-            }
-            store.currentList.items[end] = temp;
-        }
-        else if (start > end) {
-            let temp = store.currentList.items[start];
-            for (let i = start; i > end; i--) {
-                store.currentList.items[i] = store.currentList.items[i - 1];
-            }
-            store.currentList.items[end] = temp;
-        }
-
-        // NOW MAKE IT OFFICIAL
-        store.updateCurrentList();
-    }
-
-    store.updateItem = function (index, newItem) {
-        store.currentList.items[index] = newItem;
-        store.updateCurrentList();
-    }
-
-    store.updateCurrentList = async function () {
-        try{
-            const response = await api.updateTop5ListById(store.currentList._id, store.currentList);
-            if (response.data.success) {
-                storeReducer({
-                    type: GlobalStoreActionType.SET_CURRENT_LIST,
-                    payload: store.currentList
-                });
-            }
-        }catch(err){
-            console.log(err);
-        }
-    }
-
-    store.undo = function () {
-        tps.undoTransaction();
-    }
-
-    store.redo = function () {
-        tps.doTransaction();
-    }
-
-    store.canUndo = function() {
-        return tps.hasTransactionToUndo();
-    }
-
-    store.canRedo = function() {
-        return tps.hasTransactionToRedo();
-    }
-
-    // THIS FUNCTION ENABLES THE PROCESS OF EDITING A LIST NAME
-    store.setIsListNameEditActive = function () {
-        storeReducer({
-            type: GlobalStoreActionType.SET_LIST_NAME_EDIT_ACTIVE,
-            payload: null
-        });
-    }
-
-    // THIS FUNCTION ENABLES THE PROCESS OF EDITING AN ITEM
-    store.setIsItemEditActive = function () {
-        storeReducer({
-            type: GlobalStoreActionType.SET_ITEM_EDIT_ACTIVE,
-            payload: null
-        });
-    }
-
+    
     return (
         <GlobalStoreContext.Provider value={{
             store
