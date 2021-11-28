@@ -31,16 +31,7 @@ export const GlobalStoreActionType = {
 function GlobalStoreContextProvider(props) {
     // THESE ARE ALL THE THINGS OUR DATA STORE WILL MANAGE
     const [store, setStore] = useState({
-        loadedLists: [{
-            name: "Games",
-            items: ["Mario", "Zelda", "Epic", "LoL", "Ten"],
-            owner: "me",
-            views: 10,
-            likes: ["me", "john", "cindy"],
-            dislikes: ["john", "cindy"],
-            comments: [],
-            isPublished: true
-        }],
+        loadedLists: [],
         openedLists: [],
         sortType: null,
         listBeingEdited: null,
@@ -285,6 +276,15 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
+    store.editListItem = async function (index, text) {
+        const top5list = store.listBeingEdited
+        top5list.items[index] = text
+        storeReducer({
+            type: GlobalStoreActionType.SET_LIST_BEING_EDITED,
+            payload: top5list
+        });
+    }
+
     // save the list currently stored in listBeingEdited   
     store.saveList = async function () {
         let top5list = store.listBeingEdited
@@ -313,6 +313,7 @@ function GlobalStoreContextProvider(props) {
         }
 
         top5list.isPublished = true;
+
         try{
             let response = await api.updateTop5ListById(top5list._id, top5list)
             if(response.data.success) {
@@ -367,6 +368,14 @@ function GlobalStoreContextProvider(props) {
     store.unmarkListForDeletion = function () {
         storeReducer({
             type: GlobalStoreActionType.UNMARK_LIST_FOR_DELETION,
+            payload: null
+        });
+    }
+
+    // THIS FUNCTION ENABLES THE PROCESS OF EDITING AN ITEM
+    store.setIsItemEditActive = function () {
+        storeReducer({
+            type: GlobalStoreActionType.SET_ITEM_EDIT_ACTIVE,
             payload: null
         });
     }

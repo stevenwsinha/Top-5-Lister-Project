@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import AuthContext from '../auth'
-import Copyright from './Copyright'
+// import Copyright from './Copyright'
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';

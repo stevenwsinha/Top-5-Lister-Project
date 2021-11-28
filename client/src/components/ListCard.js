@@ -21,16 +21,7 @@ import Grid from '@mui/material/Grid';
 */
 function ListCard(props) {
     const { store } = useContext(GlobalStoreContext);
-    const [editActive, setEditActive] = useState(false);
-    const [text, setText] = useState("");
     const { list } = props;
-
-    function handleOpenList(event, id) {
-        if (!event.target.disabled) {
-            // CHANGE THE CURRENT LIST
-            store.setCurrentList(id);
-        }
-    }
 
     async function handleDeleteList(event, id) {
         event.stopPropagation();
@@ -108,6 +99,7 @@ function ListCard(props) {
                         size="medium"
                         color="inherit"
                         aria-label="open drawer"
+                        onClick={handleDeleteList}
                     >
                         <DeleteOutlinedIcon />
                     </IconButton>

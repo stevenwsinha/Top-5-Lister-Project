@@ -3,8 +3,7 @@ import { GlobalStoreContext } from '../store'
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import ListItem from '@mui/material/ListItem';
-import IconButton from '@mui/material/IconButton';
-import EditIcon from '@mui/icons-material/Edit';
+
 /*
     This React component represents a single item in our
     Top 5 List, which can be edited or moved around.
@@ -16,39 +15,15 @@ function Top5Item(props) {
 
     const { store } = useContext(GlobalStoreContext);
     const [editActive, setEditActive] = useState(false);
-    // const [text, setText] = useState(store.currentList.items[index]);
-    const [draggedTo, setDraggedTo] = useState(0);
+    const [text, setText] = useState(store.listBeingEdited.items[index]);
 
-    function handleDragStart(event, targetId) {
-        event.dataTransfer.setData("item", targetId);
-    }
-
-    function handleDragOver(event) {
-        event.preventDefault();
-        setDraggedTo(true);
-    }
-
-    function handleDragEnter(event) {
-        event.preventDefault();
-        console.log("entering");
-    }
-
-    function handleDragLeave(event) {
-        event.preventDefault();
-        console.log("leaving");
-        setDraggedTo(false);
-    }
-
-    function handleDrop(event, targetId) {
-        event.preventDefault();
-        let sourceId = event.dataTransfer.getData("item");
-        sourceId = sourceId.substring(sourceId.indexOf("-") + 1);
-        setDraggedTo(false);
-
-        console.log("handleDrop (sourceId, targetId): ( " + sourceId + ", " + targetId + ")");
-
-        // UPDATE THE LIST
-        store.addMoveItemTransaction(sourceId, targetId);
+    function handleClick (event) {
+        if (event.detail === 1) {
+            return;
+        }
+        else if (event.detail === 2) {
+            handleToggleEdit(event);
+        }
     }
 
     function handleToggleEdit(event) {
@@ -57,7 +32,6 @@ function Top5Item(props) {
     }
 
     function toggleEdit() {
-        //setText(store.currentList.items[index]);
         let newActive = !editActive;
         if (newActive) {
             store.setIsItemEditActive();
@@ -67,20 +41,24 @@ function Top5Item(props) {
 
     function handleKeyPress(event) {
         if (event.code === "Enter") {
-            //store.addUpdateItemTransaction(index, text);
+            let index = event.target.id
+            index = index.substring("item-")
+            console.log(index.substring("item"))
+            store.editListItem(index, text);
             toggleEdit();
         }
     }
     function handleUpdateText(event) {
-        //setText(event.target.value);
+        setText(event.target.value);
     }
 
 
     let itemClass = "top5-item";
     let itemElement = <ListItem
-                            id={'item-' + (index+1)}
+                            id={'item-' + (index)}
                             key={props.key}
                             className={itemClass}
+                            onClick={handleClick}
                             sx={{ display: 'flex', p: 1 }}
                             style={{
                                 fontSize: '36pt',
@@ -92,7 +70,7 @@ function Top5Item(props) {
 
     if(editActive){
         itemElement = <TextField
-                            margin="auto"
+                            margin='normal'
                             required
                             fullWidth
                             id={"item-" + index}
@@ -100,6 +78,9 @@ function Top5Item(props) {
                             name="name"
                             autoComplete="Top 5 List Item"
                             className='top5-item'
+                            onChange={handleUpdateText}
+                            onKeyPress={handleKeyPress}
+                            defaultValue={store.listBeingEdited.items[index]}
                             inputProps={{style: {fontSize: 48}}}
                             InputLabelProps={{style: {fontSize: 24}}}
                             autoFocus

@@ -1,6 +1,6 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { GlobalStoreContext } from '../store'
-import AuthContext from '../auth'
+// import AuthContext from '../auth'
 import ListCard from './ListCard.js'
 import List from '@mui/material/List';
 
@@ -10,9 +10,10 @@ export default function ListViewer() {
     const listCard = 
             <List>
             {
-                store.loadedLists.map((list) => (
+                store.loadedLists.map((list, index) => (
                     <ListCard
                         list={list}
+                        key={index}
                     />
                 ))
             }
