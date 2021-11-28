@@ -1,12 +1,15 @@
 import { useContext } from 'react'
 import { GlobalStoreContext } from '../store'
+import AuthContext from '../auth'
 import Box from '@mui/material/Box';
 import ListItem from '@mui/material/ListItem';
 import IconButton from '@mui/material/IconButton';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined';
+import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
@@ -22,6 +25,7 @@ import Grid from '@mui/material/Grid';
 function ListCard(props) {
     const { store } = useContext(GlobalStoreContext);
     const { list, index } = props;
+    const { auth } = useContext(AuthContext);
 
     async function handleDeleteList(event, id) {
         event.stopPropagation();
@@ -32,11 +36,85 @@ function ListCard(props) {
         store.editList(index)
     }
 
+    function likeList() {
+        if(!list.isPublished){
+            return
+        }
+        if(list.dislikes.includes(auth.user.username)){
+            store.unlikeList(index, "dislike")
+        }
+        store.likeList(index, "like")
+    }
+
+    function unlikeList() {
+        if(!list.isPublished){
+            return
+        }
+        store.unlikeList(index, "like")
+    }
+
+    function dislikeList() {
+        if(!list.isPublished){
+            return
+        }
+        if(list.likes.includes(auth.user.username)){
+            store.unlikeList(index, "like")
+        }
+        store.likeList(index, "dislike")
+    }
+
+    function undislikeList() {
+        if(!list.isPublished){
+            return
+        }
+        store.unlikeList(index, "dislike")
+    }
+
     let listClass = 'draft-card';
     let publishComponent = <Button variant="text" sx={{fontSize: '10pt', p:0}} style={{color: '#C70039'}} onClick={handleEditList}>Edit</Button>
     if(list.isPublished) {
         listClass = 'list-card'
         publishComponent = <Typography sx={{fontSize: '10pt'}} style={{color: '#086108'}}> Published: {list.timestamp} </Typography>
+    }
+
+    let likeButton =    <IconButton
+                            size="medium"
+                            color="inherit"
+                            aria-label="open drawer"
+                            onClick={likeList}
+                        >
+                            <ThumbUpOutlinedIcon />
+                        </IconButton>;
+
+
+    if(list.likes.includes(auth.user.username)){
+        likeButton =    <IconButton
+                            size="medium"
+                            color="inherit"
+                            aria-label="open drawer"
+                            onClick={unlikeList}
+                        >
+                            <ThumbUpIcon />
+                        </IconButton>;
+    }
+
+    let dislikeButton = <IconButton
+                            size="medium"
+                            color="inherit"
+                            aria-label="open drawer"
+                            onClick={dislikeList}
+                        >
+                            <ThumbDownOutlinedIcon />
+                        </IconButton>
+    if(list.dislikes.includes(auth.user.username)){
+        dislikeButton =    <IconButton
+                            size="medium"
+                            color="inherit"
+                            aria-label="open drawer"
+                            onClick={undislikeList}
+                        >
+                            <ThumbDownIcon />
+                        </IconButton>;
     }
 
     return (
@@ -79,23 +157,11 @@ function ListCard(props) {
             height: 50,}}>
             <Grid container direction='row' spacing={0} sx={{height: 50}}>
                 <Grid item xs={4} sx={{height: 50}}>
-                    <IconButton
-                        size="medium"
-                        color="inherit"
-                        aria-label="open drawer"
-                    >
-                        <ThumbUpOutlinedIcon />
-                    </IconButton>
+                    {likeButton}
                     {list.likes.length}
                 </Grid>
                 <Grid item xs={4} sx={{ height: 50 }}>
-                    <IconButton
-                        size="medium"
-                        color="inherit"
-                        aria-label="open drawer"
-                    >
-                        <ThumbDownOutlinedIcon />
-                    </IconButton>
+                    {dislikeButton}
                     {list.dislikes.length}
                 </Grid>
                 <Grid item xs={4} sx={{height: 50, display: 'flex', justifyContent: 'flex-end', }}>
