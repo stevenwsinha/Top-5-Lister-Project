@@ -72,7 +72,6 @@ function AuthContextProvider(props) {
         try{
             const response = await api.getLoggedIn();
             if (response.status === 200) {
-                console.log(auth.errorMsg)
                 authReducer({
                     type: AuthActionType.GET_LOGGED_IN,
                     payload: {
@@ -98,8 +97,8 @@ function AuthContextProvider(props) {
                     }
                 })
                 // GO TO HOME SCREEN AND LOAD THE RIGHT LISTS
-                history.push("/home");
                 store.loadLoggedInLists();
+                history.push("/home");
             }
         }
         catch(err){
@@ -126,8 +125,8 @@ function AuthContextProvider(props) {
                         user: response.data.user
                     }
                 })
-                history.push("/home");
                 store.loadLoggedInLists();
+                history.push("/home");
             }
         }
         catch(err){
