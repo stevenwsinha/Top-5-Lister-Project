@@ -74,7 +74,7 @@ function ListCard(props) {
     let publishComponent = <Button variant="text" sx={{fontSize: '10pt', p:0}} style={{color: '#C70039'}} onClick={handleEditList}>Edit</Button>
     if(list.isPublished) {
         listClass = 'list-card'
-        publishComponent = <Typography sx={{fontSize: '10pt'}} style={{color: '#086108'}}> Published: {list.timestamp} </Typography>
+        publishComponent = <Typography sx={{fontSize: '10pt'}} style={{color: '#086108'}}> Published: {list.created.toString().substring(4, 15)} </Typography>
     }
 
     let likeButton =    <IconButton

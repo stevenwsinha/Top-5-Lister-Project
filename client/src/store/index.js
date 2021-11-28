@@ -253,6 +253,7 @@ function GlobalStoreContextProvider(props) {
             dislikes: [],
             comments: [],
             isPublished: false,
+            created: new Date(),
         };
         const response = await api.createTop5List(payload);
         if (response.data.success) {
@@ -328,8 +329,6 @@ function GlobalStoreContextProvider(props) {
     // load a list to edit based on a list id
     store.editList = function (index) {
         let top5listToEdit = store.loadedLists[index];
-        
-        // FIX THIS v (ALSO CHECK THAT UNSHIFT IN SAVE/PUBLISH FUNCTIONS ISN'T THE ISSUE)
 
         let newLoadedLists = store.loadedLists
         newLoadedLists.splice(index, 1)
@@ -451,7 +450,24 @@ function GlobalStoreContextProvider(props) {
             return
         }
 
+        let duplicate = false
+        for(let i = 0; i < 5; i++) {
+            let itemToCompare = top5list.items[i]
+            for(let j = 0; j < 5; j++){
+                if(i !== j){
+                    if(itemToCompare.toUpperCase() === top5list.items[j].toUpperCase()){
+                        duplicate = true
+                    }
+                }
+            }
+        }
+        if(duplicate){
+            auth.setErrorMsg("You must create a list with no duplicate items!");
+            return
+        }
+
         top5list.isPublished = true;
+        top5list.created = new Date();
 
         try{
             let response = await api.updateTop5ListById(top5list._id, top5list)

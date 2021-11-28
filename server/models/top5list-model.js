@@ -11,6 +11,7 @@ const Top5ListSchema = new Schema(
         dislikes: {type: [String], required: true},
         comments: {type: [Object], required: true},
         isPublished: {type: Boolean, required: true},
+        created: {type: Date, required: true},
     },
     { timestamps: true },
 )
