@@ -85,11 +85,11 @@ export default function WorkToolbar(){
           open={isMenuOpen}
           onClose={handleSortMenuClose}
         >
-          <MenuItem onClick={handleSortMenuClose}>Publish Date (Newest)</MenuItem>
-          <MenuItem onClick={handleSortMenuClose}>Publish Date (Oldest)</MenuItem>
-          <MenuItem onClick={handleSortMenuClose}>Views</MenuItem>
-          <MenuItem onClick={handleSortMenuClose}>Likes</MenuItem>
-          <MenuItem onClick={handleSortMenuClose}>Dislikes</MenuItem>
+          <MenuItem style={{color: 'black'}} onClick={handleSortMenuClose}>Publish Date (Newest)</MenuItem>
+          <MenuItem style={{color: 'black'}} onClick={handleSortMenuClose}>Publish Date (Oldest)</MenuItem>
+          <MenuItem style={{color: 'black'}} onClick={handleSortMenuClose}>Views</MenuItem>
+          <MenuItem style={{color: 'black'}} onClick={handleSortMenuClose}>Likes</MenuItem>
+          <MenuItem style={{color: 'black'}} onClick={handleSortMenuClose}>Dislikes</MenuItem>
         </Menu>
         );
     
