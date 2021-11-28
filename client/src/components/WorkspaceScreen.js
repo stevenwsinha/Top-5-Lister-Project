@@ -1,6 +1,7 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import Top5Item from './Top5Item.js'
 import List from '@mui/material/List';
+import ErrorModal from './ErrorModal.js';
 import { Typography } from '@mui/material'
 import { GlobalStoreContext } from '../store/index.js'
 //import AuthContext from '../auth'
@@ -17,6 +18,7 @@ import { Button } from '@mui/material';
 */
 function WorkspaceScreen() {
     const { store } = useContext(GlobalStoreContext);
+    const [text, setText] = useState(store.listBeingEdited.name);
 
     function handleSave() {
         store.saveList();
@@ -24,6 +26,20 @@ function WorkspaceScreen() {
 
     function handlePublish() {
         store.publishList();
+    }
+
+    function handleKeyPress(event) {
+        if (event.code === "Enter") {
+            store.editListName(event.target.value);
+        }
+    }
+
+    function handleBlur(event) {
+        store.editListItem(event.target.value);
+    }
+
+    function handleUpdateText(event) {
+        setText(event.target.value);
     }
 
     const listToEdit = store.listBeingEdited;
@@ -34,6 +50,7 @@ function WorkspaceScreen() {
                     <Top5Item 
                         text={item}
                         index={index} 
+                        key={index}
                     />
                 ))
             }
@@ -41,12 +58,18 @@ function WorkspaceScreen() {
 
     return (
         <div id="edit-area">
+           <ErrorModal />
            <Grid container direction='column' spacing={0}>
                 <Grid item xs={1} sx={{p:0, m: 0}}>
                     <TextField 
                         variant="outlined" 
                         label='List Name' 
-                        size="small" />
+                        size="small" 
+                        onChange={handleUpdateText}
+                        onKeyPress={handleKeyPress}
+                        onBlur={handleBlur}
+                        defaultValue={store.listBeingEdited.name}
+                        />
                 </Grid>
 
                 <Grid item xs={10} sx={{p:2, m: 0,}}>

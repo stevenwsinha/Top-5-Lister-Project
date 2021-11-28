@@ -63,6 +63,7 @@ function Top5Item(props) {
     let itemClass = "top5-item";
     let itemElement = <ListItem
                             id={'item-' + (index)}
+                            key={index}
                             className={itemClass}
                             onClick={handleClick}
                             sx={{ display: 'flex', p: 1 }}

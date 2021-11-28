@@ -26,11 +26,6 @@ export default function ErrorModal() {
 
   function handleClose() {
     auth.setErrorMsg(null);
-
-    const path = history.location.pathname;
-    if(path.includes("top5list")){
-      history.push("/");
-    }
   }
 
   return (

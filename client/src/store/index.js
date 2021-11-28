@@ -106,7 +106,7 @@ function GlobalStoreContextProvider(props) {
                 })
             }
 
-            // CLEAR THE EDITED LIST
+            // PUBLISH THE EDITED LIST
             case GlobalStoreActionType.PUBLISH_LIST: {
                 return setStore({
                     loadedLists: payload,
@@ -301,6 +301,15 @@ function GlobalStoreContextProvider(props) {
         });
     }
 
+    store.editListName = async function (text) {
+        const top5list = store.listBeingEdited
+        top5list.name = text
+        storeReducer({
+            type: GlobalStoreActionType.SET_LIST_BEING_EDITED,
+            payload: top5list
+        });
+    }
+
     // save the list currently stored in listBeingEdited   
     store.saveList = async function () {
        // let top5list = store.listBeingEdited
@@ -316,9 +325,9 @@ function GlobalStoreContextProvider(props) {
         }
 
         let exists = false
-        for(let i; i < store.loadedLists.length; i++) {
+        for(let i = 0; i < store.loadedLists.length; i++) {
             let listName = store.loadedLists[i].name
-            if(top5list.name === listName){
+            if(top5list.name.toUpperCase() === listName.toUpperCase()){
                 exists = true;
             }
         }
