@@ -131,46 +131,54 @@ function GlobalStoreContextProvider(props) {
             // PREPARE TO DELETE A LIST
             case GlobalStoreActionType.MARK_LIST_FOR_DELETION: {
                 return setStore({
-                    idNamePairs: store.idNamePairs,
-                    currentList: null,
+                    loadedLists: store.loadedLists,
+                    openedLists: store.openedLists,
+                    sortType: store.openedLists,
+                    listBeingEdited: store.listBeingEdited,
+                    listMarkedForDeletion: payload,
                     newListCounter: store.newListCounter,
-                    isListNameEditActive: false,
-                    isItemEditActive: false,
-                    listMarkedForDeletion: payload
+                    listNameActive: store.listNameActive,
+                    itemActive: store.itemActive
                 });
             }
             // PREPARE TO DELETE A LIST
             case GlobalStoreActionType.UNMARK_LIST_FOR_DELETION: {
                 return setStore({
-                    idNamePairs: store.idNamePairs,
-                    currentList: null,
+                    loadedLists: store.loadedLists,
+                    openedLists: store.openedLists,
+                    sortType: store.openedLists,
+                    listBeingEdited: store.listBeingEdited,
+                    listMarkedForDeletion: null,
                     newListCounter: store.newListCounter,
-                    isListNameEditActive: false,
-                    isItemEditActive: false,
-                    listMarkedForDeletion: null
+                    listNameActive: store.listNameActive,
+                    itemActive: store.itemActive
                 });
             }
           
             // START EDITING A LIST ITEM
             case GlobalStoreActionType.SET_ITEM_EDIT_ACTIVE: {
                 return setStore({
-                    idNamePairs: store.idNamePairs,
-                    currentList: store.currentList,
+                    loadedLists: store.loadedLists,
+                    openedLists: store.openedLists,
+                    sortType: store.openedLists,
+                    listBeingEdited: store.listBeingEdited,
+                    listMarkedForDeletion: store.listMarkedForDeletion,
                     newListCounter: store.newListCounter,
-                    isListNameEditActive: false,
-                    isItemEditActive: true,
-                    listMarkedForDeletion: null
+                    listNameActive: store.listNameActive,
+                    itemActive: true
                 });
             }
             // START EDITING A LIST NAME
             case GlobalStoreActionType.SET_LIST_NAME_EDIT_ACTIVE: {
                 return setStore({
-                    idNamePairs: store.idNamePairs,
-                    currentList: payload,
+                    loadedLists: store.loadedLists,
+                    openedLists: store.openedLists,
+                    sortType: store.openedLists,
+                    listBeingEdited: store.listBeingEdited,
+                    listMarkedForDeletion: store.listMarkedForDeletion,
                     newListCounter: store.newListCounter,
-                    isListNameEditActive: true,
-                    isItemEditActive: false,
-                    listMarkedForDeletion: null
+                    listNameActive: true,
+                    itemActive: true
                 });
             }
             default:
@@ -204,9 +212,12 @@ function GlobalStoreContextProvider(props) {
             );
 
             // IF IT'S A VALID LIST THEN LET'S START EDITING ITx
-            let newList_id = response.data.top5list._id
-            // store.editList(response.data.top5list._id);
-            history.push("home/top5list/" + newList_id);
+            let newList = response.data.top5List
+            storeReducer({
+                type: GlobalStoreActionType.SET_LIST_BEING_EDITED,
+                payload: newList
+            });
+            history.push("home/top5list/" + newList._id);
         }
         else {
             console.log("API FAILED TO CREATE A NEW LIST");
@@ -217,9 +228,9 @@ function GlobalStoreContextProvider(props) {
     store.loadLoggedInLists = async function () {
         const response = await api.getLoggedInTop5Lists();
         if (response.data.success) {
-            let top5lists = response.data.top5lists;
+            let top5lists = response.data.top5Lists;
             storeReducer({
-                type: GlobalStoreActionType.LOAD_ID_NAME_PAIRS,
+                type: GlobalStoreActionType.SET_LOADED_LISTS,
                 payload: top5lists
             });
         }
@@ -234,7 +245,7 @@ function GlobalStoreContextProvider(props) {
         if(response.data.success) {
             let top5lists = response.data.top5lists;
             storeReducer({
-                type: GlobalStoreActionType.LOAD_ID_NAME_PAIRS,
+                type: GlobalStoreActionType.SET_LOADED_LISTS,
                 payload: top5lists
             });
         }
@@ -249,7 +260,7 @@ function GlobalStoreContextProvider(props) {
         if(response.data.success){
             let top5lists = response.data.top5lists;
             storeReducer({
-                type: GlobalStoreActionType.LOAD_ID_NAME_PAIRS,
+                type: GlobalStoreActionType.SET_LOADED_LISTS,
                 payload: top5lists
             });
         }
@@ -258,6 +269,15 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
+    store.editList = async function (id) {
+        const response = await api.getTop5ListById(id)
+        if(response.data.success) {
+            let top5list = response.data.top5list
+        }
+        else{
+            console.log("API FAILED TO GET LIST BY ID")
+        }
+    }
 
     // THE FOLLOWING 5 FUNCTIONS ARE FOR COORDINATING THE DELETION
     // OF A LIST, WHICH INCLUDES USING A VERIFICATION MODAL. THE

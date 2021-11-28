@@ -1,15 +1,18 @@
 import { useContext } from 'react'
-//import { GlobalStoreContext } from '../store
-import { HomeScreen, WorkspaceScreen, Statusbar, WorkToolbar, ListViewer } from '.';
+import { useEffect } from 'react';
+import { GlobalStoreContext } from '../store'
+import { WorkspaceScreen, Statusbar, WorkToolbar, ListViewer } from '.';
 
 
 export default function WorkContainer() {
-    //const { store } = useContext(GlobalStoreContext);
+    const { store } = useContext(GlobalStoreContext);
+
+    // useEffect()
 
     let workspace = <ListViewer/>;
-    //if(store.editingList){
-      //  workspace = <WorkspaceScreen/>
-    //}
+    if(store.listBeingEdited){
+        workspace = <WorkspaceScreen/>
+    }
 
     return (
         <div id='work-container'>

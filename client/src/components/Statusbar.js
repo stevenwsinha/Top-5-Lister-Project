@@ -13,7 +13,7 @@ function Statusbar() {
     const { store } = useContext(GlobalStoreContext);
 
     function handleCreateNewList() {
-        store;
+        store.createNewList();
     }
     
     let add = "";
