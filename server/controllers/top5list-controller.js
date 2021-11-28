@@ -45,12 +45,12 @@ createTop5List = (req, res) => {
  */
 updateTop5List = async (req, res) => {
     const user_id = req.userId;
-    let user_email = "";
+    let username = "";
     await User.findById({_id: user_id}, (err, user) => {
         if(err) {
             return res.status(400).json({success:false, error:err});
         }
-        user_email = user.email;
+        username = user.username;
     })
 
     const body = req.body;
@@ -70,7 +70,7 @@ updateTop5List = async (req, res) => {
                 message: 'Top 5 List not found!',
             })
         }
-        if(user_email !== top5List.owner){
+        if(username !== top5List.owner){
             return res.status(403).json({success: false, error: "You are not authorized to edit this list." });
         }
 
@@ -105,12 +105,12 @@ updateTop5List = async (req, res) => {
 // DELETE THE LIST WITH ID GIVEN IN REQUEST BODY
 deleteTop5List = async (req, res) => {
     const user_id = req.userId;
-    let user_email = "";
+    let username = "";
     await User.findById({_id: user_id}, (err, user) => {
         if(err) {
             return res.status(400).json({success:false, error:err});
         }
-        user_email = user.email;
+        username = user.username;
     })
 
     Top5List.findById({ _id: req.params.id }, (err, top5List) => {
@@ -121,7 +121,7 @@ deleteTop5List = async (req, res) => {
             })
         }
 
-        if(user_email !== top5List.owner){
+        if(username !== top5List.owner){
             return res.status(403).json({success: false, error: "You are not authorized to delete this list."});
         }
 
@@ -139,14 +139,14 @@ getTop5ListById = async (req, res) => {
         if(err) {
             return res.status(401).json({success:false, error:err});
         }
-        user_email = user.email;
+        username = user.username;
     })
     
     await Top5List.findById({ _id: req.params.id }, (err, list) => {
         if (err) {
             return res.status(404).json({ success: false, error: err });
         }
-        if(user_email !== list.owner){
+        if(username !== list.owner){
             return res.status(403).json({success: false, error: "You are not authorized to edit this list." });
         }
         return res.status(200).json({ success: true, top5List: list })
@@ -161,15 +161,15 @@ getTop5ListById = async (req, res) => {
 //  GET ALL THE LISTS OWNED BY USER WITH THE ID PASSED IN THROUGH THE COOKIE
 getTop5Lists = async (req, res) => {
     const user_id = req.userId;
-    let user_email = "";
+    let username = "";
     await User.findById({_id: user_id}, (err, user) => {
         if(err) {
             return res.status(400).json({success:false, error:err});
         }
-        user_email = user.email;
+        username = user.username;
     })
 
-    await Top5List.find({owner: user_email}, (err, top5Lists) => {
+    await Top5List.find({owner: username}, (err, top5Lists) => {
         if (err) {
             return res.status(400).json({ success: false, error: err })
         }
@@ -180,20 +180,13 @@ getTop5Lists = async (req, res) => {
 //  GET ALL TOP5LISTS OWNED BY USER WITH USERNAME PASSED IN THROUGH GET QUERY PARAMS
 //  GET EVERY TOP5LIST FROM USER WITH USERNAME PASSED IN THROUGH GET QUERY PARAMS
 getTop5ListsByUsername = async (req, res) => {
-    let username = req.params.username;
-    let user_email = "";
-    await User.find({username: username}, (err, user) =>{
-        if(err) {
-            return res.status(400).json({success:false, error:err});
-        }
-        user_email = user.email;
-    })
+    let requestedUsername = req.params.username;
 
-    await Top5List.find({owner: user_email}, (err, top5Lists) => {
+    await Top5List.find({owner: requestedUsername}, (err, top5Lists) => {
         if (err) {
             return res.status(400).json({ success: false, error: err })
         }
-        return res.status(200).json({ success: true, data: top5Lists })
+        return res.status(200).json({ success: true, top5Lists: top5Lists })
     }).catch(err => console.log(err))
 }
 
@@ -203,7 +196,7 @@ getAllTop5Lists = async (req, res) => {
         if (err) {
             return res.status(400).json({ success: false, error: err })
         }
-        return res.status(200).json({ success: true, data: top5Lists })
+        return res.status(200).json({ success: true, top5Lists: top5Lists })
     }).catch(err => console.log(err))
 }
 
