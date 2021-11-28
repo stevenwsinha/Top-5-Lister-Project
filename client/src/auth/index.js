@@ -127,7 +127,7 @@ function AuthContextProvider(props) {
                     }
                 })
                 history.push("/home");
-                store.loadIdNamePairs();
+                store.loadLoggedInLists();
             }
         }
         catch(err){

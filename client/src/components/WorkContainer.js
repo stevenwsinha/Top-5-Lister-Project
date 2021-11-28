@@ -6,7 +6,7 @@ import { HomeScreen, WorkspaceScreen, Statusbar, WorkToolbar, ListViewer } from 
 export default function WorkContainer() {
     //const { store } = useContext(GlobalStoreContext);
 
-    let workspace = <WorkspaceScreen/>;
+    let workspace = <ListViewer/>;
     //if(store.editingList){
       //  workspace = <WorkspaceScreen/>
     //}

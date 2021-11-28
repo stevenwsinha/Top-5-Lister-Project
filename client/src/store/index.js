@@ -31,7 +31,16 @@ export const GlobalStoreActionType = {
 function GlobalStoreContextProvider(props) {
     // THESE ARE ALL THE THINGS OUR DATA STORE WILL MANAGE
     const [store, setStore] = useState({
-        loadedLists: [],
+        loadedLists: [{
+            name: "Games",
+            items: ["Mario", "Zelda", "Epic", "LoL", "Ten"],
+            owner: "me",
+            views: 10,
+            likes: ["me", "john", "cindy"],
+            dislikes: ["john", "cindy"],
+            comments: [],
+            isPublished: true
+        }],
         openedLists: [],
         sortType: null,
         listBeingEdited: null,
@@ -197,7 +206,7 @@ function GlobalStoreContextProvider(props) {
             // IF IT'S A VALID LIST THEN LET'S START EDITING ITx
             let newList_id = response.data.top5list._id
             // store.editList(response.data.top5list._id);
-            history.push("/top5list/" + newList_id);
+            history.push("home/top5list/" + newList_id);
         }
         else {
             console.log("API FAILED TO CREATE A NEW LIST");

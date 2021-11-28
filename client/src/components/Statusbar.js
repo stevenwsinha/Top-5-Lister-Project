@@ -11,15 +11,14 @@ import AddIcon from '@mui/icons-material/Add';
 */
 function Statusbar() {
     const { store } = useContext(GlobalStoreContext);
-    const history = useHistory();
 
     function handleCreateNewList() {
-        return 0;
+        store;
     }
     
     let add = "";
     let text ="";
-    if(history.location.pathname.includes("home")){
+    if(store.sortType===null){
         add = (
             <Fab 
                 color="secondary" 
@@ -33,8 +32,9 @@ function Statusbar() {
         text = "Your Lists"
     }
 
-    if (store.currentList)
-        text = store.currentList.name;
+    if(store.sortType === 'user'){
+        // do something
+    }
     return (
         <div id="top5-statusbar">
             {add}

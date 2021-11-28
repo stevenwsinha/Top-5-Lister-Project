@@ -16,6 +16,7 @@ export default function WelcomeScreen() {
 
     // SEND A USER TO HOME SCREEN LOGGED IN AS GUEST
     function handleGuest(){
+        // store.loadCommunity();
         history.push("/home")
     }
 
