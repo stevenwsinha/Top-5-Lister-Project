@@ -269,7 +269,8 @@ function GlobalStoreContextProvider(props) {
     store.editList = async function (id) {
         const response = await api.getTop5ListById(id)
         if(response.data.success) {
-            let top5list = response.data.top5list
+            //let top5list = response.data.top5list
+            return 0;
         }
         else{
             console.log("API FAILED TO GET LIST BY ID")
@@ -287,8 +288,8 @@ function GlobalStoreContextProvider(props) {
 
     // save the list currently stored in listBeingEdited   
     store.saveList = async function () {
-        let top5list = store.listBeingEdited
-
+       // let top5list = store.listBeingEdited
+        return 0;
     }
 
     store.publishList = async function () {
