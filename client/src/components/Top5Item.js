@@ -42,12 +42,19 @@ function Top5Item(props) {
     function handleKeyPress(event) {
         if (event.code === "Enter") {
             let index = event.target.id
-            index = index.substring("item-")
-            console.log(index.substring("item"))
+            index = index.substring(5)
             store.editListItem(index, text);
             toggleEdit();
         }
     }
+
+    function handleBlur(event) {
+        let index = event.target.id
+        index = index.substring(5)
+        store.editListItem(index, text);
+        toggleEdit();
+    }
+
     function handleUpdateText(event) {
         setText(event.target.value);
     }
@@ -56,7 +63,6 @@ function Top5Item(props) {
     let itemClass = "top5-item";
     let itemElement = <ListItem
                             id={'item-' + (index)}
-                            key={props.key}
                             className={itemClass}
                             onClick={handleClick}
                             sx={{ display: 'flex', p: 1 }}
@@ -74,15 +80,15 @@ function Top5Item(props) {
                             required
                             fullWidth
                             id={"item-" + index}
-                            label="Top 5 List Item"
                             name="name"
                             autoComplete="Top 5 List Item"
                             className='top5-item'
                             onChange={handleUpdateText}
                             onKeyPress={handleKeyPress}
+                            onBlur={handleBlur}
                             defaultValue={store.listBeingEdited.items[index]}
-                            inputProps={{style: {fontSize: 48}}}
-                            InputLabelProps={{style: {fontSize: 24}}}
+                            inputProps={{style: {fontSize: 36, maxHeight:60, color:'black', margin: 0, }}}
+                            InputLabelProps={{style: {fontSize: 36, maxHeight:60}}}
                             autoFocus
                         />
     }

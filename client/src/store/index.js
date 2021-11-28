@@ -23,7 +23,8 @@ export const GlobalStoreActionType = {
     MARK_LIST_FOR_DELETION: "MARK_LIST_FOR_DELETION",
     UNMARK_LIST_FOR_DELETION: "UNMARK_LIST_FOR_DELETION",
     SET_ITEM_EDIT_ACTIVE: "SET_ITEM_EDIT_ACTIVE",
-    SET_LIST_NAME_EDIT_ACTIVE: "SET_LIST_NAME_EDIT_ACTIVE"
+    SET_LIST_NAME_EDIT_ACTIVE: "SET_LIST_NAME_EDIT_ACTIVE",
+    PUBLISH_LIST: "PUBLISH_LIST"
 }
 
 // WITH THIS WE'RE MAKING OUR GLOBAL DATA STORE
@@ -96,8 +97,22 @@ function GlobalStoreContextProvider(props) {
                 return setStore({
                     loadedLists: store.loadedLists,
                     openedLists: store.openedLists,
-                    sortType: store.openedLists,
+                    sortType: store.sortType,
                     listBeingEdited: payload,
+                    listMarkedForDeletion: store.listMarkedForDeletion,
+                    newListCounter: store.newListCounter,
+                    listNameActive: store.listNameActive,
+                    itemActive: store.itemActive
+                })
+            }
+
+            // CLEAR THE EDITED LIST
+            case GlobalStoreActionType.PUBLISH_LIST: {
+                return setStore({
+                    loadedLists: payload,
+                    openedLists: store.openedLists,
+                    sortType: store.sortType,
+                    listBeingEdited: null,
                     listMarkedForDeletion: store.listMarkedForDeletion,
                     newListCounter: store.newListCounter,
                     listNameActive: store.listNameActive,
@@ -110,7 +125,7 @@ function GlobalStoreContextProvider(props) {
                 return setStore({
                     loadedLists: store.loadedLists,
                     openedLists: store.openedLists,
-                    sortType: store.openedLists,
+                    sortType: store.sortType,
                     listBeingEdited: payload,
                     listMarkedForDeletion: store.listMarkedForDeletion,
                     newListCounter: store.newListCounter + 1,
@@ -124,7 +139,7 @@ function GlobalStoreContextProvider(props) {
                 return setStore({
                     loadedLists: store.loadedLists,
                     openedLists: store.openedLists,
-                    sortType: store.openedLists,
+                    sortType: store.sortType,
                     listBeingEdited: store.listBeingEdited,
                     listMarkedForDeletion: payload,
                     newListCounter: store.newListCounter,
@@ -137,7 +152,7 @@ function GlobalStoreContextProvider(props) {
                 return setStore({
                     loadedLists: store.loadedLists,
                     openedLists: store.openedLists,
-                    sortType: store.openedLists,
+                    sortType: store.sortType,
                     listBeingEdited: store.listBeingEdited,
                     listMarkedForDeletion: null,
                     newListCounter: store.newListCounter,
@@ -151,7 +166,7 @@ function GlobalStoreContextProvider(props) {
                 return setStore({
                     loadedLists: store.loadedLists,
                     openedLists: store.openedLists,
-                    sortType: store.openedLists,
+                    sortType: store.sortType,
                     listBeingEdited: store.listBeingEdited,
                     listMarkedForDeletion: store.listMarkedForDeletion,
                     newListCounter: store.newListCounter,
@@ -164,7 +179,7 @@ function GlobalStoreContextProvider(props) {
                 return setStore({
                     loadedLists: store.loadedLists,
                     openedLists: store.openedLists,
-                    sortType: store.openedLists,
+                    sortType: store.sortType,
                     listBeingEdited: store.listBeingEdited,
                     listMarkedForDeletion: store.listMarkedForDeletion,
                     newListCounter: store.newListCounter,
@@ -318,11 +333,13 @@ function GlobalStoreContextProvider(props) {
         try{
             let response = await api.updateTop5ListById(top5list._id, top5list)
             if(response.data.success) {
-                store.loadLoggedInLists();
+                let loadedLists = store.loadedLists
+                loadedLists.push(top5list)
                 storeReducer({
-                    type: GlobalStoreActionType.SET_LIST_BEING_EDITED,
-                    payload: null
+                    type: GlobalStoreActionType.PUBLISH_LIST,
+                    payload: loadedLists
                 });
+                history.push('/home')
             }
         }
         catch(err){
