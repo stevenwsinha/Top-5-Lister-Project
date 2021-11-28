@@ -18,13 +18,11 @@ import { Button } from '@mui/material';
 */
 function WorkspaceScreen() {
     const { store } = useContext(GlobalStoreContext);
-    const history = useHistory();
-    const { auth } = useContext(AuthContext);
 
     // check that there is a list to edit in use effect (redirecting if not )
     // useEffect
     
-    const listToEdit = store.loadedLists[0];
+    const listToEdit = store.listBeingEdited;
     let  editItems = 
         <List id="edit-items" sx={{ width: '100%',}}>
             {

@@ -114,13 +114,13 @@ function GlobalStoreContextProvider(props) {
                 })
             }
 
-            // CREATE A NEW LIST
+            // CREATE A NEW LIST AND START EDITING IT
             case GlobalStoreActionType.CREATE_NEW_LIST: {
                 return setStore({
                     loadedLists: store.loadedLists,
                     openedLists: store.openedLists,
                     sortType: store.openedLists,
-                    listBeingEdited: store.listBeingEdited,
+                    listBeingEdited: payload,
                     listMarkedForDeletion: store.listMarkedForDeletion,
                     newListCounter: store.newListCounter + 1,
                     listNameActive: store.listNameActive,
@@ -207,16 +207,12 @@ function GlobalStoreContextProvider(props) {
         if (response.data.success) {
             storeReducer({
                 type: GlobalStoreActionType.CREATE_NEW_LIST,
-                payload: null
+                payload: response.data.top5List
             }
             );
 
             // IF IT'S A VALID LIST THEN LET'S START EDITING ITx
             let newList = response.data.top5List
-            storeReducer({
-                type: GlobalStoreActionType.SET_LIST_BEING_EDITED,
-                payload: newList
-            });
             history.push("home/top5list/" + newList._id);
         }
         else {
