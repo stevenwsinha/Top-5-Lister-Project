@@ -20,10 +20,12 @@ function WorkspaceScreen() {
     const [text, setText] = useState(store.listBeingEdited.name);
 
     function handleSave() {
+        store.editListName(text);
         store.saveList();
     }
 
     function handlePublish() {
+        store.editListName(text);
         store.publishList();
     }
 

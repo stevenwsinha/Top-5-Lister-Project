@@ -21,7 +21,7 @@ import Grid from '@mui/material/Grid';
 */
 function ListCard(props) {
     const { store } = useContext(GlobalStoreContext);
-    const { list, index, key } = props;
+    const { list, index } = props;
 
     async function handleDeleteList(event, id) {
         event.stopPropagation();
@@ -29,7 +29,6 @@ function ListCard(props) {
     }
 
     function handleEditList(event) {
-        console.log(index)
         store.editList(index)
     }
 
@@ -44,7 +43,7 @@ function ListCard(props) {
     <ListItem
     id={'list-item-' + index}
     className={listClass}
-    key={key}
+    key={index}
     sx={{ marginTop: '0px', marginBottom: '10px', display: 'flex', p: 1}}
     style={{
         fontSize: '12pt',

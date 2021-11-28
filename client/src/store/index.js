@@ -23,7 +23,7 @@ export const GlobalStoreActionType = {
     MARK_LIST_FOR_DELETION: "MARK_LIST_FOR_DELETION",
     UNMARK_LIST_FOR_DELETION: "UNMARK_LIST_FOR_DELETION",
     SET_ITEM_EDIT_ACTIVE: "SET_ITEM_EDIT_ACTIVE",
-    LOAD_LIST_BEING_EDITED: "LOAD_LIST_BEING_EDITED",
+    LOAD_LIST_TO_EDITED: "LOAD_LIST_TO_EDITED",
     SET_LIST_NAME_EDIT_ACTIVE: "SET_LIST_NAME_EDIT_ACTIVE",
     PUBLISH_LIST: "PUBLISH_LIST",
     SAVE_LIST: "SAVE_LIST"
@@ -95,7 +95,7 @@ function GlobalStoreContextProvider(props) {
                 })
             }
             // LOAD_LIST_BEING_EDITED
-            case GlobalStoreActionType.LOAD_LIST_BEING_EDITED: {
+            case GlobalStoreActionType.LOAD_LIST_TO_EDITED: {
                 return setStore({
                     loadedLists: payload.loadedLists,
                     openedLists: store.openedLists,
@@ -313,10 +313,13 @@ function GlobalStoreContextProvider(props) {
     // load a list to edit based on a list id
     store.editList = function (index) {
         let top5listToEdit = store.loadedLists[index];
-        // fix this
-        let newLoadedLists = store.loadedLists.splice(index, 1)
+        
+        // FIX THIS v (ALSO CHECK THAT UNSHIFT IN SAVE/PUBLISH FUNCTIONS ISN'T THE ISSUE)
+
+        let newLoadedLists = store.loadedLists
+        newLoadedLists.splice(index, 1)
         storeReducer({
-            type: GlobalStoreActionType.LOAD_LIST_BEING_EDITED,
+            type: GlobalStoreActionType.LOAD_LIST_TO_EDITED,
             payload: {
                 list: top5listToEdit,
                 loadedLists: newLoadedLists
