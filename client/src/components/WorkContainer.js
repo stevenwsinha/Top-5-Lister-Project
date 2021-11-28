@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom'
 import { GlobalStoreContext } from '../store'
-import { WorkspaceScreen, Statusbar, WorkToolbar, ListViewer } from '.';
+import { WorkspaceScreen, Statusbar, WorkToolbar, ListViewer, DeleteModal } from '.';
 import AuthContext from '../auth'
 
 export default function WorkContainer() {
@@ -22,6 +22,7 @@ export default function WorkContainer() {
 
     return (
         <div id='work-container'>
+            <DeleteModal/>
             <WorkToolbar/>
             <div id='workspace'>
                 {workspace}

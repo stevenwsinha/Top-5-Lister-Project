@@ -32,7 +32,7 @@ function ListCard(props) {
         store.markListForDeletion(id);
     }
 
-    function handleEditList(event) {
+    function handleEditList() {
         store.editList(index)
     }
 
@@ -74,7 +74,7 @@ function ListCard(props) {
     let publishComponent = <Button variant="text" sx={{fontSize: '10pt', p:0}} style={{color: '#C70039'}} onClick={handleEditList}>Edit</Button>
     if(list.isPublished) {
         listClass = 'list-card'
-        publishComponent = <Typography sx={{fontSize: '10pt'}} style={{color: '#086108'}}> Published: {list.created.toString().substring(4, 15)} </Typography>
+        publishComponent = <Typography sx={{fontSize: '10pt'}} style={{color: '#086108'}}> Published: {list.created.toString()} </Typography>
     }
 
     let likeButton =    <IconButton
@@ -115,6 +115,18 @@ function ListCard(props) {
                         >
                             <ThumbDownIcon />
                         </IconButton>;
+    }
+
+    let deleteButton = ""
+    if(list.owner === auth.user.username){
+        deleteButton = <IconButton
+                        size="medium"
+                        color="inherit"
+                        aria-label="open drawer"
+                        onClick={handleDeleteList}
+                        >
+                            <DeleteOutlinedIcon />
+                        </IconButton>
     }
 
     return (
@@ -165,14 +177,7 @@ function ListCard(props) {
                     {list.dislikes.length}
                 </Grid>
                 <Grid item xs={4} sx={{height: 50, display: 'flex', justifyContent: 'flex-end', }}>
-                    <IconButton
-                        size="medium"
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={handleDeleteList}
-                    >
-                        <DeleteOutlinedIcon />
-                    </IconButton>
+                    {deleteButton}
                 </Grid>
             </Grid>
             </Box> 
