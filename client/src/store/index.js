@@ -24,7 +24,8 @@ export const GlobalStoreActionType = {
     UNMARK_LIST_FOR_DELETION: "UNMARK_LIST_FOR_DELETION",
     SET_ITEM_EDIT_ACTIVE: "SET_ITEM_EDIT_ACTIVE",
     SET_LIST_NAME_EDIT_ACTIVE: "SET_LIST_NAME_EDIT_ACTIVE",
-    PUBLISH_LIST: "PUBLISH_LIST"
+    PUBLISH_LIST: "PUBLISH_LIST",
+    SAVE_LIST: "SAVE_LIST"
 }
 
 // WITH THIS WE'RE MAKING OUR GLOBAL DATA STORE
@@ -108,6 +109,20 @@ function GlobalStoreContextProvider(props) {
 
             // PUBLISH THE EDITED LIST
             case GlobalStoreActionType.PUBLISH_LIST: {
+                return setStore({
+                    loadedLists: payload,
+                    openedLists: store.openedLists,
+                    sortType: store.sortType,
+                    listBeingEdited: null,
+                    listMarkedForDeletion: store.listMarkedForDeletion,
+                    newListCounter: store.newListCounter,
+                    listNameActive: store.listNameActive,
+                    itemActive: store.itemActive
+                })
+            }
+
+            // SAVE A LIST BUT DO NOT PUBLISH (DOES THE SAME THING AS PUBLISHING, BUT LIST IS NOT EDITED IN FUNC)
+            case GlobalStoreActionType.SAVE_LIST: {
                 return setStore({
                     loadedLists: payload,
                     openedLists: store.openedLists,
@@ -312,8 +327,22 @@ function GlobalStoreContextProvider(props) {
 
     // save the list currently stored in listBeingEdited   
     store.saveList = async function () {
-       // let top5list = store.listBeingEdited
-        return 0;
+        let top5list = store.listBeingEdited
+        try{
+            let response = await api.updateTop5ListById(top5list._id, top5list)
+            if(response.data.success) {
+                let loadedLists = store.loadedLists
+                loadedLists.push(top5list)
+                storeReducer({
+                    type: GlobalStoreActionType.SAVE_LIST,
+                    payload: loadedLists
+                });
+                history.push('/home')
+            }
+        }
+        catch(err){
+            console.log(err);
+        }
     }
 
     store.publishList = async function () {
