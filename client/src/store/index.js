@@ -62,9 +62,9 @@ function GlobalStoreContextProvider(props) {
             // SET OUR LOADED LISTS TO A NEW ARRAY OF OBJECTS
             case GlobalStoreActionType.SET_LOADED_LISTS: {
                 return setStore({
-                    loadedLists: payload,
+                    loadedLists: payload.lists,
                     openedLists: [],
-                    sortType: store.sortType,
+                    sortType: payload.type,
                     listBeingEdited: store.listBeingEdited,
                     listMarkedForDeletion: store.listMarkedForDeletion,
                     newListCounter: store.newListCounter,
@@ -227,7 +227,10 @@ function GlobalStoreContextProvider(props) {
             let top5lists = response.data.top5Lists;
             storeReducer({
                 type: GlobalStoreActionType.SET_LOADED_LISTS,
-                payload: top5lists
+                payload: {
+                    lists: top5lists,
+                    type: 'home'
+                }
             });
         }
         else {
@@ -242,7 +245,10 @@ function GlobalStoreContextProvider(props) {
             let top5lists = response.data.top5lists;
             storeReducer({
                 type: GlobalStoreActionType.SET_LOADED_LISTS,
-                payload: top5lists
+                payload: {
+                    lists: top5lists,
+                    type: 'username'
+                }
             });
         }
         else {
@@ -257,7 +263,10 @@ function GlobalStoreContextProvider(props) {
             let top5lists = response.data.top5lists;
             storeReducer({
                 type: GlobalStoreActionType.SET_LOADED_LISTS,
-                payload: top5lists
+                payload: {
+                    lists: top5lists,
+                    type: 'all'
+                }
             });
         }
         else {
@@ -265,6 +274,7 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
+    // load a list to edit based on a list id
     store.editList = async function (id) {
         const response = await api.getTop5ListById(id)
         if(response.data.success) {
@@ -272,6 +282,49 @@ function GlobalStoreContextProvider(props) {
         }
         else{
             console.log("API FAILED TO GET LIST BY ID")
+        }
+    }
+
+    // save the list currently stored in listBeingEdited   
+    store.saveList = async function () {
+        let top5list = store.listBeingEdited
+
+    }
+
+    store.publishList = async function () {
+        let top5list = store.listBeingEdited
+        // compare this list's name with all other lists by this user
+        // should already have all lists by this user loaded, but if not, load them
+        if(store.filterType !== 'home'){
+            store.loadLoggedInLists()
+        }
+
+        let exists = false
+        for(let i; i < store.loadedLists.length; i++) {
+            let listName = store.loadedLists[i].name
+            if(top5list.name === listName){
+                exists = true;
+            }
+        }
+
+        if(exists){
+            auth.setErrorMsg("You must create a list with a unique name!");
+            return
+        }
+
+        top5list.isPublished = true;
+        try{
+            let response = await api.updateTop5ListById(top5list._id, top5list)
+            if(response.data.success) {
+                store.loadLoggedInLists();
+                storeReducer({
+                    type: GlobalStoreActionType.SET_LIST_BEING_EDITED,
+                    payload: null
+                });
+            }
+        }
+        catch(err){
+            console.log(err);
         }
     }
 

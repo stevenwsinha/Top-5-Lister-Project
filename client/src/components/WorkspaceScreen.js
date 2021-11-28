@@ -19,16 +19,20 @@ import { Button } from '@mui/material';
 function WorkspaceScreen() {
     const { store } = useContext(GlobalStoreContext);
 
-    // check that there is a list to edit in use effect (redirecting if not )
-    // useEffect
-    
+    function handleSave() {
+        store.saveList();
+    }
+
+    function handlePublish() {
+        store.publishList();
+    }
+
     const listToEdit = store.listBeingEdited;
     let  editItems = 
         <List id="edit-items" sx={{ width: '100%',}}>
             {
                 listToEdit.items.map((item, index) => (
                     <Top5Item 
-                        key={'top5-item-' + (index+1)}
                         text={item}
                         index={index} 
                     />
@@ -63,8 +67,8 @@ function WorkspaceScreen() {
 
                 <Grid item xs={1} sx={{p:0, m: 0, display: 'flex', justifyContent: 'flex-end'}}>
                    <Box> 
-                       <Button variant="text" sx={{fontSize: '12pt', p:1, marginLeft: 1}} style={{background: '#001e64', color: 'white'}}>Save</Button>  
-                       <Button variant="text" sx={{fontSize: '12pt', p:1, marginLeft: 1}} style={{background: '#001e64', color: 'white'}}>Publish</Button>       
+                       <Button variant="text" sx={{fontSize: '12pt', p:1, marginLeft: 1}} style={{background: '#001e64', color: 'white'}} onClick={handleSave}>Save</Button>  
+                       <Button variant="text" sx={{fontSize: '12pt', p:1, marginLeft: 1}} style={{background: '#001e64', color: 'white'}} onClick={handlePublish}>Publish</Button>       
                    </Box>
                 </Grid>
            </Grid>

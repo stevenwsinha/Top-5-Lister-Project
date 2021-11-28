@@ -10,6 +10,8 @@ export default function WorkContainer() {
     
     useEffect(() => {
         auth.getLoggedIn();
+
+        // we need to reload lists based on path in history
     }, []);
 
     let workspace = <ListViewer/>;

@@ -18,7 +18,7 @@ function Statusbar() {
     
     let add = "";
     let text ="";
-    if(store.sortType===null){
+    if(store.sortType==='home'){
         add = (
             <Fab 
                 color="secondary" 
