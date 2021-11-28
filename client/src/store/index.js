@@ -196,10 +196,10 @@ function GlobalStoreContextProvider(props) {
         let payload = {
             name: newListName,
             items: ["?", "?", "?", "?", "?"],
-            owner: auth.user.email,
+            owner: auth.user.username,
             views: 0,
-            likes: 0,
-            dislikes: 0,
+            likes: [],
+            dislikes: [],
             comments: [],
             isPublished: false,
         };

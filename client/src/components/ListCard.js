@@ -49,7 +49,7 @@ function ListCard(props) {
     id={list._id}
     className={listClass}
     key={list._id}
-    sx={{ marginTop: '0px', display: 'flex', p: 1}}
+    sx={{ marginTop: '0px', marginBottom: '10px', display: 'flex', p: 1}}
     style={{
         fontSize: '12pt',
         minHeight: 90,
