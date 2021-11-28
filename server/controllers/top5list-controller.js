@@ -137,14 +137,14 @@ getTop5ListById = async (req, res) => {
     let user_email = "";
     await User.findById({_id: user_id}, (err, user) => {
         if(err) {
-            return res.status(400).json({success:false, error:err});
+            return res.status(401).json({success:false, error:err});
         }
         user_email = user.email;
     })
     
     await Top5List.findById({ _id: req.params.id }, (err, list) => {
         if (err) {
-            return res.status(400).json({ success: false, error: err });
+            return res.status(404).json({ success: false, error: err });
         }
         if(user_email !== list.owner){
             return res.status(403).json({success: false, error: "You are not authorized to edit this list." });
@@ -173,7 +173,7 @@ getTop5Lists = async (req, res) => {
         if (err) {
             return res.status(400).json({ success: false, error: err })
         }
-        return res.status(200).json({ success: true, data: top5Lists })
+        return res.status(200).json({ success: true, top5Lists: top5Lists })
     }).catch(err => console.log(err))
 }
 
