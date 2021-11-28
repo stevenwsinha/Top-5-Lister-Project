@@ -21,15 +21,20 @@ import Grid from '@mui/material/Grid';
 */
 function ListCard(props) {
     const { store } = useContext(GlobalStoreContext);
-    const { list } = props;
+    const { list, index, key } = props;
 
     async function handleDeleteList(event, id) {
         event.stopPropagation();
         store.markListForDeletion(id);
     }
 
+    function handleEditList(event) {
+        console.log(index)
+        store.editList(index)
+    }
+
     let listClass = 'draft-card';
-    let publishComponent = <Button variant="text" sx={{fontSize: '10pt', p:0}} style={{color: '#C70039'}}>Edit</Button>
+    let publishComponent = <Button variant="text" sx={{fontSize: '10pt', p:0}} style={{color: '#C70039'}} onClick={handleEditList}>Edit</Button>
     if(list.isPublished) {
         listClass = 'list-card'
         publishComponent = <Typography sx={{fontSize: '10pt'}} style={{color: '#086108'}}> Published: {list.timestamp} </Typography>
@@ -37,9 +42,9 @@ function ListCard(props) {
 
     return (
     <ListItem
-    id={list._id}
+    id={'list-item-' + index}
     className={listClass}
-    key={list._id}
+    key={key}
     sx={{ marginTop: '0px', marginBottom: '10px', display: 'flex', p: 1}}
     style={{
         fontSize: '12pt',

@@ -13,6 +13,7 @@ export default function ListViewer() {
                 store.loadedLists.map((list, index) => (
                     <ListCard
                         list={list}
+                        index={index}
                         key={index}
                     />
                 ))

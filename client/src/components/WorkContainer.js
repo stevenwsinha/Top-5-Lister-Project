@@ -1,5 +1,6 @@
 import { useContext } from 'react'
 import { useEffect } from 'react';
+import { useHistory } from 'react-router-dom'
 import { GlobalStoreContext } from '../store'
 import { WorkspaceScreen, Statusbar, WorkToolbar, ListViewer } from '.';
 import AuthContext from '../auth'
@@ -7,11 +8,11 @@ import AuthContext from '../auth'
 export default function WorkContainer() {
     const { store } = useContext(GlobalStoreContext);
     const { auth } = useContext(AuthContext);
-    
+    const history = useHistory();
+
     useEffect(() => {
         auth.getLoggedIn();
-
-        // we need to reload lists based on path in history
+        
     }, []);
 
     let workspace = <ListViewer/>;

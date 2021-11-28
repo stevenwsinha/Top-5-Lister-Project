@@ -23,6 +23,7 @@ export const GlobalStoreActionType = {
     MARK_LIST_FOR_DELETION: "MARK_LIST_FOR_DELETION",
     UNMARK_LIST_FOR_DELETION: "UNMARK_LIST_FOR_DELETION",
     SET_ITEM_EDIT_ACTIVE: "SET_ITEM_EDIT_ACTIVE",
+    LOAD_LIST_BEING_EDITED: "LOAD_LIST_BEING_EDITED",
     SET_LIST_NAME_EDIT_ACTIVE: "SET_LIST_NAME_EDIT_ACTIVE",
     PUBLISH_LIST: "PUBLISH_LIST",
     SAVE_LIST: "SAVE_LIST"
@@ -93,6 +94,20 @@ function GlobalStoreContextProvider(props) {
                     itemActive: store.itemActive
                 })
             }
+            // LOAD_LIST_BEING_EDITED
+            case GlobalStoreActionType.LOAD_LIST_BEING_EDITED: {
+                return setStore({
+                    loadedLists: payload.loadedLists,
+                    openedLists: store.openedLists,
+                    sortType: store.sortType,
+                    listBeingEdited: payload.list,
+                    listMarkedForDeletion: store.listMarkedForDeletion,
+                    newListCounter: store.newListCounter,
+                    listNameActive: store.listNameActive,
+                    itemActive: store.itemActive
+                })
+            }
+
             //  SET A LIST AS BEING EDITED
             case GlobalStoreActionType.SET_LIST_BEING_EDITED: {
                 return setStore({
@@ -296,15 +311,21 @@ function GlobalStoreContextProvider(props) {
     }
 
     // load a list to edit based on a list id
-    store.editList = async function (id) {
-        const response = await api.getTop5ListById(id)
-        if(response.data.success) {
-            //let top5list = response.data.top5list
-            return 0;
-        }
-        else{
-            console.log("API FAILED TO GET LIST BY ID")
-        }
+    store.editList = function (index) {
+        let top5listToEdit = store.loadedLists[index];
+        // fix this
+        let newLoadedLists = store.loadedLists.splice(index, 1)
+        storeReducer({
+            type: GlobalStoreActionType.LOAD_LIST_BEING_EDITED,
+            payload: {
+                list: top5listToEdit,
+                loadedLists: newLoadedLists
+            }
+        });
+    }
+
+    store.editListById = function (index) {
+        //
     }
 
     store.editListItem = async function (index, text) {
@@ -332,7 +353,7 @@ function GlobalStoreContextProvider(props) {
             let response = await api.updateTop5ListById(top5list._id, top5list)
             if(response.data.success) {
                 let loadedLists = store.loadedLists
-                loadedLists.push(top5list)
+                loadedLists.unshift(top5list)
                 storeReducer({
                     type: GlobalStoreActionType.SAVE_LIST,
                     payload: loadedLists
@@ -372,7 +393,7 @@ function GlobalStoreContextProvider(props) {
             let response = await api.updateTop5ListById(top5list._id, top5list)
             if(response.data.success) {
                 let loadedLists = store.loadedLists
-                loadedLists.push(top5list)
+                loadedLists.unshift(top5list)
                 storeReducer({
                     type: GlobalStoreActionType.PUBLISH_LIST,
                     payload: loadedLists

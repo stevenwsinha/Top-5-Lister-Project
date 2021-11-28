@@ -5,7 +5,6 @@ import ErrorModal from './ErrorModal.js';
 import { Typography } from '@mui/material'
 import { GlobalStoreContext } from '../store/index.js'
 //import AuthContext from '../auth'
-//import ErrorModal from './ErrorModal.js';
 import { TextField } from '@mui/material';
 import { Box } from '@mui/system';
 import { Grid } from '@mui/material';
