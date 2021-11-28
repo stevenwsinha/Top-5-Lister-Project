@@ -2,12 +2,15 @@ import { useContext } from 'react'
 import { useEffect } from 'react';
 import { GlobalStoreContext } from '../store'
 import { WorkspaceScreen, Statusbar, WorkToolbar, ListViewer } from '.';
-
+import AuthContext from '../auth'
 
 export default function WorkContainer() {
     const { store } = useContext(GlobalStoreContext);
-
-    // useEffect()
+    const { auth } = useContext(AuthContext);
+    
+    useEffect(() => {
+        auth.getLoggedIn();
+    }, []);
 
     let workspace = <ListViewer/>;
     if(store.listBeingEdited){
