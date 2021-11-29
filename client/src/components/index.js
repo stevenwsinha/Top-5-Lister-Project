@@ -13,6 +13,7 @@ import WorkToolbar from './WorkToolbar'
 import WorkContainer from './WorkContainer'
 import ListViewer from './ListViewer'
 import ExpandedListcard from './ExpandedListCard'
+import CommentBox from './CommentBox'
 
 /*
     This serves as a module so that we can import
@@ -36,4 +37,5 @@ export {
     WorkContainer,
     ListViewer,
     ExpandedListcard,
+    CommentBox,
 }

@@ -222,6 +222,21 @@ body {
   font-size: 36pt;
 }
 
+.comment-box {
+  min-height: 250px;
+  max-height: 250px;
+  min-width: 400px;
+  max-width: 400px;
+  border-style: solid;
+  border-width: 3px;
+  border-style: green;
+}
+
+.comment-list {
+  min-height: 250px
+}
+
+
 #list-selector-list {
   position: absolute;
   left: 0%;

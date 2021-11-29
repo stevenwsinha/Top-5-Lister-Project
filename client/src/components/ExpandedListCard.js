@@ -12,7 +12,7 @@ import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-
+import { CommentBox } from '.';
 import Grid from '@mui/material/Grid';
 
 /*
@@ -162,71 +162,119 @@ function ExpandedListCard(props) {
     sx={{ marginTop: '0px', marginBottom: '10px', display: 'flex', p: 1}}
     style={{
         fontSize: '12pt',
-        minHeight: 90,
-        maxHeight: 90,
+        minHeight: 400,
+        maxHeight: 400,
         width: '98%',
         left: '1%'
     }}
-    >
-        <Box sx={{ 
-            p: 0, 
-            flexGrow: 3,  
-            height: 80,}}> 
-            <Grid container direction='column' spacing={0} sx={{height: 78,}}>
-                <Grid item sx={{height: 34}}>
-                    <Typography variant='h5'style={{color: 'black'}}> {list.name} </Typography>
-                </Grid>
-                <Grid item sx={{height: 24}}>
-                    {ownerText}
-                </Grid>
-                <Grid item sx={{height: 20,}}>
-                    {publishComponent}
-                </Grid>
-            </Grid> 
+    >   
+        <Box style={{
+        fontSize: '12pt',
+        minHeight: 395,
+        maxHeight: 395,
+        width: '50%',
+        }}>
+            <Box style={{
+            fontSize: '12pt',
+            minHeight: 60,
+            maxHeight: 60,
+            width: '100%',
+            }}>
+                <Typography variant='h5'style={{color: 'black'}}> {list.name} </Typography>
+                {ownerText}
+            </Box>
+            
+            <Box style={{
+            fontSize: '12pt',
+            minHeight: 300,
+            maxHeight: 300,
+            width: '100%',
+            borderStyle: 'solid',
+            borderWidth: 2,
+            borderColor: 'green'
+            }}>
+                LIST ITEMS
+            </Box>  
+
+            <Box style={{
+            fontSize: '12pt',
+            minHeight: 25,
+            maxHeight: 25,
+            width: '100%',
+            }}>
+                {publishComponent}
+            </Box>    
         </Box>
-        <Box sx={{ 
-        p: 0, 
-        flexGrow: 1,
-        height: 80}}>
-            <Box sx={{ 
-            p: 0, 
-            flexGrow: 1,
-            height: 50,}}>
-            <Grid container direction='row' spacing={0} sx={{height: 50}}>
-                <Grid item xs={4} sx={{height: 50}}>
+        <Box style={{
+        fontSize: '12pt',
+        minHeight: 395,
+        maxHeight: 395,
+        width: '50%',
+        }}>
+            <Box style={{
+            fontSize: '12pt',
+            minHeight: 60,
+            maxHeight: 60,
+            width: '100%',
+            }}>
+                <Grid container direction='row' spacing={0} sx={{height: 50}}>
+                <Grid item xs={4}>
+                </Grid>
+                <Grid item xs={3} sx={{height: 50}}>
                     {likeButton}
                     {list.likes.length}
                 </Grid>
-                <Grid item xs={4} sx={{ height: 50 }}>
+                <Grid item xs={3} sx={{ height: 50 }}>
                     {dislikeButton}
                     {list.dislikes.length}
                 </Grid>
-                <Grid item xs={4} sx={{height: 50, display: 'flex', justifyContent: 'flex-end', }}>
+                <Grid item xs={2} sx={{height: 50, display: 'flex', justifyContent: 'flex-end', }}>
                     {deleteButton}
                 </Grid>
             </Grid>
-            </Box> 
-            <Box sx={{ 
-                p: 0, 
-                flexGrow: 1,
-                height: 30,}}>
-                <Grid container direction='row' spacing={0} sx={{height: 30}}>
-                <Grid item xs={8} sx={{height: 30}}>
-                    <Typography style={{color: '#C70039'}}> Views: {list.views} </Typography>
+            </Box>
+
+            <Box style={{
+            fontSize: '12pt',
+            minHeight: 300,
+            maxHeight: 300,
+            width: '100%',
+            borderStyle: 'solid',
+            borderWidth: 2,
+            borderColor: 'green'
+            }}>
+                COMMENTS
+            </Box>  
+            
+            <Box style={{
+            fontSize: '12pt',
+            minHeight: 25,
+            maxHeight: 25,
+            width: '100%',
+            }}>
+                <Grid container direction='row' spacing={0} sx={{height: 25}}>
+                    <Grid item xs={4}>
+                    </Grid>
+
+                    <Grid item xs={6} sx={{height: 50}}>
+                        <Typography style={{color: '#C70039'}}> Views: {list.views} </Typography>
+                    </Grid>
+
+                    <Grid item xs={2} sx={{height: 50, display: 'flex', justifyContent: 'flex-end', }}>
+                        <IconButton
+                            size="medium"
+                            color="inherit"
+                            onClick={handleCloseList}
+                            aria-label="open drawer"
+                        >
+                            <ExpandLessIcon />
+                        </IconButton>
+                    </Grid>
+
                 </Grid>
-                <Grid item xs={4} sx={{ height: 30, display: 'flex', justifyContent: 'flex-end'}}>
-                    <IconButton
-                        size="medium"
-                        color="inherit"
-                        onClick={handleCloseList}
-                        aria-label="open drawer"
-                    >
-                        <ExpandLessIcon />
-                    </IconButton>
-                </Grid>
-            </Grid>
-            </Box>   
-        </Box>   
+            </Box>    
+        </Box>
+
     </ListItem>
     );
 }
