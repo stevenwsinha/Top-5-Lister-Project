@@ -77,6 +77,12 @@ function ListCard(props) {
         publishComponent = <Typography sx={{fontSize: '10pt'}} style={{color: '#086108'}}> Published: {list.created.substring(4, 15)} </Typography>
     }
 
+    let ownerText = <Typography sx={{fontSize: '10pt'}} style={{color: '#001e64'}}> By: {list.owner} </Typography>
+    if(store.loadType === 'community'){
+        publishComponent = <Typography sx={{fontSize: '10pt'}} style={{color: '#086108'}}> Updated: {list.updated.substring(4, 15)} </Typography>
+        ownerText = ""
+    }
+
     let likeButton =    <IconButton
                             size="medium"
                             color="inherit"
@@ -152,7 +158,7 @@ function ListCard(props) {
                     <Typography variant='h5'style={{color: 'black'}}> {list.name} </Typography>
                 </Grid>
                 <Grid item sx={{height: 24}}>
-                    <Typography sx={{fontSize: '10pt'}} style={{color: '#001e64'}}> By: {list.owner} </Typography>
+                    {ownerText}
                 </Grid>
                 <Grid item sx={{height: 20,}}>
                     {publishComponent}

@@ -342,11 +342,12 @@ function GlobalStoreContextProvider(props) {
         try{
             let response = await api.getAllCommunityLists();
             if(response.data.success) {
-                let top5lists = response.data.communityLists;
+                console.log(response.data)
+                let communityLists = response.data.communityLists;
                 storeReducer({
                     type: GlobalStoreActionType.SET_LOADED_LISTS,
                     payload: {
-                        lists: top5lists,
+                        lists: communityLists,
                         type: 'community'
                     }
                 });

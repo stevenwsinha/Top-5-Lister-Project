@@ -41,7 +41,7 @@ export const getTop5ListByUsername = (username) => api.get(`/home/${username}`)
 export const getAllTop5Lists = () => api.get(`/home/all`)
 
 // MULTI LIST COMMUNITY OPERATIONS
-export const getAllCommunityLists = () => api.get(`home/community/`)
+export const getAllCommunityLists = () => api.get(`/home/community/all`)
 
 //  USER CRUD OPERATIONS
 export const getLoggedIn = () => api.get(`/loggedIn/`);

@@ -14,15 +14,14 @@ router.get('/home/top5list/:id', auth.verify, Top5ListController.getTop5ListById
 // COMMUNITY SINLE CRUD OPERATIONS
 router.post('/home/community/', auth.verify, CommunityController.createCommunityList)
 router.put('/home/community/', auth.verify, CommunityController.updateCommunityItems)
-router.get('home/community/', CommunityController.getAllCommunityLists)
 router.put('/home/community/delete', auth.verify, CommunityController.removeCommunityItems)
+router.get('/home/community/all', CommunityController.getAllCommunityLists)
 router.get('/home/community/:name', CommunityController.getCommunityList)
 
 // MULTI LIST RETRIEVAL 
 router.get('/home/top5lists', auth.verify, Top5ListController.getTop5Lists)
 router.get('/home/all', Top5ListController.getAllTop5Lists)
 router.get('/home/:username', Top5ListController.getTop5ListsByUsername)
-// router.get('home/community', CommunityController.getCommunityLists)
 
 // USER CRUD OPERATIONS
 router.get('/logout', UserController.logoutUser)

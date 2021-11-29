@@ -100,6 +100,10 @@ export default function WorkToolbar(){
       store.loadUser();
     }
 
+    function handleCommunity() {
+      store.loadCommunity();
+    }
+
     function handleSortNewest() {
       store.setSortType("newest");
       handleSortMenuClose();
@@ -193,6 +197,7 @@ export default function WorkToolbar(){
                     edge="start"
                     color="inherit"
                     aria-label="open drawer"
+                    onClick={handleCommunity}
                     sx={{ mr: 2 }}
                   >
                     <FunctionsIcon />
