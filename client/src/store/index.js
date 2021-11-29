@@ -61,7 +61,7 @@ function GlobalStoreContextProvider(props) {
                     openedLists: [],
                     sortType: payload.type,
                     listBeingEdited: store.listBeingEdited,
-                    listMarkedForDeletion: store.listMarkedForDeletion,
+                    listMarkedForDeletion: null,
                     newListCounter: store.newListCounter,
                     listNameActive: store.listNameActive,
                     itemActive: store.itemActive
@@ -253,7 +253,7 @@ function GlobalStoreContextProvider(props) {
             dislikes: [],
             comments: [],
             isPublished: false,
-            created: new Date(),
+            created: new Date().toString(),
         };
         const response = await api.createTop5List(payload);
         if (response.data.success) {
@@ -467,7 +467,7 @@ function GlobalStoreContextProvider(props) {
         }
 
         top5list.isPublished = true;
-        top5list.created = new Date();
+        top5list.created = new Date().toString();
 
         try{
             let response = await api.updateTop5ListById(top5list._id, top5list)
@@ -490,28 +490,24 @@ function GlobalStoreContextProvider(props) {
     // OF A LIST, WHICH INCLUDES USING A VERIFICATION MODAL. THE
     // FUNCTIONS ARE markListForDeletion, deleteList, deleteMarkedList,
     // showDeleteListModal, and hideDeleteListModal
-    store.markListForDeletion = async function (id) {
+    store.markListForDeletion = async function (index) {
         // GET THE LIST
-        try{
-            let response = await api.getTop5ListById(id);
-            if (response.data.success) {
-                let top5List = response.data.top5List;
-                storeReducer({
-                    type: GlobalStoreActionType.MARK_LIST_FOR_DELETION,
-                    payload: top5List
-                });
-            }
-        }catch(err){
-            console.log(err);
-        }
+        let top5List = store.loadedLists[index];
+        storeReducer({
+            type: GlobalStoreActionType.MARK_LIST_FOR_DELETION,
+            payload: top5List
+        });
     }
 
     store.deleteList = async function (listToDelete) {
         try{
             let response = await api.deleteTop5ListById(listToDelete._id);
             if (response.data.success) {
-                store.loadIdNamePairs();
-                history.push("/");
+                store.loadLoggedInLists();
+                storeReducer({
+                    type: GlobalStoreActionType.UNMARK_LIST_FOR_DELETION,
+                    payload: null
+                });
             }
         }catch(err){
             console.log(err);

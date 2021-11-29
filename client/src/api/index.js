@@ -26,8 +26,8 @@ const api = axios.create({
 //  SINGLE LIST CRUD OPERATIONS
 export const createTop5List = (payload) => api.post(`/home/top5list/`, payload)
 export const updateTop5ListById = (id, payload) => api.put(`/home/top5list/${id}`, payload)
-export const deleteTop5ListById = (id) => api.delete(`home//top5list/${id}`)
-export const getTop5ListById = (id) => api.get(`home//top5list/${id}`)
+export const deleteTop5ListById = (id) => api.delete(`/home/top5list/${id}`)
+export const getTop5ListById = (id) => api.get(`/home/top5list/${id}`)
 
 //  MULTI LIST CRUD OPERATIONS
 export const getLoggedInTop5Lists = () => api.get(`/home/top5lists`)
