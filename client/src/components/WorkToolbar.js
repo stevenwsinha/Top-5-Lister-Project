@@ -74,7 +74,7 @@ export default function WorkToolbar(){
 
     function handleUpdateText(event) {
       setText(event.target.value);
-      if(store.loadType.startsWith("username")){
+      if(store.loadType === "username") {
           return
       }
       store.updateSearchFilter(event.target.value);
@@ -82,11 +82,23 @@ export default function WorkToolbar(){
 
     function handleKeyPress(event) {
       if (event.code === "Enter") {
-          if(store.loadType.startsWith("username")) {
-            store.updateUsernameSearch(text)
+          if(store.loadType === "username") {
+            store.getUserLists(text)
           }
       }
-  }
+    } 
+
+    function handleHome() {
+      store.loadHome();
+    }
+
+    function handleAll() {
+      store.loadAll();
+    }
+
+    function handleUser() {
+      store.loadUser();
+    }
 
     const menuId = 'primary-sort-menu';
     const sortMenu = (
@@ -122,6 +134,7 @@ export default function WorkToolbar(){
                     edge="start"
                     color="inherit"
                     aria-label="open drawer"
+                    onClick={handleHome}
                     sx={{ mr: 2 }}
                   >
                     <HomeIcon />
@@ -131,6 +144,7 @@ export default function WorkToolbar(){
                     edge="start"
                     color="inherit"
                     aria-label="open drawer"
+                    onClick={handleAll}
                     sx={{ mr: 2 }}
                   >
                     <PeopleIcon />
@@ -140,6 +154,7 @@ export default function WorkToolbar(){
                     edge="start"
                     color="inherit"
                     aria-label="open drawer"
+                    onClick={handleUser}
                     sx={{ mr: 2 }}
                   >
                     <PersonSearchIcon />

@@ -350,6 +350,10 @@ function GlobalStoreContextProvider(props) {
 
     // UPDATE THE USERNAME WE ARE SEARCHING BY IN USER PAGE
     store.getUserLists = async function (username) {
+        if(username === ""){
+            store.loadUser()
+            return
+        }
         try{
             const response = await api.getTop5ListByUsername(username)
             if(response.data.success){
