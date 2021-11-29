@@ -19,7 +19,8 @@ export const GlobalStoreActionType = {
     SET_OPENED_LISTS: "SET_OPENED_LISTS",
     SET_SORT_TYPE: "SET_SORT_TYPE",
     SET_SEARCH_FILTER: "SET_SEARCH_FILTER",
-    SET_LIST_BEING_EDITED: "SET_LIST_BEING_EDITED",
+    SET_SEARCH_USERNAME: "SET_SEARCH_USERNAME",
+    SAVE_LIST_BEING_EDITED: "SAVE_LIST_BEING_EDITED",
     CREATE_NEW_LIST: "CREATE_NEW_LIST",
     MARK_LIST_FOR_DELETION: "MARK_LIST_FOR_DELETION",
     UNMARK_LIST_FOR_DELETION: "UNMARK_LIST_FOR_DELETION",
@@ -38,14 +39,13 @@ function GlobalStoreContextProvider(props) {
     const [store, setStore] = useState({
         loadedLists: [],
         openedLists: [],
-        loadType: null,
-        sortType: null,
+        loadType: "",
+        sortType: "recent",
         searchFilter: "",
+        searchUsername: "",
         listBeingEdited: null,
         listMarkedForDeletion: null,
         newListCounter: 0,
-        listNameActive: false,
-        itemActive: false,
     });
     const history = useHistory();
 
@@ -64,12 +64,11 @@ function GlobalStoreContextProvider(props) {
                     openedLists: [],
                     loadType: payload.type,
                     sortType: store.sortType,
-                    searchFilter: store.searchFilter,
-                    listBeingEdited: store.listBeingEdited,
+                    searchFilter: "",
+                    searchUsername: "",
+                    listBeingEdited: null,
                     listMarkedForDeletion: null,
                     newListCounter: store.newListCounter,
-                    listNameActive: store.listNameActive,
-                    itemActive: store.itemActive
                 })
             }
 
@@ -81,11 +80,10 @@ function GlobalStoreContextProvider(props) {
                     loadType: store.loadType,
                     sortType: store.sortType,
                     searchFilter: store.searchFilter,
-                    listBeingEdited: store.listBeingEdited,
-                    listMarkedForDeletion: store.listMarkedForDeletion,
-                    newListCounter: store.newListCounter,
-                    listNameActive: store.listNameActive,
-                    itemActive: store.itemActive
+                    searchUsername: store.searchUsername,
+                    listBeingEdited: null,
+                    listMarkedForDeletion: null,
+                    newListCounter: store.newListCounter,        
                 })
             }
             
@@ -97,11 +95,10 @@ function GlobalStoreContextProvider(props) {
                     loadType: store.loadType,
                     sortType: payload,
                     searchFilter: store.searchFilter,
-                    listBeingEdited: store.listBeingEdited,
-                    listMarkedForDeletion: store.listMarkedForDeletion,
+                    searchUsername: store.searchUsername,
+                    listBeingEdited: null,
+                    listMarkedForDeletion: null,
                     newListCounter: store.newListCounter,
-                    listNameActive: store.listNameActive,
-                    itemActive: store.itemActive
                 })
             }
 
@@ -112,11 +109,24 @@ function GlobalStoreContextProvider(props) {
                     loadType: store.loadType,
                     sortType: store.sortType,
                     searchFilter: payload,
-                    listBeingEdited: store.listBeingEdited,
-                    listMarkedForDeletion: store.listMarkedForDeletion,
+                    searchUsername: "",
+                    listBeingEdited: null,
+                    listMarkedForDeletion: null,
                     newListCounter: store.newListCounter,
-                    listNameActive: store.listNameActive,
-                    itemActive: store.itemActive
+                })
+            }
+
+            case GlobalStoreActionType.LOAD_USER_LISTS: {
+                return setStore({
+                    loadedLists: payload.lists,
+                    openedLists: store.openedLists,
+                    loadType: store.loadType,
+                    sortType: store.sortType,
+                    searchFilter: "",
+                    searchUsername: payload.username,
+                    listBeingEdited: null,
+                    listMarkedForDeletion: null,
+                    newListCounter: store.newListCounter,
                 })
             }
             
@@ -128,11 +138,10 @@ function GlobalStoreContextProvider(props) {
                     loadType: store.loadType,
                     sortType: store.sortType,
                     searchFilter: store.searchFilter,
+                    searchUsername: store.searchUsername,
                     listBeingEdited: store.listBeingEdited,
                     listMarkedForDeletion: store.listMarkedForDeletion,
                     newListCounter: store.newListCounter,
-                    listNameActive: store.listNameActive,
-                    itemActive: store.itemActive
                 })
             }
 
@@ -140,31 +149,29 @@ function GlobalStoreContextProvider(props) {
             case GlobalStoreActionType.LOAD_LIST_TO_EDITED: {
                 return setStore({
                     loadedLists: payload.loadedLists,
-                    openedLists: store.openedLists,
+                    openedLists: [],
                     loadType: store.loadType,
-                    sortType: store.sortType,
+                    sortType: "",
                     searchFilter: "",
+                    searchUsername: store.searchUsername,
                     listBeingEdited: payload.list,
                     listMarkedForDeletion: store.listMarkedForDeletion,
                     newListCounter: store.newListCounter,
-                    listNameActive: store.listNameActive,
-                    itemActive: store.itemActive
                 })
             }
 
             //  SET A LIST AS BEING EDITED
-            case GlobalStoreActionType.SET_LIST_BEING_EDITED: {
+            case GlobalStoreActionType.SAVE_LIST_BEING_EDITED: {
                 return setStore({
                     loadedLists: store.loadedLists,
                     openedLists: store.openedLists,
                     loadType: store.loadType,
                     sortType: store.sortType,
-                    searchFilter: "",
+                    searchFilter: store.searchFilter,
+                    searchUsername: store.searchUsername,
                     listBeingEdited: payload,
                     listMarkedForDeletion: store.listMarkedForDeletion,
                     newListCounter: store.newListCounter,
-                    listNameActive: store.listNameActive,
-                    itemActive: store.itemActive
                 })
             }
 
@@ -176,11 +183,10 @@ function GlobalStoreContextProvider(props) {
                     loadType: store.loadType,
                     sortType: store.sortType,
                     searchFilter: "",
+                    searchUsername: store.searchUsername,
                     listBeingEdited: null,
                     listMarkedForDeletion: store.listMarkedForDeletion,
                     newListCounter: store.newListCounter,
-                    listNameActive: store.listNameActive,
-                    itemActive: store.itemActive
                 })
             }
 
@@ -192,11 +198,10 @@ function GlobalStoreContextProvider(props) {
                     loadType: store.loadType,
                     sortType: store.sortType,
                     searchFilter: "",
+                    searchUsername: store.searchUsername,
                     listBeingEdited: null,
                     listMarkedForDeletion: store.listMarkedForDeletion,
                     newListCounter: store.newListCounter,
-                    listNameActive: store.listNameActive,
-                    itemActive: store.itemActive
                 })
             }
 
@@ -208,11 +213,10 @@ function GlobalStoreContextProvider(props) {
                     loadType: store.loadType,
                     sortType: store.sortType,
                     searchFilter: "",
+                    searchUsername: store.searchUsername,
                     listBeingEdited: payload,
                     listMarkedForDeletion: store.listMarkedForDeletion,
                     newListCounter: store.newListCounter + 1,
-                    listNameActive: store.listNameActive,
-                    itemActive: store.itemActive
                 })
             }
            
@@ -224,11 +228,10 @@ function GlobalStoreContextProvider(props) {
                     loadType: store.loadType,
                     sortType: store.sortType,
                     searchFilter: store.searchFilter,
+                    searchUsername: store.searchUsername,
                     listBeingEdited: store.listBeingEdited,
                     listMarkedForDeletion: payload,
                     newListCounter: store.newListCounter,
-                    listNameActive: store.listNameActive,
-                    itemActive: store.itemActive
                 });
             }
             // PREPARE TO DELETE A LIST
@@ -239,44 +242,13 @@ function GlobalStoreContextProvider(props) {
                     loadType: store.loadType,
                     sortType: store.sortType,
                     searchFilter: store.searchFilter,
+                    searchUsername: store.searchUsername,
                     listBeingEdited: store.listBeingEdited,
                     listMarkedForDeletion: null,
                     newListCounter: store.newListCounter,
-                    listNameActive: store.listNameActive,
-                    itemActive: store.itemActive
                 });
             }
-          
-            // START EDITING A LIST ITEM
-            case GlobalStoreActionType.SET_ITEM_EDIT_ACTIVE: {
-                return setStore({
-                    loadedLists: store.loadedLists,
-                    openedLists: store.openedLists,
-                    loadType: store.loadType,
-                    sortType: store.sortType,
-                    searchFilter: store.searchFilter,
-                    listBeingEdited: store.listBeingEdited,
-                    listMarkedForDeletion: store.listMarkedForDeletion,
-                    newListCounter: store.newListCounter,
-                    listNameActive: store.listNameActive,
-                    itemActive: true
-                });
-            }
-            // START EDITING A LIST NAME
-            case GlobalStoreActionType.SET_LIST_NAME_EDIT_ACTIVE: {
-                return setStore({
-                    loadedLists: store.loadedLists,
-                    openedLists: store.openedLists,
-                    loadType: store.loadType,
-                    sortType: store.sortType,
-                    searchFilter: store.searchFilter,
-                    listBeingEdited: store.listBeingEdited,
-                    listMarkedForDeletion: store.listMarkedForDeletion,
-                    newListCounter: store.newListCounter,
-                    listNameActive: true,
-                    itemActive: true
-                });
-            }
+
             default:
                 return store;
         }
@@ -317,8 +289,8 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
-    // THIS FUNCTION LOADS ALL LISTS OF THE CURRENTLY LOGGED IN USER
-    store.loadLoggedInLists = async function () {
+    // WHEN THE HOME BUTTON IS CLICKED, LOAD ALL OF THE LISTS OF THE CURRENTLY LOGGED IN USER
+    store.loadHome = async function () {
         const response = await api.getLoggedInTop5Lists();
         if (response.data.success) {
             let top5lists = response.data.top5Lists;
@@ -329,35 +301,18 @@ function GlobalStoreContextProvider(props) {
                     type: 'home'
                 }
             });
+            history.push("/home")
         }
         else {
-            console.log("API FAILED TO GET THE LIST PAIRS");
+            console.log("API FAILED TO GET THE LOGGED IN USERS LISTS");
         }
     }
 
-    // LOAD ALL THE LISTS MADE BY USER WITH GIVEN USERNAME
-    store.loadListsByUsername = async function (username) {
-        const response = await api.getTop5ListByUsername(username)
+    // WHEN THE ALL LISTS BUTTON IS CLICKED, LOAD ALL OF THE LISTS OF ALL USERS
+    store.loadAll = async function () {
+        const response = await api.getAllTop5Lists();
         if(response.data.success) {
-            let top5lists = response.data.top5lists;
-            storeReducer({
-                type: GlobalStoreActionType.SET_LOADED_LISTS,
-                payload: {
-                    lists: top5lists,
-                    type: 'username'
-                }
-            });
-        }
-        else {
-            console.log("API FAILED TO GET THE LIST PAIRS");
-        }
-    }
-
-    // LOAD ALL LISTS MADE BY ALL USERS
-    store.loadAllLists = async function () {
-        const response = await api.getAllTop5Lists()
-        if(response.data.success){
-            let top5lists = response.data.top5lists;
+            let top5lists = response.data.top5Lists;
             storeReducer({
                 type: GlobalStoreActionType.SET_LOADED_LISTS,
                 payload: {
@@ -365,17 +320,55 @@ function GlobalStoreContextProvider(props) {
                     type: 'all'
                 }
             });
+            history.push("/home/all")
         }
         else {
-            console.log("API FAILED TO GET THE LIST PAIRS");
+            console.log("API FAILED TO GET ALL THE LISTS");
         }
     }
+    // LOAD ALL THE LISTS MADE BY USER WITH GIVEN USERNAME
+    store.loadUser = function () {
+        storeReducer({
+            type: GlobalStoreActionType.SET_LOADED_LISTS,
+            payload: {
+                lists: [],
+                type: 'username'
+            }
+            });
+        history.push("/home/user")
+    }
 
+    // store.loadCommunity
+
+    // UPDATE THE SEARCH FILTER
     store.updateSearchFilter = function (text) {
         storeReducer({
             type: GlobalStoreActionType.SET_SEARCH_FILTER,
             payload: text,
         });
+    }
+
+    // UPDATE THE USERNAME WE ARE SEARCHING BY IN USER PAGE
+    store.getUserLists = async function (username) {
+        try{
+            const response = await api.getTop5ListByUsername(username)
+            if(response.data.success){
+                storeReducer({
+                    type: GlobalStoreActionType.LOAD_USER_LISTS,
+                    payload: {
+                        lists: response.data.top5Lists,
+                        username: username,
+                    }
+                });
+            }
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
+
+    store.sortLoaded = function () {
+
     }
 
     // load a list to edit based on a list id
@@ -447,7 +440,7 @@ function GlobalStoreContextProvider(props) {
         const top5list = store.listBeingEdited
         top5list.items[index] = text
         storeReducer({
-            type: GlobalStoreActionType.SET_LIST_BEING_EDITED,
+            type: GlobalStoreActionType.SAVE_LIST_BEING_EDITED,
             payload: top5list
         });
     }
@@ -456,7 +449,7 @@ function GlobalStoreContextProvider(props) {
         const top5list = store.listBeingEdited
         top5list.name = text
         storeReducer({
-            type: GlobalStoreActionType.SET_LIST_BEING_EDITED,
+            type: GlobalStoreActionType.SAVE_LIST_BEING_EDITED,
             payload: top5list
         });
     }
@@ -484,10 +477,6 @@ function GlobalStoreContextProvider(props) {
     store.publishList = async function () {
         let top5list = store.listBeingEdited
         // compare this list's name with all other lists by this user
-        // should already have all lists by this user loaded, but if not, load them
-        if(store.filterType !== 'home'){
-            store.loadLoggedInLists()
-        }
 
         let exists = false
         for(let i = 0; i < store.loadedLists.length; i++) {
@@ -502,9 +491,20 @@ function GlobalStoreContextProvider(props) {
             return
         }
 
+        const alphaNumericRegex = /^[0-9a-zA-Z]+$/;
+        if(!top5list.name.match(alphaNumericRegex)){
+            auth.setErrorMsg("Your list name must be alphanumeric!");
+            return
+        }
+
         let duplicate = false
+        let emptyItem = false;
         for(let i = 0; i < 5; i++) {
             let itemToCompare = top5list.items[i]
+            if (itemToCompare === ""){
+                emptyItem = true;
+                break;
+            }
             for(let j = 0; j < 5; j++){
                 if(i !== j){
                     if(itemToCompare.toUpperCase() === top5list.items[j].toUpperCase()){
@@ -515,6 +515,10 @@ function GlobalStoreContextProvider(props) {
         }
         if(duplicate){
             auth.setErrorMsg("You must create a list with no duplicate items!");
+            return
+        }
+        if(emptyItem){
+            auth.setErrorMsg("You must create a list with no empty items!");
             return
         }
 
@@ -555,7 +559,7 @@ function GlobalStoreContextProvider(props) {
         try{
             let response = await api.deleteTop5ListById(listToDelete._id);
             if (response.data.success) {
-                store.loadLoggedInLists();
+                store.loadHome();
                 storeReducer({
                     type: GlobalStoreActionType.UNMARK_LIST_FOR_DELETION,
                     payload: null
