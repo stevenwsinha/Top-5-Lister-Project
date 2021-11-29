@@ -2,6 +2,7 @@ import * as React from 'react';
 import ListItem from '@mui/material/ListItem';
 import { Box } from '@mui/system';
 import { Typography } from '@mui/material';
+import { Grid } from '@mui/material';
 
 export default function CommentCard (props) {
     const { comment, index } = props;
@@ -10,20 +11,24 @@ export default function CommentCard (props) {
         <ListItem
             key={index}
             className={'comment-card'}
+            sx={{ marginTop: '0px', marginBottom: '8px', display: 'flex', p: 1, paddingTop: 0, overflow: 'auto'}}
             style={{
                 fontSize: '12pt',
-                minHeight: 50,
-                maxHeight: 50,
+                minHeight: 80,
+                maxHeight: 80,
                 borderRadius: 8,
                 width: '98%',
-                left: '1%'
+                left: '1%',
+                background: '#B98EA7',
         }}>
-            <Box style={{minHeight: 16, maxHeight: 16}}> 
-                <Typography>{comment.owner}</Typography> 
-            </Box>
-            <Box style={{minHeight: 34, maxHeight: 34}}> 
-                <Typography>{comment.text}</Typography> 
-            </Box>
+            <Grid container direction='column' spacing={0}>
+                <Grid item sx={{maxHeight: 75}} style ={{color: '#001e64'}}>
+                    <Typography>{comment.owner}</Typography> 
+                </Grid>
+                <Grid item sx={{maxHeight: 75}}>
+                    <Typography>{comment.text}</Typography> 
+                </Grid>
+            </Grid>
         </ListItem>
     );
 }

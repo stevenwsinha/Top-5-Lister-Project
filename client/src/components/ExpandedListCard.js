@@ -37,7 +37,8 @@ function ExpandedListCard(props) {
 
     function handleKeyPress(event) {
         if (event.code === "Enter") {
-            //store.editListName(event.target.value);
+            setText("")
+            store.publishComment(event.target.value, getIndex(list._id));
         }
     }
 
@@ -252,12 +253,9 @@ function ExpandedListCard(props) {
             minHeight: 300,
             maxHeight: 300,
             width: '100%',
-            borderStyle: 'solid',
-            borderWidth: 2,
-            borderColor: 'green'
             }}>
                 <Grid container direction='column' spacing={0} sx={{width: 1}}>
-                    <Grid item sx={{minHeight: 260, maxHeight: 260}}>
+                    <Grid item sx={{minHeight: 265, maxHeight: 265}}>
                         <CommentBox comments={list.comments}/>
                     </Grid>
                     <Grid item>
@@ -268,6 +266,7 @@ function ExpandedListCard(props) {
                             size="small" 
                             onChange={handleUpdateText}
                             onKeyPress={handleKeyPress}
+                            value={text}
                             defaultValue={""}
                         />
                     </Grid>

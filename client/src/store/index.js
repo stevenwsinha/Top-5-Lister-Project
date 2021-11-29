@@ -438,6 +438,33 @@ function GlobalStoreContextProvider(props) {
         });
     }
 
+    store.publishComment = async function (text, index) {
+        let lists = store.loadedLists
+        let newComment = {
+            text: text,
+            owner: auth.user.username
+        }
+        lists[index].comments.unshift(newComment)
+        try{
+            let response = "";
+            if(store.loadType === "community"){
+                response = await api.UpdateCommunity(lists[index]._id, lists[index])
+            }
+            else{
+                response = await api.updateTop5ListById(lists[index]._id, lists[index])
+            }
+            if(response.data.success) {
+                storeReducer({
+                    type: GlobalStoreActionType.SET_LIKE_LIST,
+                    payload: lists
+                });
+            }
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
+
     store.setSortType = function (type) {
         storeReducer({
             type: GlobalStoreActionType.SET_SORT_TYPE,
