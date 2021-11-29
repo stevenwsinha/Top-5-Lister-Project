@@ -37,7 +37,9 @@ function GlobalStoreContextProvider(props) {
     const [store, setStore] = useState({
         loadedLists: [],
         openedLists: [],
+        loadType: null,
         sortType: null,
+        searchFilter: null,
         listBeingEdited: null,
         listMarkedForDeletion: null,
         newListCounter: 0,
@@ -59,7 +61,9 @@ function GlobalStoreContextProvider(props) {
                 return setStore({
                     loadedLists: payload.lists,
                     openedLists: [],
-                    sortType: payload.type,
+                    loadType: payload.type,
+                    sortType: store.sortType,
+                    searchFilter: store.searchFilter,
                     listBeingEdited: store.listBeingEdited,
                     listMarkedForDeletion: null,
                     newListCounter: store.newListCounter,
@@ -73,7 +77,9 @@ function GlobalStoreContextProvider(props) {
                 return setStore({
                     loadedLists: store.loadedLists,
                     openedLists: payload,
+                    loadType: store.loadType,
                     sortType: store.sortType,
+                    searchFilter: store.searchFilter,
                     listBeingEdited: store.listBeingEdited,
                     listMarkedForDeletion: store.listMarkedForDeletion,
                     newListCounter: store.newListCounter,
@@ -87,7 +93,9 @@ function GlobalStoreContextProvider(props) {
                 return setStore({
                     loadedLists: store.loadedLists,
                     openedLists: store.openedLists,
+                    loadType: store.loadType,
                     sortType: payload,
+                    searchFilter: store.searchFilter,
                     listBeingEdited: store.listBeingEdited,
                     listMarkedForDeletion: store.listMarkedForDeletion,
                     newListCounter: store.newListCounter,
@@ -100,7 +108,9 @@ function GlobalStoreContextProvider(props) {
                 return setStore({
                     loadedLists: payload,
                     openedLists: store.openedLists,
+                    loadType: store.loadType,
                     sortType: store.sortType,
+                    searchFilter: store.searchFilter,
                     listBeingEdited: store.listBeingEdited,
                     listMarkedForDeletion: store.listMarkedForDeletion,
                     newListCounter: store.newListCounter,
@@ -114,7 +124,9 @@ function GlobalStoreContextProvider(props) {
                 return setStore({
                     loadedLists: payload.loadedLists,
                     openedLists: store.openedLists,
+                    loadType: store.loadType,
                     sortType: store.sortType,
+                    searchFilter: null,
                     listBeingEdited: payload.list,
                     listMarkedForDeletion: store.listMarkedForDeletion,
                     newListCounter: store.newListCounter,
@@ -128,7 +140,9 @@ function GlobalStoreContextProvider(props) {
                 return setStore({
                     loadedLists: store.loadedLists,
                     openedLists: store.openedLists,
+                    loadType: store.loadType,
                     sortType: store.sortType,
+                    searchFilter: null,
                     listBeingEdited: payload,
                     listMarkedForDeletion: store.listMarkedForDeletion,
                     newListCounter: store.newListCounter,
@@ -142,7 +156,9 @@ function GlobalStoreContextProvider(props) {
                 return setStore({
                     loadedLists: payload,
                     openedLists: store.openedLists,
+                    loadType: store.loadType,
                     sortType: store.sortType,
+                    searchFilter: null,
                     listBeingEdited: null,
                     listMarkedForDeletion: store.listMarkedForDeletion,
                     newListCounter: store.newListCounter,
@@ -156,7 +172,9 @@ function GlobalStoreContextProvider(props) {
                 return setStore({
                     loadedLists: payload,
                     openedLists: store.openedLists,
+                    loadType: store.loadType,
                     sortType: store.sortType,
+                    searchFilter: null,
                     listBeingEdited: null,
                     listMarkedForDeletion: store.listMarkedForDeletion,
                     newListCounter: store.newListCounter,
@@ -170,7 +188,9 @@ function GlobalStoreContextProvider(props) {
                 return setStore({
                     loadedLists: store.loadedLists,
                     openedLists: store.openedLists,
+                    loadType: store.loadType,
                     sortType: store.sortType,
+                    searchFilter: null,
                     listBeingEdited: payload,
                     listMarkedForDeletion: store.listMarkedForDeletion,
                     newListCounter: store.newListCounter + 1,
@@ -184,7 +204,9 @@ function GlobalStoreContextProvider(props) {
                 return setStore({
                     loadedLists: store.loadedLists,
                     openedLists: store.openedLists,
+                    loadType: store.loadType,
                     sortType: store.sortType,
+                    searchFilter: store.searchFilter,
                     listBeingEdited: store.listBeingEdited,
                     listMarkedForDeletion: payload,
                     newListCounter: store.newListCounter,
@@ -197,7 +219,9 @@ function GlobalStoreContextProvider(props) {
                 return setStore({
                     loadedLists: store.loadedLists,
                     openedLists: store.openedLists,
+                    loadType: store.loadType,
                     sortType: store.sortType,
+                    searchFilter: store.searchFilter,
                     listBeingEdited: store.listBeingEdited,
                     listMarkedForDeletion: null,
                     newListCounter: store.newListCounter,
@@ -211,7 +235,9 @@ function GlobalStoreContextProvider(props) {
                 return setStore({
                     loadedLists: store.loadedLists,
                     openedLists: store.openedLists,
+                    loadType: store.loadType,
                     sortType: store.sortType,
+                    searchFilter: store.searchFilter,
                     listBeingEdited: store.listBeingEdited,
                     listMarkedForDeletion: store.listMarkedForDeletion,
                     newListCounter: store.newListCounter,
@@ -224,7 +250,9 @@ function GlobalStoreContextProvider(props) {
                 return setStore({
                     loadedLists: store.loadedLists,
                     openedLists: store.openedLists,
+                    loadType: store.loadType,
                     sortType: store.sortType,
+                    searchFilter: store.searchFilter,
                     listBeingEdited: store.listBeingEdited,
                     listMarkedForDeletion: store.listMarkedForDeletion,
                     newListCounter: store.newListCounter,
