@@ -31,7 +31,12 @@ function Statusbar() {
             );
         text = "Your Lists"
     }
-
+    else if (store.loadType === "username") {
+        text = "Lists from user: " + store.searchUsername;
+    }
+    else if (store.loadType === "all"){
+        text = "All " + store.searchFilter + " Lists";
+    }
     if(store.sortType === 'user'){
         // do something
     }

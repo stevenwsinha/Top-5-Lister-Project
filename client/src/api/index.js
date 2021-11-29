@@ -32,7 +32,7 @@ export const getTop5ListById = (id) => api.get(`/home/top5list/${id}`)
 //  MULTI LIST CRUD OPERATIONS
 export const getLoggedInTop5Lists = () => api.get(`/home/top5lists`)
 export const getTop5ListByUsername = (username) => api.get(`/home/${username}`)
-export const getAllTop5Lists = () => api.get(`home/all`)
+export const getAllTop5Lists = () => api.get('/home/all')
 
 //  USER CRUD OPERATIONS
 export const getLoggedIn = () => api.get(`/loggedIn/`);
