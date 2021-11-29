@@ -7,15 +7,16 @@ import List from '@mui/material/List';
 export default function ListViewer() {
     const { store } = useContext(GlobalStoreContext);
 
+    
     const listCard = 
             <List>
             {
                 store.loadedLists.map((list, index) => {
-                    return  list.name.includes(store.searchFilter) ? <ListCard
-                    list={list}
-                    index={index}
-                    key={index}
-                /> : ""
+                    return  list.name.toUpperCase().startsWith(store.searchFilter.toUpperCase()) ? 
+                                <ListCard
+                                    list={list}
+                                    index={index}
+                                    key={index}/> : ""
                 })
             }
             </List>;

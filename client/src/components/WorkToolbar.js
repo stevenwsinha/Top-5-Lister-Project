@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { useContext, useState } from 'react';
+import { GlobalStoreContext } from '../store/index.js'
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -56,6 +58,7 @@ const Search = styled('div')(({ theme }) => ({
   }));
   
 export default function WorkToolbar(){
+    const { store } = useContext(GlobalStoreContext);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [text, setText] = useState("");
 
@@ -71,7 +74,8 @@ export default function WorkToolbar(){
 
     function handleUpdateText(event) {
       setText(event.target.value);
-      store.updateSearchFilter(text);
+      console.log(event.target.value)
+      store.updateSearchFilter(event.target.value);
   }
 
     const menuId = 'primary-sort-menu';
