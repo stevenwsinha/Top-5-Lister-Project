@@ -338,7 +338,25 @@ function GlobalStoreContextProvider(props) {
         history.push("/home/user")
     }
 
-    // store.loadCommunity
+    store.loadCommunity = async function () {
+        try{
+            let response = await api.getAllCommunityLists();
+            if(response.data.success) {
+                let top5lists = response.data.communityLists;
+                storeReducer({
+                    type: GlobalStoreActionType.SET_LOADED_LISTS,
+                    payload: {
+                        lists: top5lists,
+                        type: 'community'
+                    }
+                });
+                history.push("/home/community")
+            }
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
 
     // UPDATE THE SEARCH FILTER
     store.updateSearchFilter = function (text) {

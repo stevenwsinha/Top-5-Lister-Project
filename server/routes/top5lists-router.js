@@ -14,6 +14,7 @@ router.get('/home/top5list/:id', auth.verify, Top5ListController.getTop5ListById
 // COMMUNITY SINLE CRUD OPERATIONS
 router.post('/home/community/', auth.verify, CommunityController.createCommunityList)
 router.put('/home/community/', auth.verify, CommunityController.updateCommunityItems)
+router.get('home/community/', CommunityController.getAllCommunityLists)
 router.put('/home/community/delete', auth.verify, CommunityController.removeCommunityItems)
 router.get('/home/community/:name', CommunityController.getCommunityList)
 

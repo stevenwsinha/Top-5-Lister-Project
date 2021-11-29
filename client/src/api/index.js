@@ -40,6 +40,9 @@ export const getLoggedInTop5Lists = () => api.get(`/home/top5lists`)
 export const getTop5ListByUsername = (username) => api.get(`/home/${username}`)
 export const getAllTop5Lists = () => api.get(`/home/all`)
 
+// MULTI LIST COMMUNITY OPERATIONS
+export const getAllCommunityLists = () => api.get(`home/community/`)
+
 //  USER CRUD OPERATIONS
 export const getLoggedIn = () => api.get(`/loggedIn/`);
 export const registerUser = (payload) => api.post(`/register/`, payload)
@@ -60,6 +63,8 @@ const apis = {
     getLoggedInTop5Lists,
     getTop5ListByUsername,
     getAllTop5Lists,
+
+    getAllCommunityLists,
 
     getLoggedIn,
     registerUser,

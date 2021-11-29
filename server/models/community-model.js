@@ -9,6 +9,7 @@ const CommunityListSchema = new Schema (
         likes: {type: [String], required: true},
         dislikes: {type: [String], required: true},
         comments: {type: [Object], required: true},
+        updated: {type: String, required: true},
     },
     {timestamps: true}
     

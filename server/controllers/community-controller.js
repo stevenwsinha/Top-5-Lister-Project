@@ -7,9 +7,6 @@ const mongoose = require('mongoose')
  */
 
 createCommunityList = async (req, res) => {
-    console.log("\n")
-    console.log(req.body)
-    console.log("\n")
     const name = req.body.name.toLowerCase()
     const items = req.body.items
 
@@ -20,6 +17,7 @@ createCommunityList = async (req, res) => {
         likes: [],
         dislikes: [],
         comments: [],
+        updated: new Date().toString(),
         }
     weights = [5,4,3,2,1]
     for(let i = 0; i < 5; i++){
@@ -68,6 +66,7 @@ updateCommunityItems = async (req, res) => {
         }
     }
     existingList.items = map;
+    existingList.updated = new Date().toString()
     existingList
             .save()
             .then(() => {
@@ -114,6 +113,7 @@ removeCommunityItems = async (req, res) => {
         }
     }
     existingList.items = map
+    existingList.updated = new Date().toString()
     existingList
     .save()
     .then(() => {
@@ -142,9 +142,19 @@ getCommunityList = async (req, res) => {
     }).catch(err => console.log(err))
 }
 
+getAllCommunityLists = async (req, res) => {
+    await Community.find({}, (err, lists) => {
+        if (err) {
+            return res.status(400).json({ success: false, error: err })
+        }
+        return res.status(200).json({ success: true, communityLists: lists })
+    }).catch(err => console.log(err))
+}
+
 module.exports = {
     createCommunityList,
     updateCommunityItems,
     removeCommunityItems,
     getCommunityList,
+    getAllCommunityLists,
 }
