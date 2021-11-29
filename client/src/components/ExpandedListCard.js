@@ -276,9 +276,6 @@ function ExpandedListCard(props) {
                             onKeyPress={handleKeyPress}
                             value={text}
                             defaultValue={""}
-                            inputProps={{
-                                color: 'black'
-                            }}
                         />
                     </Grid>
                 </Grid>
