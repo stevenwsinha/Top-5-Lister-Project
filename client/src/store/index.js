@@ -512,8 +512,10 @@ function GlobalStoreContextProvider(props) {
         let exists = false
         for(let i = 0; i < store.loadedLists.length; i++) {
             let listName = store.loadedLists[i].name
-            if(top5list.name.toUpperCase() === listName.toUpperCase()){
-                exists = true;
+            if(store.loadedLists[i].isPublished){
+                if(top5list.name.toUpperCase() === listName.toUpperCase()){
+                    exists = true;
+                }
             }
         }
 
