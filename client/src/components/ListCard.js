@@ -36,39 +36,30 @@ function ListCard(props) {
         store.editList(index)
     }
 
-    function likeList() {
+    function toggleLike() {
         if(!list.isPublished){
             return
         }
         if(list.dislikes.includes(auth.user.username)){
-            store.unlikeList(index, "dislike")
+            store.swapLikes(index)
         }
-        store.likeList(index, "like")
+        else{
+            store.toggleLike(index)
+        }
     }
 
-    function unlikeList() {
-        if(!list.isPublished){
-            return
-        }
-        store.unlikeList(index, "like")
-    }
-
-    function dislikeList() {
+    function toggleDislike() {
         if(!list.isPublished){
             return
         }
         if(list.likes.includes(auth.user.username)){
-            store.unlikeList(index, "like")
+            store.swapLikes(index)
         }
-        store.likeList(index, "dislike")
+        else{
+            store.toggleDislike(index, "dislike")
+        }
     }
 
-    function undislikeList() {
-        if(!list.isPublished){
-            return
-        }
-        store.unlikeList(index, "dislike")
-    }
 
     let listClass = 'draft-card';
     let publishComponent = <Button variant="text" sx={{fontSize: '10pt', p:0}} style={{color: '#C70039'}} onClick={handleEditList}>Edit</Button>
@@ -81,7 +72,7 @@ function ListCard(props) {
                             size="medium"
                             color="inherit"
                             aria-label="open drawer"
-                            onClick={likeList}
+                            onClick={toggleLike}
                         >
                             <ThumbUpOutlinedIcon />
                         </IconButton>;
@@ -92,7 +83,7 @@ function ListCard(props) {
                             size="medium"
                             color="inherit"
                             aria-label="open drawer"
-                            onClick={unlikeList}
+                            onClick={toggleLike}
                         >
                             <ThumbUpIcon />
                         </IconButton>;
@@ -102,7 +93,7 @@ function ListCard(props) {
                             size="medium"
                             color="inherit"
                             aria-label="open drawer"
-                            onClick={dislikeList}
+                            onClick={toggleDislike}
                         >
                             <ThumbDownOutlinedIcon />
                         </IconButton>
@@ -111,7 +102,7 @@ function ListCard(props) {
                             size="medium"
                             color="inherit"
                             aria-label="open drawer"
-                            onClick={undislikeList}
+                            onClick={toggleDislike}
                         >
                             <ThumbDownIcon />
                         </IconButton>;

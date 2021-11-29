@@ -390,20 +390,46 @@ function GlobalStoreContextProvider(props) {
         });
     }
 
-    store.likeList = async function (index, type) {
-        let lists = store.loadedLists
-        if(type === 'like'){
-            lists[index].likes.push(auth.user.username)
+    store.toggleLike = async function (index) {
+        let loadedLists = store.loadedLists
+        let list = loadedLists[index]
+        let innerIndex = list.likes.indexOf(auth.user.username)
+        if(innerIndex > -1){
+            list.likes.splice(innerIndex, 1)
         }
         else{
-            lists[index].dislikes.push(auth.user.username)
+            list.likes.push(auth.user.username)
         }
         try{
-            let response = await api.updateTop5ListById(lists[index]._id, lists[index])
+            let response = await api.updateTop5ListById(list._id, list)
             if(response.data.success) {
                 storeReducer({
                     type: GlobalStoreActionType.SET_LIKE_LIST,
-                    payload: lists
+                    payload: loadedLists
+                });
+            }
+        }
+        catch(err){
+            console.log(err);
+        }
+    }
+
+    store.toggleDislike = async function (index) {
+        let loadedLists = store.loadedLists
+        let list = loadedLists[index]
+        let innerIndex = list.dislikes.indexOf(auth.user.username)
+        if(innerIndex > -1){
+            list.dislikes.splice(innerIndex, 1)
+        }
+        else{
+            list.dislikes.push(auth.user.username)
+        }
+        try{
+            let response = await api.updateTop5ListById(list._id, list)
+            if(response.data.success) {
+                storeReducer({
+                    type: GlobalStoreActionType.SET_LIKE_LIST,
+                    payload: loadedLists
                 });
             }
         }
@@ -412,26 +438,27 @@ function GlobalStoreContextProvider(props) {
         }
     }
     
-    store.unlikeList = async function (index, type) {
-        let lists = store.loadedLists
-        if(type === 'like'){
-            let innerIndex = lists[index].likes.indexOf(auth.user.username)
-            if(innerIndex > -1){
-                lists[index].likes.splice(innerIndex, 1)
-            }
+    store.swapLikes = async function (index) {
+        let loadedLists = store.loadedLists
+        let list = loadedLists[index]
+        let innerIndex = list.likes.indexOf(auth.user.username)
+        if(innerIndex > -1){
+            list.likes.splice(innerIndex, 1)
+            list.dislikes.push(auth.user.username)
         }
         else{
-            let innerIndex = lists[index].dislikes.indexOf(auth.user.username)
+            let innerIndex = list.dislikes.indexOf(auth.user.username)
             if(innerIndex > -1){
-                lists[index].dislikes.splice(innerIndex, 1)
+                list.dislikes.splice(innerIndex, 1)
+                list.likes.push(auth.user.username)
             }
         }
         try{
-            let response = await api.updateTop5ListById(lists[index]._id, lists[index])
+            let response = await api.updateTop5ListById(list._id, list)
             if(response.data.success) {
                 storeReducer({
                     type: GlobalStoreActionType.SET_LIKE_LIST,
-                    payload: lists
+                    payload: loadedLists
                 });
             }
         }
