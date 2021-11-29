@@ -18,6 +18,7 @@ export const GlobalStoreActionType = {
     SET_LOADED_LISTS: "SET_LOADED_LISTS",
     SET_OPENED_LISTS: "SET_OPENED_LISTS",
     SET_SORT_TYPE: "SET_SORT_TYPE",
+    SET_SEARCH_FILTER: "SET_SEARCH_FILTER",
     SET_LIST_BEING_EDITED: "SET_LIST_BEING_EDITED",
     CREATE_NEW_LIST: "CREATE_NEW_LIST",
     MARK_LIST_FOR_DELETION: "MARK_LIST_FOR_DELETION",
@@ -103,6 +104,22 @@ function GlobalStoreContextProvider(props) {
                     itemActive: store.itemActive
                 })
             }
+
+            case GlobalStoreActionType.SET_SEARCH_FILTER: {
+                return setStore({
+                    loadedLists: store.loadedLists,
+                    openedLists: store.openedLists,
+                    loadType: store.loadType,
+                    sortType: store.sortType,
+                    searchFilter: payload,
+                    listBeingEdited: store.listBeingEdited,
+                    listMarkedForDeletion: store.listMarkedForDeletion,
+                    newListCounter: store.newListCounter,
+                    listNameActive: store.listNameActive,
+                    itemActive: store.itemActive
+                })
+            }
+            
             // SET_LIKE_LIST
             case GlobalStoreActionType.SET_LIKE_LIST: {
                 return setStore({
@@ -352,6 +369,13 @@ function GlobalStoreContextProvider(props) {
         else {
             console.log("API FAILED TO GET THE LIST PAIRS");
         }
+    }
+
+    store.updateSearchFilter = function (text) {
+        storeReducer({
+            type: GlobalStoreActionType.SET_SEARCH_FILTER,
+            payload: text,
+        });
     }
 
     // load a list to edit based on a list id

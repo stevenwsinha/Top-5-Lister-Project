@@ -57,7 +57,8 @@ const Search = styled('div')(({ theme }) => ({
   
 export default function WorkToolbar(){
     const [anchorEl, setAnchorEl] = React.useState(null);
-    
+    const [text, setText] = useState("");
+
     const isMenuOpen = Boolean(anchorEl);
 
     const handleSortMenuOpen = (event) => {
@@ -67,6 +68,11 @@ export default function WorkToolbar(){
     const handleSortMenuClose = () => {
         setAnchorEl(null);
     };
+
+    function handleUpdateText(event) {
+      setText(event.target.value);
+      store.updateSearchFilter(text);
+  }
 
     const menuId = 'primary-sort-menu';
     const sortMenu = (
@@ -141,6 +147,7 @@ export default function WorkToolbar(){
                     <StyledInputBase
                       placeholder="Search…"
                       inputProps={{ 'aria-label': 'search' }}
+                      onChange={handleUpdateText}
                     />
                   </Search>
                   <Box sx={{ flexGrow: 1 }} />

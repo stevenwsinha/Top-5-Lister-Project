@@ -10,13 +10,13 @@ export default function ListViewer() {
     const listCard = 
             <List>
             {
-                store.loadedLists.map((list, index) => (
-                    <ListCard
-                        list={list}
-                        index={index}
-                        key={index}
-                    />
-                ))
+                store.loadedLists.map((list, index) => {
+                    return  list.name.includes(store.searchFilter) ? <ListCard
+                    list={list}
+                    index={index}
+                    key={index}
+                /> : ""
+                })
             }
             </List>;
 
