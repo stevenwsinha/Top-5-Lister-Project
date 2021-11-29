@@ -14,6 +14,7 @@ import WorkContainer from './WorkContainer'
 import ListViewer from './ListViewer'
 import ExpandedListcard from './ExpandedListCard'
 import CommentBox from './CommentBox'
+import CommentCard from './CommentCard'
 
 /*
     This serves as a module so that we can import
@@ -38,4 +39,5 @@ export {
     ListViewer,
     ExpandedListcard,
     CommentBox,
+    CommentCard,
 }

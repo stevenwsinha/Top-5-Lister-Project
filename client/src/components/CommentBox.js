@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { TextField } from '@mui/material';
+import { List } from '@mui/material';
+import { CommentCard } from '.';
 
-export default function CommentBox () {
-    //const { comments } = props
+export default function CommentBox (props) {
+    const { comments } = props;
     const [text, setText] = useState("");
 
     function handleKeyPress(event) {
@@ -16,21 +17,19 @@ export default function CommentBox () {
         setText(event.target.value);
     }
 
-    const commentCard = <div className='comment-list'> 
-                            Gamer
-                        </div>
+    let commentCards =  <List>
+                        {
+                            comments.map((comment, index) => {
+                                return <CommentCard 
+                                            comment={comment}
+                                            key={index}
+                                        />
+                            })
+                        }
+                        </List>;
     return (
-        <div className='comment-box'>
-            {commentCard}
-            <TextField 
-                variant="outlined" 
-                label='Add comment' 
-                fullWidth
-                size="small" 
-                onChange={handleUpdateText}
-                onKeyPress={handleKeyPress}
-                defaultValue={""}
-            />
-        </div>  
+        <div className='comment-card-list'>
+            {commentCards}
+        </div>
     );
 }

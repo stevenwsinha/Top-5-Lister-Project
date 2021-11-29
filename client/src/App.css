@@ -232,11 +232,6 @@ body {
   border-style: green;
 }
 
-.comment-list {
-  min-height: 250px
-}
-
-
 #list-selector-list {
   position: absolute;
   left: 0%;

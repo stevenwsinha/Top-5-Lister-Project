@@ -1,5 +1,6 @@
 import { useContext } from 'react'
 import { GlobalStoreContext } from '../store'
+import { useState } from 'react';
 import AuthContext from '../auth'
 import Box from '@mui/material/Box';
 import ListItem from '@mui/material/ListItem';
@@ -12,6 +13,7 @@ import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import { TextField } from '@mui/material';
 import { CommentBox } from '.';
 import Grid from '@mui/material/Grid';
 
@@ -26,10 +28,21 @@ function ExpandedListCard(props) {
     const { store } = useContext(GlobalStoreContext);
     const { list, index } = props;
     const { auth } = useContext(AuthContext);
+    const [text, setText] = useState("");
 
     async function handleDeleteList(event) {
         event.stopPropagation();
         store.markListForDeletion(getIndex(list._id));
+    }
+
+    function handleKeyPress(event) {
+        if (event.code === "Enter") {
+            //store.editListName(event.target.value);
+        }
+    }
+
+    function handleUpdateText(event) {
+        setText(event.target.value);
     }
 
     function getIndex (id) {
@@ -243,9 +256,24 @@ function ExpandedListCard(props) {
             borderWidth: 2,
             borderColor: 'green'
             }}>
-                COMMENTS
+                <Grid container direction='column' spacing={0} sx={{width: 1}}>
+                    <Grid item sx={{minHeight: 260, maxHeight: 260}}>
+                        <CommentBox comments={list.comments}/>
+                    </Grid>
+                    <Grid item>
+                        <TextField 
+                            variant="outlined" 
+                            label='Add comment' 
+                            fullWidth
+                            size="small" 
+                            onChange={handleUpdateText}
+                            onKeyPress={handleKeyPress}
+                            defaultValue={""}
+                        />
+                    </Grid>
+                </Grid>
             </Box>  
-            
+
             <Box style={{
             fontSize: '12pt',
             minHeight: 25,
