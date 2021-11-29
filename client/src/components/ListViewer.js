@@ -3,6 +3,7 @@ import { GlobalStoreContext } from '../store'
 // import AuthContext from '../auth'
 import ListCard from './ListCard.js'
 import List from '@mui/material/List';
+import ExpandedListCard from './ExpandedListCard';
 
 export default function ListViewer() {
     const { store } = useContext(GlobalStoreContext);
@@ -66,11 +67,20 @@ export default function ListViewer() {
             <List>
             {
                 lists.map((list, index) => {
-                    return  list.name.toUpperCase().startsWith(store.searchFilter.toUpperCase()) ? 
+                    if(store.openedLists.includes(list)){
+                        return  list.name.toUpperCase().startsWith(store.searchFilter.toUpperCase()) ? 
+                        <ExpandedListCard
+                            list={list}
+                            index={index}
+                            key={index}/> : "" 
+                    }
+                    else{
+                        return  list.name.toUpperCase().startsWith(store.searchFilter.toUpperCase()) ? 
                                 <ListCard
                                     list={list}
                                     index={index}
                                     key={index}/> : ""
+                    }
                 })
             }
             </List>;

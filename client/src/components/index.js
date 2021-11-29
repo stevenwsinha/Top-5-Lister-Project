@@ -12,6 +12,7 @@ import DeleteModal from './DeleteModal'
 import WorkToolbar from './WorkToolbar'
 import WorkContainer from './WorkContainer'
 import ListViewer from './ListViewer'
+import ExpandedListcard from './ExpandedListCard'
 
 /*
     This serves as a module so that we can import
@@ -34,4 +35,5 @@ export {
     WorkToolbar,
     WorkContainer,
     ListViewer,
+    ExpandedListcard,
 }

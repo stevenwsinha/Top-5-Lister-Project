@@ -418,9 +418,20 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
-    store.openedLists = function (index) {
-        openLists = store.openedLists
+    store.openList = function (index) {
+        let openLists = store.openedLists
         openLists.push(store.loadedLists[index])
+        storeReducer({
+            type: GlobalStoreActionType.SET_OPENED_LISTS,
+            payload: openLists,
+        });
+    }
+
+    store.closeList = function (index) {
+        let listToClose = store.loadedLists[index]
+        let openIndex = store.openedLists.indexOf(listToClose)
+        let openLists = store.openedLists
+        openLists.splice(openIndex, 1)
         storeReducer({
             type: GlobalStoreActionType.SET_OPENED_LISTS,
             payload: openLists,
