@@ -29,11 +29,20 @@ function ListCard(props) {
 
     async function handleDeleteList(event) {
         event.stopPropagation();
-        store.markListForDeletion(index);
+        store.markListForDeletion(getIndex(list._id));
+    }
+
+    function getIndex (id) {
+        for(let i = 0; i < store.loadedLists.length; i++){
+            if(store.loadedLists[i]._id === id){
+                return i;
+            }
+        }
+        return 0;
     }
 
     function handleEditList() {
-        store.editList(index)
+        store.editList(getIndex(list._id))
     }
 
     function toggleLike() {
@@ -41,10 +50,10 @@ function ListCard(props) {
             return
         }
         if(list.dislikes.includes(auth.user.username)){
-            store.swapLikes(index)
+            store.swapLikes(getIndex(list._id))
         }
         else{
-            store.toggleLike(index)
+            store.toggleLike(getIndex(list._id))
         }
     }
 
@@ -53,10 +62,10 @@ function ListCard(props) {
             return
         }
         if(list.likes.includes(auth.user.username)){
-            store.swapLikes(index)
+            store.swapLikes(getIndex(list._id))
         }
         else{
-            store.toggleDislike(index, "dislike")
+            store.toggleDislike(getIndex(list._id), "dislike")
         }
     }
 
