@@ -33,6 +33,7 @@ export const getTop5ListById = (id) => api.get(`/home/top5list/${id}`)
 export const CreateCommunityList = (payload) => api.post(`/home/community/`, payload)
 export const UpdateCommunityItems = (payload) => api.put(`/home/community/`, payload)
 export const RemoveCommunityItems = (payload) => api.put(`/home/community/delete`, payload)
+export const UpdateCommunity = (id, payload) => api.put(`/home/community/${id}`, payload)
 export const GetCommunityList = (payload) => api.get(`/home/community/${payload}`)
 
 //  MULTI LIST CRUD OPERATIONS
@@ -58,6 +59,7 @@ const apis = {
     CreateCommunityList,
     UpdateCommunityItems,
     RemoveCommunityItems,
+    UpdateCommunity,
     GetCommunityList,
 
     getLoggedInTop5Lists,

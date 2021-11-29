@@ -46,7 +46,7 @@ function ListCard(props) {
     }
 
     function toggleLike() {
-        if(!list.isPublished){
+        if(!list.isPublished && store.loadType !== "community"){
             return
         }
         if(list.dislikes.includes(auth.user.username)){
@@ -58,7 +58,7 @@ function ListCard(props) {
     }
 
     function toggleDislike() {
-        if(!list.isPublished){
+        if(!list.isPublished && store.loadType !== "community"){
             return
         }
         if(list.likes.includes(auth.user.username)){

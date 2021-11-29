@@ -15,6 +15,7 @@ router.get('/home/top5list/:id', auth.verify, Top5ListController.getTop5ListById
 router.post('/home/community/', auth.verify, CommunityController.createCommunityList)
 router.put('/home/community/', auth.verify, CommunityController.updateCommunityItems)
 router.put('/home/community/delete', auth.verify, CommunityController.removeCommunityItems)
+router.put('/home/community/:id', auth.verify, CommunityController.updateCommunityList)
 router.get('/home/community/all', CommunityController.getAllCommunityLists)
 router.get('/home/community/:name', CommunityController.getCommunityList)
 

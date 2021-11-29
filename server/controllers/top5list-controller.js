@@ -43,15 +43,6 @@ createTop5List = (req, res) => {
  *  USED TO UPDATE EVERY SINGLE FIELD IN THE TOP5LIST MODEL, INCLUDING TO EDIT, VIEW, LIKE/UNLIKE, OR PUBLISH A LIST
  */
 updateTop5List = async (req, res) => {
-    const user_id = req.userId;
-    let username = "";
-    await User.findById({_id: user_id}, (err, user) => {
-        if(err) {
-            return res.status(400).json({success:false, error:err});
-        }
-        username = user.username;
-    })
-
     const body = req.body;
     if (!body) {
         return res.status(400).json({
@@ -67,9 +58,6 @@ updateTop5List = async (req, res) => {
                 err,
                 message: 'Top 5 List not found!',
             })
-        }
-        if(username !== top5List.owner){
-            return res.status(403).json({success: false, error: "You are not authorized to edit this list." });
         }
 
         top5List.name = body.name

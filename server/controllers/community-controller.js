@@ -41,6 +41,47 @@ createCommunityList = async (req, res) => {
         })
     }
 
+updateCommunityList = async (req, res) => {
+    const body = req.body
+    if (!body) {
+        return res.status(400).json({
+            success: false,
+            error: 'You must provide a body to update',
+        })
+    }
+
+    Community.findOne({ _id: req.params.id }, (err, communityList) => {
+        if (err) {
+            return res.status(404).json({
+                err,
+                message: 'Community List not found!',
+            })
+        }
+        
+        communityList.views = body.views
+        communityList.likes = body.likes
+        communityList.dislikes = body.dislikes
+        communityList.comments = body.comments
+        communityList
+            .save()
+            .then(() => {
+                console.log("SUCCESS!!!");
+                return res.status(200).json({
+                    success: true,
+                    id: communityList._id,
+                    message: 'Community List updated!',
+                })
+            })
+            .catch(error => {
+                console.log("FAILURE: " + JSON.stringify(error));
+                return res.status(404).json({
+                    error,
+                    message: 'Community List not updated!',
+                })
+            })
+    })
+}
+
 updateCommunityItems = async (req, res) => {
     const name = req.body.name.toLowerCase()
     const items = req.body.items
@@ -153,6 +194,7 @@ getAllCommunityLists = async (req, res) => {
 
 module.exports = {
     createCommunityList,
+    updateCommunityList,
     updateCommunityItems,
     removeCommunityItems,
     getCommunityList,

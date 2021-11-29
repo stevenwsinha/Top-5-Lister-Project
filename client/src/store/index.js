@@ -357,7 +357,19 @@ function GlobalStoreContextProvider(props) {
                     let sortedLists = Object.entries(communityLists[i].items).sort((a, b) => b[1] - a[1]);
                     let newItems = sortedLists.slice(0,5).map( (array) => {return array[0]} )
                     communityLists[i].items = newItems
-                    console.log(newItems)
+
+                    // now, change the necessary fields to upper case
+                    let nameWords = communityLists[i].name.split(" ")
+                    communityLists[i].name = nameWords.map((word) => { 
+                        return word[0].toUpperCase() + word.substring(1); 
+                    }).join(" ");
+
+                    for (let j = 0; j < 5; j++){
+                        let itemWords = communityLists[i].items[j].split(" ")
+                        communityLists[i].items[j] = itemWords.map((word) => { 
+                            return word[0].toUpperCase() + word.substring(1); 
+                        }).join(" ");
+                    }
                 }
             
                 storeReducer({
@@ -439,7 +451,13 @@ function GlobalStoreContextProvider(props) {
             list.likes.push(auth.user.username)
         }
         try{
-            let response = await api.updateTop5ListById(list._id, list)
+            let response = ""
+            if(store.loadType === "community"){
+                response = await api.UpdateCommunity(list._id, list)
+            }
+            else{
+                response = await api.updateTop5ListById(list._id, list)
+            }
             if(response.data.success) {
                 storeReducer({
                     type: GlobalStoreActionType.SET_LIKE_LIST,
@@ -463,7 +481,13 @@ function GlobalStoreContextProvider(props) {
             list.dislikes.push(auth.user.username)
         }
         try{
-            let response = await api.updateTop5ListById(list._id, list)
+            let response = ""
+            if(store.loadType === "community"){
+                response = await api.UpdateCommunity(list._id, list)
+            }
+            else{
+                response = await api.updateTop5ListById(list._id, list)
+            }
             if(response.data.success) {
                 storeReducer({
                     type: GlobalStoreActionType.SET_LIKE_LIST,
@@ -492,7 +516,13 @@ function GlobalStoreContextProvider(props) {
             }
         }
         try{
-            let response = await api.updateTop5ListById(list._id, list)
+            let response = ""
+            if(store.loadType === "community"){
+                response = await api.UpdateCommunity(list._id, list)
+            }
+            else{
+                response = await api.updateTop5ListById(list._id, list)
+            }
             if(response.data.success) {
                 storeReducer({
                     type: GlobalStoreActionType.SET_LIKE_LIST,
