@@ -164,7 +164,7 @@ export default function WorkToolbar(){
                     disabled={(store.listBeingEdited || !auth.loggedIn) ? true: false}
                     size="large"
                     edge="start"
-                    color="inherit"
+                    color={store.loadType === "home" ? "secondary" : "inherit"}
                     aria-label="open drawer"
                     onClick={handleHome}
                     sx={{ mr: 2 }}
@@ -175,7 +175,7 @@ export default function WorkToolbar(){
                     disabled={store.listBeingEdited ? true: false}
                     size="large"
                     edge="start"
-                    color="inherit"
+                    color={store.loadType === "all" ? "secondary" : "inherit"}
                     aria-label="open drawer"
                     onClick={handleAll}
                     sx={{ mr: 2 }}
@@ -186,7 +186,7 @@ export default function WorkToolbar(){
                     disabled={store.listBeingEdited ? true: false}
                     size="large"
                     edge="start"
-                    color="inherit"
+                    color={store.loadType === "username" ? "secondary" : "inherit"}
                     aria-label="open drawer"
                     onClick={handleUser}
                     sx={{ mr: 2 }}
@@ -197,7 +197,7 @@ export default function WorkToolbar(){
                     disabled={store.listBeingEdited ? true: false}
                     size="large"
                     edge="start"
-                    color="inherit"
+                    color={store.loadType === "community" ? "secondary" : "inherit"}
                     aria-label="open drawer"
                     onClick={handleCommunity}
                     sx={{ mr: 2 }}
