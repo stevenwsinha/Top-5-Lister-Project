@@ -525,8 +525,8 @@ function GlobalStoreContextProvider(props) {
         }
 
         const alphaNumericRegex = /^[0-9a-zA-Z]+$/;
-        if(!top5list.name.match(alphaNumericRegex)){
-            auth.setErrorMsg("Your list name must be alphanumeric!");
+        if(!top5list.name[0].match(alphaNumericRegex)){
+            auth.setErrorMsg("Your list name must start with an alphanumeric character!");
             return
         }
 

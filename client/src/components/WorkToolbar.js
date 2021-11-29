@@ -130,6 +130,7 @@ export default function WorkToolbar(){
               <AppBar position="static" elevation={0} style={{ background: '#5a5a5a' }}>
                 <Toolbar>
                   <IconButton
+                    disabled={store.listBeingEdited ? true: false}
                     size="large"
                     edge="start"
                     color="inherit"
@@ -140,6 +141,7 @@ export default function WorkToolbar(){
                     <HomeIcon />
                   </IconButton>
                   <IconButton
+                    disabled={store.listBeingEdited ? true: false}
                     size="large"
                     edge="start"
                     color="inherit"
@@ -150,6 +152,7 @@ export default function WorkToolbar(){
                     <PeopleIcon />
                   </IconButton>
                   <IconButton
+                    disabled={store.listBeingEdited ? true: false}
                     size="large"
                     edge="start"
                     color="inherit"
@@ -160,6 +163,7 @@ export default function WorkToolbar(){
                     <PersonSearchIcon />
                   </IconButton>
                   <IconButton
+                    disabled={store.listBeingEdited ? true: false}
                     size="large"
                     edge="start"
                     color="inherit"
@@ -174,6 +178,7 @@ export default function WorkToolbar(){
                       <SearchIcon />
                     </SearchIconWrapper>
                     <StyledInputBase
+                      disabled={store.listBeingEdited ? true: false}
                       placeholder="Search…"
                       inputProps={{ 'aria-label': 'search' }}
                       onChange={handleUpdateText}
@@ -191,6 +196,7 @@ export default function WorkToolbar(){
                   </Typography>
                   <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                     <IconButton
+                      disabled={store.listBeingEdited ? true: false}
                       size="large"
                       aria-label="show more"
                       aria-controls={menuId}
