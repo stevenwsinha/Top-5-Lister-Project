@@ -10,8 +10,7 @@ export default function CommentCard (props) {
     return (
         <ListItem
             key={index}
-            className={'comment-card'}
-            sx={{ marginTop: '0px', marginBottom: '8px', display: 'flex', p: 1, paddingTop: 0, overflow: 'auto'}}
+            sx={{ marginTop: 0, marginBottom: '8px', display: 'flex', p: 1, paddingTop: 0, overflow: 'auto'}}
             style={{
                 fontSize: '12pt',
                 minHeight: 80,

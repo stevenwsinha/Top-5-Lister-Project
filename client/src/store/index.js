@@ -72,8 +72,8 @@ function GlobalStoreContextProvider(props) {
              // SET OUR OPENED LISTS TO A NEW ARRAY OF OBJECTS
              case GlobalStoreActionType.SET_OPENED_LISTS: {
                 return setStore({
-                    loadedLists: store.loadedLists,
-                    openedLists: payload,
+                    loadedLists: payload.newLoadedLists,
+                    openedLists: payload.openLists,
                     loadType: store.loadType,
                     sortType: store.sortType,
                     searchFilter: store.searchFilter,
@@ -418,13 +418,33 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
-    store.openList = function (index) {
+    store.openList = async function (index) {
         let openLists = store.openedLists
         openLists.push(store.loadedLists[index])
-        storeReducer({
-            type: GlobalStoreActionType.SET_OPENED_LISTS,
-            payload: openLists,
-        });
+        let newLoadedLists = store.loadedLists
+        newLoadedLists[index].views++
+
+        try{
+            let response =""
+            if(store.loadType === "community"){
+                response = await api.UpdateCommunity(newLoadedLists[index]._id, newLoadedLists[index])
+            }
+            else{
+                response = await api.updateTop5ListById(newLoadedLists[index]._id, newLoadedLists[index])
+            }
+            if(response.data.success) {
+                storeReducer({
+                    type: GlobalStoreActionType.SET_OPENED_LISTS,
+                    payload: {
+                        newLoadedLists: newLoadedLists,
+                        openLists: openLists
+                    }
+                });
+            }
+        }catch(err){
+            console.log(err)
+        }
+        
     }
 
     store.closeList = function (index) {
@@ -434,7 +454,10 @@ function GlobalStoreContextProvider(props) {
         openLists.splice(openIndex, 1)
         storeReducer({
             type: GlobalStoreActionType.SET_OPENED_LISTS,
-            payload: openLists,
+            payload: {
+                newLoadedLists: store.loadedLists,
+                openLists: openLists,
+            }
         });
     }
 

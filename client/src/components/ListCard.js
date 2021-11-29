@@ -51,7 +51,7 @@ function ListCard(props) {
 
     function toggleLike() {
         if(!auth.loggedIn) {
-            auth.setErrorMsg("Log in to like a list")
+            auth.setErrorMsg("You Must Be Logged In To Like A List")
             return
         }
 
@@ -68,7 +68,7 @@ function ListCard(props) {
 
     function toggleDislike() {
         if(!auth.loggedIn) {
-            auth.setErrorMsg("Log in to dislike a list")
+            auth.setErrorMsg("You Must Be Logged In To Dislike A List")
             return
         }
 

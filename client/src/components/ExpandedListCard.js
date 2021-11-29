@@ -37,6 +37,15 @@ function ExpandedListCard(props) {
 
     function handleKeyPress(event) {
         if (event.code === "Enter") {
+            if(!auth.loggedIn) {
+                auth.setErrorMsg("You Must Be Logged In To Comment")
+                return
+            }
+            if(!list.isPublished) {
+                auth.setErrorMsg("You May Not Comment on a Draft List")
+                return
+            }
+
             setText("")
             store.publishComment(event.target.value, getIndex(list._id));
         }
@@ -65,7 +74,7 @@ function ExpandedListCard(props) {
 
     function toggleLike() {
         if(!auth.loggedIn) {
-            auth.setErrorMsg("Log in to like a list")
+            auth.setErrorMsg("You Must Be Logged In To Like A List")
             return
         }
 
@@ -82,7 +91,7 @@ function ExpandedListCard(props) {
 
     function toggleDislike() {
         if(!auth.loggedIn) {
-            auth.setErrorMsg("Log in to dislike a list")
+            auth.setErrorMsg("You Must Be Logged In To Dislike A List")
             return
         }
 
@@ -203,12 +212,10 @@ function ExpandedListCard(props) {
             minHeight: 300,
             maxHeight: 300,
             width: '100%',
-            borderStyle: 'solid',
-            borderWidth: 2,
-            borderColor: 'green'
             }}>
                 <ItemView
-                    list={list} />
+                    list={list} 
+                />
             </Box>  
 
             <Box style={{
@@ -235,15 +242,15 @@ function ExpandedListCard(props) {
                 <Grid container direction='row' spacing={0} sx={{height: 50}}>
                 <Grid item xs={4}>
                 </Grid>
-                <Grid item xs={3} sx={{height: 50}}>
+                <Grid item xs={3} sx={{height: 60}}>
                     {likeButton}
                     {list.likes.length}
                 </Grid>
-                <Grid item xs={3} sx={{ height: 50 }}>
+                <Grid item xs={3} sx={{ height: 60 }}>
                     {dislikeButton}
                     {list.dislikes.length}
                 </Grid>
-                <Grid item xs={2} sx={{height: 50, display: 'flex', justifyContent: 'flex-end', }}>
+                <Grid item xs={2} sx={{height: 60, display: 'flex', justifyContent: 'flex-end', }}>
                     {deleteButton}
                 </Grid>
             </Grid>
@@ -269,6 +276,9 @@ function ExpandedListCard(props) {
                             onKeyPress={handleKeyPress}
                             value={text}
                             defaultValue={""}
+                            inputProps={{
+                                color: 'black'
+                            }}
                         />
                     </Grid>
                 </Grid>
