@@ -118,7 +118,7 @@ function ListCard(props) {
     }
 
     let deleteButton = ""
-    if(store.sortType === 'home'){
+    if(store.loadType === 'home'){
         deleteButton = <IconButton
                         size="medium"
                         color="inherit"

@@ -20,6 +20,7 @@ function Statusbar() {
     if(store.loadType==='home'){
         add = (
             <Fab 
+                disabled={store.listBeingEdited ? true: false}
                 color="secondary" 
                 aria-label="add"
                 id="add-list-button"

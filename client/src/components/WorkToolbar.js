@@ -74,8 +74,18 @@ export default function WorkToolbar(){
 
     function handleUpdateText(event) {
       setText(event.target.value);
-      console.log(event.target.value)
+      if(store.loadType.startsWith("username")){
+          return
+      }
       store.updateSearchFilter(event.target.value);
+    }
+
+    function handleKeyPress(event) {
+      if (event.code === "Enter") {
+          if(store.loadType.startsWith("username")) {
+            store.updateUsernameSearch(text)
+          }
+      }
   }
 
     const menuId = 'primary-sort-menu';
@@ -152,6 +162,7 @@ export default function WorkToolbar(){
                       placeholder="Search…"
                       inputProps={{ 'aria-label': 'search' }}
                       onChange={handleUpdateText}
+                      onKeyPress={handleKeyPress}
                     />
                   </Search>
                   <Box sx={{ flexGrow: 1 }} />

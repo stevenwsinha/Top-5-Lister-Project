@@ -97,8 +97,7 @@ function AuthContextProvider(props) {
                     }
                 })
                 // GO TO HOME SCREEN AND LOAD THE RIGHT LISTS
-                store.loadLoggedInLists();
-                history.push("/home");
+                store.loadHome();
             }
         }
         catch(err){
@@ -125,8 +124,7 @@ function AuthContextProvider(props) {
                         user: response.data.user
                     }
                 })
-                store.loadLoggedInLists();
-                history.push("/home");
+                store.loadHome();
             }
         }
         catch(err){
