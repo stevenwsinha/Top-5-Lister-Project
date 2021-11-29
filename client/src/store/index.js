@@ -344,6 +344,22 @@ function GlobalStoreContextProvider(props) {
             if(response.data.success) {
                 console.log(response.data)
                 let communityLists = response.data.communityLists;
+                // now we need to process the items
+                // for each community list 
+
+                for (let i = communityLists.length-1; i >= 0; i--){
+                    // if it doesn't have 5 items (its been deleted essentially), remove it from the list
+                    if( Object.keys(communityLists[i].items).length < 5){
+                        communityLists.splice(i, 1)
+                        continue;
+                    }
+                    //otherwise, construct an array of the top 5 elements
+                    let sortedLists = Object.entries(communityLists[i].items).sort((a, b) => b[1] - a[1]);
+                    let newItems = sortedLists.slice(0,5).map( (array) => {return array[0]} )
+                    communityLists[i].items = newItems
+                    console.log(newItems)
+                }
+            
                 storeReducer({
                     type: GlobalStoreActionType.SET_LOADED_LISTS,
                     payload: {

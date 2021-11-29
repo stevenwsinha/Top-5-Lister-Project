@@ -134,7 +134,6 @@ removeCommunityItems = async (req, res) => {
 }
 
 getCommunityList = async (req, res) => {
-    console.log("GETTING SINGLE COMMUNITY LIST")
     await Community.find({ name: req.params.name.toLowerCase() }, (err, list) => {
         if (err) {
             return res.status(404).json({ success: false, error: err });
@@ -144,7 +143,6 @@ getCommunityList = async (req, res) => {
 }
 
 getAllCommunityLists = async (req, res) => {
-    console.log("GETTING ALL COMMUNITY LISTS")
     await Community.find({}, (err, lists) => {
         if (err) {
             return res.status(400).json({ success: false, error: err })

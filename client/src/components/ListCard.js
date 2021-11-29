@@ -79,8 +79,9 @@ function ListCard(props) {
 
     let ownerText = <Typography sx={{fontSize: '10pt'}} style={{color: '#001e64'}}> By: {list.owner} </Typography>
     if(store.loadType === 'community'){
+        listClass = 'list-card'
         publishComponent = <Typography sx={{fontSize: '10pt'}} style={{color: '#086108'}}> Updated: {list.updated.substring(4, 15)} </Typography>
-        ownerText = ""
+        ownerText = <Typography sx={{fontSize: '10pt'}} style={{color: '#001e64'}}> Community List </Typography>
     }
 
     let likeButton =    <IconButton
