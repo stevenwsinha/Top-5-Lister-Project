@@ -187,15 +187,25 @@ getTop5ListsByUsername = async (req, res) => {
         if (err) {
             return res.status(400).json({ success: false, error: err })
         }
+        for(let i = top5Lists.length-1; i >= 0; i--){
+            if(!top5Lists[i].isPublished){
+                top5Lists.splice(i,1)
+            }
+        }
         return res.status(200).json({ success: true, top5Lists: top5Lists })
     }).catch(err => console.log(err))
 }
 
-//  GET EVERY TOP5LIST 
+//  GET EVERY TOP5LIST THAT IS PUBLISHED
 getAllTop5Lists = async (req, res) => {
     await Top5List.find({}, (err, top5Lists) => {
         if (err) {
             return res.status(400).json({ success: false, error: err })
+        }
+        for(let i = top5Lists.length-1; i >= 0; i--){
+            if(!top5Lists[i].isPublished){
+                top5Lists.splice(i,1)
+            }
         }
         return res.status(200).json({ success: true, top5Lists: top5Lists })
     }).catch(err => console.log(err))
