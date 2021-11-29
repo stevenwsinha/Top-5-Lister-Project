@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useContext, useState } from 'react';
 import { GlobalStoreContext } from '../store/index.js'
+import AuthContext from '../auth'
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -59,6 +60,7 @@ const Search = styled('div')(({ theme }) => ({
   
 export default function WorkToolbar(){
     const { store } = useContext(GlobalStoreContext);
+    const { auth } = useContext(AuthContext);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [text, setText] = useState("");
 
@@ -159,7 +161,7 @@ export default function WorkToolbar(){
               <AppBar position="static" elevation={0} style={{ background: '#5a5a5a' }}>
                 <Toolbar>
                   <IconButton
-                    disabled={store.listBeingEdited ? true: false}
+                    disabled={(store.listBeingEdited || !auth.loggedIn) ? true: false}
                     size="large"
                     edge="start"
                     color="inherit"

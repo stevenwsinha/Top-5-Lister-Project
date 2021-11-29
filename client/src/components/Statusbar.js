@@ -37,6 +37,9 @@ function Statusbar() {
     else if (store.loadType === "all"){
         text = "All " + store.searchFilter + " Lists";
     }
+    else if (store.loadType === "community"){
+        text = "Community Lists"
+    }
     if(store.sortType === 'user'){
         // do something
     }

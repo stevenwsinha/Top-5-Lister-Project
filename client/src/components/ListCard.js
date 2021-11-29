@@ -46,6 +46,11 @@ function ListCard(props) {
     }
 
     function toggleLike() {
+        if(!auth.loggedIn) {
+            auth.setErrorMsg("Log in to like a list")
+            return
+        }
+
         if(!list.isPublished && store.loadType !== "community"){
             return
         }
@@ -58,6 +63,11 @@ function ListCard(props) {
     }
 
     function toggleDislike() {
+        if(!auth.loggedIn) {
+            auth.setErrorMsg("Log in to dislike a list")
+            return
+        }
+
         if(!list.isPublished && store.loadType !== "community"){
             return
         }
@@ -93,16 +103,17 @@ function ListCard(props) {
                             <ThumbUpOutlinedIcon />
                         </IconButton>;
 
-
-    if(list.likes.includes(auth.user.username)){
-        likeButton =    <IconButton
-                            size="medium"
-                            color="inherit"
-                            aria-label="open drawer"
-                            onClick={toggleLike}
-                        >
-                            <ThumbUpIcon />
-                        </IconButton>;
+    if(auth.loggedIn){
+        if(list.likes.includes(auth.user.username)){
+            likeButton =    <IconButton
+                                size="medium"
+                                color="inherit"
+                                aria-label="open drawer"
+                                onClick={toggleLike}
+                            >
+                                <ThumbUpIcon />
+                            </IconButton>;
+        }
     }
 
     let dislikeButton = <IconButton
@@ -113,15 +124,18 @@ function ListCard(props) {
                         >
                             <ThumbDownOutlinedIcon />
                         </IconButton>
-    if(list.dislikes.includes(auth.user.username)){
-        dislikeButton =    <IconButton
-                            size="medium"
-                            color="inherit"
-                            aria-label="open drawer"
-                            onClick={toggleDislike}
-                        >
-                            <ThumbDownIcon />
-                        </IconButton>;
+
+    if(auth.loggedIn){
+        if(list.dislikes.includes(auth.user.username)){
+            dislikeButton =    <IconButton
+                                size="medium"
+                                color="inherit"
+                                aria-label="open drawer"
+                                onClick={toggleDislike}
+                            >
+                                <ThumbDownIcon />
+                            </IconButton>;
+        }   
     }
 
     let deleteButton = ""

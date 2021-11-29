@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { useEffect } from 'react';
 import { GlobalStoreContext } from '../store'
-import { WorkspaceScreen, Statusbar, WorkToolbar, ListViewer, DeleteModal } from '.';
+import { WorkspaceScreen, Statusbar, WorkToolbar, ListViewer, DeleteModal, ErrorModal } from '.';
 import AuthContext from '../auth'
 
 export default function WorkContainer() {
@@ -19,6 +19,7 @@ export default function WorkContainer() {
 
     return (
         <div id='work-container'>
+            <ErrorModal/>
             <DeleteModal/>
             <WorkToolbar/>
             <div id='workspace'>

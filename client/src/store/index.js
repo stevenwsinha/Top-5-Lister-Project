@@ -291,6 +291,9 @@ function GlobalStoreContextProvider(props) {
 
     // WHEN THE HOME BUTTON IS CLICKED, LOAD ALL OF THE LISTS OF THE CURRENTLY LOGGED IN USER
     store.loadHome = async function () {
+        if(!auth.loggedIn){
+            return
+        }
         const response = await api.getLoggedInTop5Lists();
         if (response.data.success) {
             let top5lists = response.data.top5Lists;

@@ -1,8 +1,11 @@
 import React from 'react'
+import { useContext } from 'react';
+import { GlobalStoreContext } from '../store/index.js'
 import { useHistory } from 'react-router-dom'
 
 export default function WelcomeScreen() {
     const history = useHistory();
+    const { store } = useContext(GlobalStoreContext);
 
     // SEND A USER TO REGISTER SCREEN
     function handleRegister() {
@@ -16,8 +19,8 @@ export default function WelcomeScreen() {
 
     // SEND A USER TO HOME SCREEN LOGGED IN AS GUEST
     function handleGuest(){
-        // store.loadCommunity();
-        history.push("/home")
+        store.loadCommunity();
+        history.push("/home/community")
     }
 
     // return full screen with background, welcome text, copyright component, and 3 buttons
