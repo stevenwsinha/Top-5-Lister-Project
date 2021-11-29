@@ -118,7 +118,7 @@ function ListCard(props) {
     }
 
     let deleteButton = ""
-    if(list.owner === auth.user.username){
+    if(store.sortType === 'home'){
         deleteButton = <IconButton
                         size="medium"
                         color="inherit"
