@@ -85,6 +85,7 @@ export default function WorkToolbar(){
     function handleKeyPress(event) {
       if (event.code === "Enter") {
           if(store.loadType === "username") {
+            setText("")
             store.getUserLists(text)
           }
       }
@@ -212,6 +213,7 @@ export default function WorkToolbar(){
                     <StyledInputBase
                       disabled={store.listBeingEdited ? true: false}
                       placeholder="Search…"
+                      value={text}
                       inputProps={{ 'aria-label': 'search' }}
                       onChange={handleUpdateText}
                       onKeyPress={handleKeyPress}
