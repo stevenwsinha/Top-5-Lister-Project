@@ -14,7 +14,7 @@ import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { TextField } from '@mui/material';
-import { CommentBox } from '.';
+import { CommentBox, ItemView } from '.';
 import Grid from '@mui/material/Grid';
 
 /*
@@ -207,7 +207,8 @@ function ExpandedListCard(props) {
             borderWidth: 2,
             borderColor: 'green'
             }}>
-                LIST ITEMS
+                <ItemView
+                    list={list} />
             </Box>  
 
             <Box style={{

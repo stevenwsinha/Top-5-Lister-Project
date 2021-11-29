@@ -15,6 +15,7 @@ import ListViewer from './ListViewer'
 import ExpandedListcard from './ExpandedListCard'
 import CommentBox from './CommentBox'
 import CommentCard from './CommentCard'
+import ItemView from './ItemView'
 
 /*
     This serves as a module so that we can import
@@ -40,4 +41,5 @@ export {
     ExpandedListcard,
     CommentBox,
     CommentCard,
+    ItemView,
 }
