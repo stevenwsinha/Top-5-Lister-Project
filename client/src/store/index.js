@@ -418,6 +418,15 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
+    store.openedLists = function (index) {
+        openLists = store.openedLists
+        openLists.push(store.loadedLists[index])
+        storeReducer({
+            type: GlobalStoreActionType.SET_OPENED_LISTS,
+            payload: openLists,
+        });
+    }
+
     store.setSortType = function (type) {
         storeReducer({
             type: GlobalStoreActionType.SET_SORT_TYPE,

@@ -41,6 +41,10 @@ function ListCard(props) {
         return 0;
     }
 
+    function handleOpenList() {
+        store.openList(getIndex(list._id))
+    }
+
     function handleEditList() {
         store.editList(getIndex(list._id))
     }
@@ -214,6 +218,7 @@ function ListCard(props) {
                     <IconButton
                         size="medium"
                         color="inherit"
+                        onClick={handleOpenList}
                         aria-label="open drawer"
                     >
                         <ExpandMoreIcon />
