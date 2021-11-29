@@ -100,6 +100,31 @@ export default function WorkToolbar(){
       store.loadUser();
     }
 
+    function handleSortNewest() {
+      store.setSortType("newest");
+      handleSortMenuClose();
+    }
+
+    function handleSortOldest() {
+      store.setSortType("oldest");
+      handleSortMenuClose();
+    }
+
+    function handleSortLikes() {
+      store.setSortType("likes");
+      handleSortMenuClose();
+    }
+
+    function handleSortDislikes() {
+      store.setSortType("dislikes");
+      handleSortMenuClose();
+    }
+
+    function handleSortViews(){
+      store.setSortType("views");
+      handleSortMenuClose();
+    }
+
     const menuId = 'primary-sort-menu';
     const sortMenu = (
         <Menu
@@ -117,11 +142,11 @@ export default function WorkToolbar(){
           open={isMenuOpen}
           onClose={handleSortMenuClose}
         >
-          <MenuItem style={{color: 'black'}} onClick={handleSortMenuClose}>Publish Date (Newest)</MenuItem>
-          <MenuItem style={{color: 'black'}} onClick={handleSortMenuClose}>Publish Date (Oldest)</MenuItem>
-          <MenuItem style={{color: 'black'}} onClick={handleSortMenuClose}>Views</MenuItem>
-          <MenuItem style={{color: 'black'}} onClick={handleSortMenuClose}>Likes</MenuItem>
-          <MenuItem style={{color: 'black'}} onClick={handleSortMenuClose}>Dislikes</MenuItem>
+          <MenuItem style={{color: 'black'}} onClick={handleSortNewest}>Publish Date (Newest)</MenuItem>
+          <MenuItem style={{color: 'black'}} onClick={handleSortOldest}>Publish Date (Oldest)</MenuItem>
+          <MenuItem style={{color: 'black'}} onClick={handleSortViews}>Views</MenuItem>
+          <MenuItem style={{color: 'black'}} onClick={handleSortLikes}>Likes</MenuItem>
+          <MenuItem style={{color: 'black'}} onClick={handleSortDislikes}>Dislikes</MenuItem>
         </Menu>
         );
     

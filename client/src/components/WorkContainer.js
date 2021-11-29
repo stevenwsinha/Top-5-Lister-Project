@@ -13,11 +13,6 @@ export default function WorkContainer() {
 
     useEffect(() => {
         auth.getLoggedIn();
-        
-        if(auth.loggedIn) {
-            console.log("loading home")
-            store.loadHome();
-        }
     }, []);
 
     let workspace = <ListViewer/>;

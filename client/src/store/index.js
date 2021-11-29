@@ -371,8 +371,11 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
-    store.sortLoaded = function () {
-
+    store.setSortType = function (type) {
+        storeReducer({
+            type: GlobalStoreActionType.SET_SORT_TYPE,
+            payload: type
+        });
     }
 
     // load a list to edit based on a list id
