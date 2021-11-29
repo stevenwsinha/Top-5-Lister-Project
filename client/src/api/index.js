@@ -29,6 +29,12 @@ export const updateTop5ListById = (id, payload) => api.put(`/home/top5list/${id}
 export const deleteTop5ListById = (id) => api.delete(`/home/top5list/${id}`)
 export const getTop5ListById = (id) => api.get(`/home/top5list/${id}`)
 
+// COMMUNITY LIST SINGLE OPERATIONS
+export const CreateCommunityList = (payload) => api.post(`/home/community/`, payload)
+export const UpdateCommunityItems = (payload) => api.put(`/home/community/`, payload)
+export const RemoveCommunityItems = (payload) => api.delete(`/home/community/`, payload)
+export const GetCommunityList = (payload) => api.get(`/home/community/${payload}`)
+
 //  MULTI LIST CRUD OPERATIONS
 export const getLoggedInTop5Lists = () => api.get(`/home/top5lists`)
 export const getTop5ListByUsername = (username) => api.get(`/home/${username}`)
@@ -45,6 +51,11 @@ const apis = {
     updateTop5ListById,
     deleteTop5ListById,
     getTop5ListById,
+
+    CreateCommunityList,
+    UpdateCommunityItems,
+    RemoveCommunityItems,
+    GetCommunityList,
 
     getLoggedInTop5Lists,
     getTop5ListByUsername,

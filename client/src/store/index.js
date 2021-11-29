@@ -572,6 +572,13 @@ function GlobalStoreContextProvider(props) {
                 });
                 history.push('/home')
             }
+            response = await api.GetCommunityList(top5list.name)
+            if (response.data.success) {
+                response = await api.UpdateCommunityItems(top5list)
+            }
+            else{
+                response = await api.CreateCommunityList(top5list)
+            }
         }
         catch(err){
             console.log(err);
@@ -600,6 +607,12 @@ function GlobalStoreContextProvider(props) {
                     type: GlobalStoreActionType.UNMARK_LIST_FOR_DELETION,
                     payload: null
                 });
+            }
+            if(listToDelete.isPublished){
+                response = await api.RemoveCommunityItems(listToDelete)
+                if (response.data.success) {
+                    console.log("successfully removed items from community list")   
+                }
             }
         }catch(err){
             console.log(err);
