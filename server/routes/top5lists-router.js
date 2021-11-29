@@ -10,9 +10,11 @@ router.post('/home/top5list/', auth.verify, Top5ListController.createTop5List)
 router.put('/home/top5list/:id', auth.verify, Top5ListController.updateTop5List)
 router.delete('/home/top5list/:id', auth.verify, Top5ListController.deleteTop5List)
 router.get('/home/top5list/:id', auth.verify, Top5ListController.getTop5ListById)
+
+// COMMUNITY SINLE CRUD OPERATIONS
 router.post('/home/community/', auth.verify, CommunityController.createCommunityList)
 router.put('/home/community/', auth.verify, CommunityController.updateCommunityItems)
-router.delete('/home/community/', auth.verify, CommunityController.removeCommunityItems)
+router.put('/home/community/delete', auth.verify, CommunityController.removeCommunityItems)
 router.get('/home/community/:name', CommunityController.getCommunityList)
 
 // MULTI LIST RETRIEVAL 

@@ -93,17 +93,19 @@ removeCommunityItems = async (req, res) => {
 
     let existingList = await Community.findOne({ name: name });
     if(!existingList) {
-        return res.status(400).json({
-            success: false,
-            error: 'A list with this name does not exist',
-        })
-    }
+        return res
+                .status(400)
+                .json({
+                    success: false,
+                    errorMessage: "Community List could not be found."
+                })
+    }        
 
     const map = existingList.items;
     const weights = [5,4,3,2,1];
-    for(let i = 0; i < 5; items.length){
+    for(let i = 0; i < 5; i++){
         if(map.has(items[i].toLowerCase())){
-            if(map.get(items[i].toLowerCase()) - weights[i] <= 0){
+            if( (map.get(items[i].toLowerCase()) - weights[i]) <= 0){
                 map.delete(items[i].toLowerCase())
             }
             else{
