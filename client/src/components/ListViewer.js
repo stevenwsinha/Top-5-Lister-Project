@@ -21,7 +21,7 @@ export default function ListViewer() {
 
         case "likes": {
             compareFn = function(a, b){
-                if(a.likes < b.likes){
+                if(a.likes.length < b.likes.length){
                     return 1
                 }
                 return -1;
@@ -31,7 +31,7 @@ export default function ListViewer() {
 
         case "dislikes" : {
             compareFn = function(a, b){
-                if(a.dislikes < b.dislikes){
+                if(a.dislikes.length < b.dislikes.length){
                     return 1
                 }
                 return -1;

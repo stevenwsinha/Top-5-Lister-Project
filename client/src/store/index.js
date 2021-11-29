@@ -19,14 +19,11 @@ export const GlobalStoreActionType = {
     SET_OPENED_LISTS: "SET_OPENED_LISTS",
     SET_SORT_TYPE: "SET_SORT_TYPE",
     SET_SEARCH_FILTER: "SET_SEARCH_FILTER",
-    SET_SEARCH_USERNAME: "SET_SEARCH_USERNAME",
     SAVE_LIST_BEING_EDITED: "SAVE_LIST_BEING_EDITED",
     CREATE_NEW_LIST: "CREATE_NEW_LIST",
     MARK_LIST_FOR_DELETION: "MARK_LIST_FOR_DELETION",
     UNMARK_LIST_FOR_DELETION: "UNMARK_LIST_FOR_DELETION",
-    SET_ITEM_EDIT_ACTIVE: "SET_ITEM_EDIT_ACTIVE",
     LOAD_LIST_TO_EDITED: "LOAD_LIST_TO_EDITED",
-    SET_LIST_NAME_EDIT_ACTIVE: "SET_LIST_NAME_EDIT_ACTIVE",
     PUBLISH_LIST: "PUBLISH_LIST",
     SAVE_LIST: "SAVE_LIST",
     SET_LIKE_LIST: "SET_LIKE_LIST"
@@ -702,14 +699,6 @@ function GlobalStoreContextProvider(props) {
     store.unmarkListForDeletion = function () {
         storeReducer({
             type: GlobalStoreActionType.UNMARK_LIST_FOR_DELETION,
-            payload: null
-        });
-    }
-
-    // THIS FUNCTION ENABLES THE PROCESS OF EDITING AN ITEM
-    store.setIsItemEditActive = function () {
-        storeReducer({
-            type: GlobalStoreActionType.SET_ITEM_EDIT_ACTIVE,
             payload: null
         });
     }
