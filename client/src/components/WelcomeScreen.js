@@ -30,6 +30,7 @@ export default function WelcomeScreen() {
             <div>
                 <span className='welcome' id='welcome-text'> Welcome </span> <br></br>
                 <span className='welcome' id ='welcome-description'> Top 5 Lister is a premier Top 5 List creator and community manager </span>
+                <span className='welcome' id='welcome-copyright'> Developed By Steven Sinha </span>
                 <button className='welcome-button' id='welcome-register' onClick={handleRegister}> Register </button>
                 <button className='welcome-button' id='welcome-login' onClick={handelLogin}> Login </button>
                 <button className='welcome-button' id='welcome-guest' onClick={handleGuest}> Continue as Guest </button>

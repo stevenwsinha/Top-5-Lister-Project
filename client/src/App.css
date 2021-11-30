@@ -67,6 +67,13 @@ body {
   font-size: 18px;
 }
 
+#welcome-copyright {
+  position: absolute;
+  top: 91.6%;
+  left: 84.375%;
+  font-size: 12px;
+}
+
 .welcome-button {
   position: absolute;
   left: 10.9375%;
