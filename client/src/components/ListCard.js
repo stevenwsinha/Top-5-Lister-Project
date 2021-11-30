@@ -99,6 +99,7 @@ function ListCard(props) {
     }
 
     let likeButton =    <IconButton
+                            disabled={store.loadType !== "community" && !list.isPublished}
                             size="medium"
                             color="inherit"
                             aria-label="open drawer"
@@ -121,6 +122,7 @@ function ListCard(props) {
     }
 
     let dislikeButton = <IconButton
+                            disabled={store.loadType !== "community" && !list.isPublished}
                             size="medium"
                             color="inherit"
                             aria-label="open drawer"

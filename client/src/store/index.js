@@ -422,7 +422,9 @@ function GlobalStoreContextProvider(props) {
         let openLists = store.openedLists
         openLists.push(store.loadedLists[index])
         let newLoadedLists = store.loadedLists
-        newLoadedLists[index].views++
+        if(newLoadedLists[index].isPublished || store.loadType === "community"){
+            newLoadedLists[index].views++
+        }
 
         try{
             let response =""
