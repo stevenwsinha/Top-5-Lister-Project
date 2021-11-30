@@ -2,6 +2,7 @@ import { useContext } from 'react'
 import { GlobalStoreContext } from '../store'
 import { useState } from 'react';
 import AuthContext from '../auth'
+import { styled, alpha } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import ListItem from '@mui/material/ListItem';
 import IconButton from '@mui/material/IconButton';
@@ -24,6 +25,24 @@ import Grid from '@mui/material/Grid';
     
     @author McKilla Gorilla
 */
+const Comment = styled('div')(({ theme }) => ({
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: alpha(theme.palette.common.black, 0.15),
+    '&:hover': {
+      backgroundColor: alpha(theme.palette.common.black, 0.25),
+    },
+    marginRight: theme.spacing(2),
+    marginLeft: 0,
+    color: theme.palette.primary.main,
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: theme.spacing(3),
+      width: 'auto',
+    },
+  }));
+
+
 function ExpandedListCard(props) {
     const { store } = useContext(GlobalStoreContext);
     const { list, index } = props;
@@ -39,11 +58,11 @@ function ExpandedListCard(props) {
         if (event.code === "Enter") {
             if(!auth.loggedIn) {
                 auth.setErrorMsg("You Must Be Logged In To Comment")
-                return
+                return;
             }
-            if(!list.isPublished) {
+            if(!list.isPublished && store.loadType !== "community") {
                 auth.setErrorMsg("You May Not Comment on a Draft List")
-                return
+                return;
             }
 
             setText("")
@@ -267,6 +286,7 @@ function ExpandedListCard(props) {
                         <CommentBox comments={list.comments}/>
                     </Grid>
                     <Grid item>
+                        <Comment>
                         <TextField 
                             variant="outlined" 
                             label='Add comment' 
@@ -277,6 +297,7 @@ function ExpandedListCard(props) {
                             value={text}
                             defaultValue={""}
                         />
+                        </Comment>
                     </Grid>
                 </Grid>
             </Box>  

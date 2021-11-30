@@ -83,9 +83,9 @@ export default function WorkToolbar(){
     }
 
     function handleKeyPress(event) {
-      if (event.code === "Enter") {
+      if(event.code === "Enter") {
+          setText("")
           if(store.loadType === "username") {
-            setText("")
             store.getUserLists(text)
           }
       }
