@@ -9,7 +9,17 @@ export default function WorkContainer() {
     const { auth } = useContext(AuthContext);
 
     useEffect(() => {
-        auth.getLoggedIn();
+        async function fetchLoggedIn() {
+            let response = await auth.getLoggedIn();
+
+            if(response){
+                store.loadHome()
+            }
+            else{
+                store.loadCommunity()
+            }
+        }
+        fetchLoggedIn();
     }, []);
 
     let workspace = <ListViewer/>;
