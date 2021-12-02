@@ -31,12 +31,12 @@ function WorkspaceScreen() {
 
     function handleKeyPress(event) {
         if (event.code === "Enter") {
-            store.editListName(event.target.value);
+            store.editListName(event.target.value.trim());
         }
     }
 
     function handleBlur(event) {
-        store.editListItem(event.target.value);
+        store.editListItem(event.target.value.trim());
     }
 
     function handleUpdateText(event) {

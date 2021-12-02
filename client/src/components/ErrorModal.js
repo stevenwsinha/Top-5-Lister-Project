@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useContext } from 'react';
-import { useHistory } from 'react-router-dom'
+//import { useHistory } from 'react-router-dom'
 import AuthContext from '../auth'
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -21,7 +21,7 @@ const style = {
 
 export default function ErrorModal() {
   const { auth } = useContext(AuthContext);
-  const history = useHistory();
+  //const history = useHistory();
   const open = (auth.errorMsg === null) ? false : true;
 
   function handleClose() {

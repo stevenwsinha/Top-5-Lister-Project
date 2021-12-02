@@ -618,7 +618,7 @@ function GlobalStoreContextProvider(props) {
 
     store.editListName = async function (text) {
         const top5list = store.listBeingEdited
-        top5list.name = text
+        top5list.name = text.trim()
         storeReducer({
             type: GlobalStoreActionType.SAVE_LIST_BEING_EDITED,
             payload: top5list
