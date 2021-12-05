@@ -259,13 +259,13 @@ function ExpandedListCard(props) {
             width: '100%',
             }}>
                 <Grid container direction='row' spacing={0} sx={{height: 50}}>
-                <Grid item xs={4}>
+                <Grid item xs={6}>
                 </Grid>
-                <Grid item xs={3} sx={{height: 60}}>
+                <Grid item xs={2} sx={{height: 60}}>
                     {likeButton}
                     {list.likes.length}
                 </Grid>
-                <Grid item xs={3} sx={{ height: 60 }}>
+                <Grid item xs={2} sx={{ height: 60 }}>
                     {dislikeButton}
                     {list.dislikes.length}
                 </Grid>
@@ -282,12 +282,13 @@ function ExpandedListCard(props) {
             width: '100%',
             }}>
                 <Grid container direction='column' spacing={0} sx={{width: 1}}>
-                    <Grid item sx={{minHeight: 265, maxHeight: 265}}>
+                    <Grid item sx={{minHeight: 250, maxHeight: 250}}>
                         <CommentBox comments={list.comments}/>
                     </Grid>
                     <Grid item>
                         <Comment>
-                        <TextField 
+                        <TextField
+                            disabled={!list.isPublished && store.loadType !== "community"} 
                             variant="outlined" 
                             label='Add comment' 
                             fullWidth
@@ -295,7 +296,6 @@ function ExpandedListCard(props) {
                             onChange={handleUpdateText}
                             onKeyPress={handleKeyPress}
                             value={text}
-                            defaultValue={""}
                         />
                         </Comment>
                     </Grid>
@@ -309,10 +309,10 @@ function ExpandedListCard(props) {
             width: '100%',
             }}>
                 <Grid container direction='row' spacing={0} sx={{height: 25}}>
-                    <Grid item xs={4}>
+                    <Grid item xs={6}>
                     </Grid>
 
-                    <Grid item xs={6} sx={{height: 50}}>
+                    <Grid item xs={4} sx={{height: 50}}>
                         <Typography style={{color: '#C70039'}}> Views: {list.views} </Typography>
                     </Grid>
 

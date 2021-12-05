@@ -172,7 +172,7 @@ function ListCard(props) {
     >
         <Box sx={{ 
             p: 0, 
-            flexGrow: 3,  
+            width: '75%',  
             height: 80,}}> 
             <Grid container direction='column' spacing={0} sx={{height: 78,}}>
                 <Grid item sx={{height: 34}}>
