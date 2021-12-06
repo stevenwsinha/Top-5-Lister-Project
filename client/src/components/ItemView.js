@@ -17,17 +17,17 @@ export default function ItemView(props){
     }
 
     return (
-        <div class="open-items-list">
-            <div class="open-item"> 1. {item_text[0]} </div>
-            <div class="open-item-subscript"> {item_subscripts[0]} </div>
-            <div class="open-item"> 2. {item_text[1]} </div>
-            <div class="open-item-subscript"> {item_subscripts[1]}  </div>
-            <div class="open-item"> 3. {item_text[2]} </div>
-            <div class="open-item-subscript"> {item_subscripts[2]}  </div>
-            <div class="open-item"> 4. {item_text[3]} </div>
-            <div class="open-item-subscript">  {item_subscripts[3]} </div>
-            <div class="open-item"> 5. {item_text[4]} </div>
-            <div class="open-item-subscript">  {item_subscripts[4]} </div>
+        <div className="open-items-list">
+            <div className="open-item"> 1. {item_text[0]} </div>
+            <div className="open-item-subscript"> {item_subscripts[0]} </div>
+            <div className="open-item"> 2. {item_text[1]} </div>
+            <div className="open-item-subscript"> {item_subscripts[1]}  </div>
+            <div className="open-item"> 3. {item_text[2]} </div>
+            <div className="open-item-subscript"> {item_subscripts[2]}  </div>
+            <div className="open-item"> 4. {item_text[3]} </div>
+            <div className="open-item-subscript">  {item_subscripts[3]} </div>
+            <div className="open-item"> 5. {item_text[4]} </div>
+            <div className="open-item-subscript">  {item_subscripts[4]} </div>
         </div>
     );
 }
