@@ -355,7 +355,7 @@ function GlobalStoreContextProvider(props) {
                     }
                     //otherwise, construct an array of the top 5 elements
                     let sortedLists = Object.entries(communityLists[i].items).sort((a, b) => b[1] - a[1]);
-                    let newItems = sortedLists.slice(0,5).map( (array) => {return array[0]} )
+                    let newItems = sortedLists.slice(0,5)
                     communityLists[i].items = newItems
 
                     // now, change the necessary fields to upper case
@@ -365,8 +365,8 @@ function GlobalStoreContextProvider(props) {
                     }).join(" ");
 
                     for (let j = 0; j < 5; j++){
-                        let itemWords = communityLists[i].items[j].split(" ")
-                        communityLists[i].items[j] = itemWords.map((word) => { 
+                        let itemWords = communityLists[i].items[j][0].split(" ")
+                        communityLists[i].items[j][0] = itemWords.map((word) => { 
                             return word[0].toUpperCase() + word.substring(1); 
                         }).join(" ");
                     }
@@ -647,8 +647,13 @@ function GlobalStoreContextProvider(props) {
 
     store.publishList = async function () {
         let top5list = store.listBeingEdited
-        // compare this list's name with all other lists by this user
 
+        if(!store.listBeingEdited.name || store.listBeingEdited.name.length === 0){
+            auth.setErrorMsg("You must name your list!");
+            return
+        }
+
+        // compare this list's name with all other lists by this user
         let exists = false
         for(let i = 0; i < store.loadedLists.length; i++) {
             let listName = store.loadedLists[i].name
@@ -674,7 +679,7 @@ function GlobalStoreContextProvider(props) {
         let emptyItem = false;
         for(let i = 0; i < 5; i++) {
             let itemToCompare = top5list.items[i]
-            if (itemToCompare === ""){
+            if (!itemToCompare || itemToCompare === ""){
                 emptyItem = true;
                 break;
             }

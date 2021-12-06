@@ -76,7 +76,7 @@ export default function WorkToolbar(){
 
     function handleUpdateText(event) {
       setText(event.target.value);
-      if(store.loadType === "username") {
+      if(store.loadType !== "home") {
           return
       }
       store.updateSearchFilter(event.target.value);
@@ -86,6 +86,9 @@ export default function WorkToolbar(){
       if(event.code === "Enter") {
           if(store.loadType === "username") {
             store.getUserLists(text)
+          }
+          else{
+            store.updateSearchFilter(text);
           }
       }
     } 
