@@ -1,6 +1,5 @@
 import { useContext } from 'react'
 import { GlobalStoreContext } from '../store'
-import Grid from '@mui/material/Grid';
 
 export default function ItemView(props){
     const { store } = useContext(GlobalStoreContext);

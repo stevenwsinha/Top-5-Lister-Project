@@ -36,7 +36,7 @@ function WorkspaceScreen() {
     }
 
     function handleBlur(event) {
-        store.editListItem(event.target.value.trim());
+        store.editListName(event.target.value.trim());
     }
 
     function handleUpdateText(event) {

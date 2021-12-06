@@ -617,8 +617,12 @@ function GlobalStoreContextProvider(props) {
     }
 
     store.editListName = async function (text) {
+        if(!text){
+            text = "";
+        }
         const top5list = store.listBeingEdited
         top5list.name = text.trim()
+        
         storeReducer({
             type: GlobalStoreActionType.SAVE_LIST_BEING_EDITED,
             payload: top5list
@@ -628,6 +632,10 @@ function GlobalStoreContextProvider(props) {
     // save the list currently stored in listBeingEdited   
     store.saveList = async function () {
         let top5list = store.listBeingEdited
+        if(!top5list.name){
+            auth.setErrorMsg("You must name your list to save it!");
+            return
+        }
         try{
             let response = await api.updateTop5ListById(top5list._id, top5list)
             if(response.data.success) {
